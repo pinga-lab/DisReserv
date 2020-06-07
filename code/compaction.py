@@ -611,3 +611,57 @@ def Cm_4pi(poisson, young):
     """
     result = ((1+poisson)*(1-2*poisson))/(4*np.pi*young*(1-poisson))
     return result
+
+
+def prism_layer_rectangular(region, shape, bottom, top):
+    '''
+    Create a rectangular planar layer of prisms.
+    '''
+    y1, y2, x1, x2 = region
+    assert y2 > y1, 'y2 must be greater than y1'
+    assert x2 > x1, 'x2 must be greater than x1'
+    assert bottom > top, 'bottom must be greater than top (z points downward)'
+    dy = (y2 - y1)/shape[0]
+    dx = (x2 - x1)/shape[1]
+    layer = []
+    y = y1
+    for i in range(shape[0]):
+        x = x1
+        for j in range(shape[1]):
+            layer.append([y, y+dy, x, x+dx, bottom, top])
+            x += dx
+        y += dy
+    layer = np.array(layer)
+    return layer
+
+
+def prism_layer_circular(center, radius, shape, bottom, top):
+    '''
+    Create a circular planar layer of prisms.
+    '''
+    y0, x0 = center
+    assert radius > 0, 'radius must be positive'
+    assert bottom > top, 'bottom must be greater than top (z points downward)'
+    y_min = y0 - radius
+    y_max = y0 + radius
+    x_min = x0 - radius
+    x_max = x0 + radius
+    dy = (y_max - y_min)/shape[0]
+    dx = (x_max - x_min)/shape[1]
+    half_dy = 0.5*dy
+    half_dx = 0.5*dx
+    layer = []
+    y = y_min
+    for i in range(shape[0]):
+        x = x_min
+        for j in range(shape[1]):
+            # coordinates of the center of the prism
+            yc = y + half_dy - y0
+            xc = x + half_dx - x0
+            r_prism = np.sqrt(xc**2 + yc**2)
+            if r_prism <= radius:
+                layer.append([y, y+dy, x, x+dx, bottom, top])
+            x += dx
+            y += dy
+    layer = np.array(layer)
+    return layer
