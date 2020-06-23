@@ -140,7 +140,7 @@ def displacement(
     jit_displacement(
         coordinates, prisms, pressure, poisson, kernels[field], result
     )
-    result *= Cm_4pi(poisson, young)
+    result *= -Cm(poisson, young)/(4*np.pi)
     return result.reshape(cast.shape)
 
 
@@ -213,7 +213,7 @@ def jit_displacement(
         for m in range(prisms.shape[0]):
             # Iterate over the prism boundaries to compute the result of the
             # integration (see Nagy et al., 2000)
-            c_prism = 0.5 * (prisms[m, 4] + prisms[m, 5])
+            c_z = 0.5 * (prisms[m, 4] + prisms[m, 5])
             for i in range(2):
                 for j in range(2):
                     for k in range(2):
@@ -223,16 +223,14 @@ def jit_displacement(
                         # If i, j or k is 1, the shift_* will refer to the
                         # lower boundary, meaning the corresponding term should
                         # have a minus sign
-                        # the result is premultiplied by minus 1 to be
-                        # consistent with results presented by Muñoz and Roehl
                         out[l] += (
                             pressure[m]
                             * (-1) ** (i + j + k)
-                            * -1 * kernel(
+                            * kernel(
                                 y_prism,
                                 x_prism,
                                 z_prism,
-                                c_prism,
+                                c_z,
                                 coordinates[0][l],
                                 coordinates[1][l],
                                 coordinates[2][l]
@@ -241,7 +239,7 @@ def jit_displacement(
 
 
 @jit(nopython=True)
-def kernel_u_x1_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_x1_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for x-component of the infinite space condition (first system)
     computed with expressions given by Nagy et al. (2000)
@@ -250,8 +248,7 @@ def kernel_u_x1_NA(y, x, z, c, yp, xp, zp):
     X = x - xp
     Z = z - zp
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
-    kernel = epsilon * (
+    kernel = (
         Y * safe_log(Z + rho)
         + Z * safe_log(Y + rho)
         - X * safe_atan2(Y * Z, X * rho)
@@ -260,7 +257,7 @@ def kernel_u_x1_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_y1_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_y1_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for y-component of the infinite space condition (first system)
     computed with expressions given by Nagy et al. (2000)
@@ -269,8 +266,7 @@ def kernel_u_y1_NA(y, x, z, c, yp, xp, zp):
     X = x - xp
     Z = z - zp
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
-    kernel = epsilon * (
+    kernel = (
         X * safe_log(Z + rho)
         + Z * safe_log(X + rho)
         - Y * safe_atan2(X * Z, Y * rho)
@@ -279,7 +275,7 @@ def kernel_u_y1_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_z1_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_z1_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for z-component of the infinite space condition (first system)
     computed with expressions given by Nagy et al. (2000)
@@ -288,8 +284,7 @@ def kernel_u_z1_NA(y, x, z, c, yp, xp, zp):
     X = x - xp
     Z = z - zp
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
-    kernel = epsilon * (
+    kernel = (
         X * safe_log(Y + rho)
         + Y * safe_log(X + rho)
         - Z * safe_atan2(X * Y, Z * rho)
@@ -298,14 +293,14 @@ def kernel_u_z1_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_x2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_x2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for x-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         Y * safe_log(Z + rho)
@@ -316,14 +311,14 @@ def kernel_u_x2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_y2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_y2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for y-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Z + rho)
@@ -334,17 +329,16 @@ def kernel_u_y2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_z2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_z2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for z-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    # Apparently, this minus is necessary
-    kernel = - (
+    kernel = (
         X * safe_log(Y + rho)
         + Y * safe_log(X + rho)
         - Z * safe_atan2(X * Y, Z * rho)
@@ -353,14 +347,14 @@ def kernel_u_z2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_xz2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_xz2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for xz-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         safe_log(Y + rho)
@@ -369,14 +363,14 @@ def kernel_u_xz2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_yz2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_yz2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for yz-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         safe_log(X + rho)
@@ -385,14 +379,14 @@ def kernel_u_yz2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_zz2_NA(y, x, z, c, yp, xp, zp):
+def kernel_u_zz2_NA(y, x, z, cz, yp, xp, zp):
     """
     Kernel for zz-component of the semi-space condition (second system)
     computed with expressions given by Nagy et al. (2000)
     """
     Y = y - yp
     X = x - xp
-    Z = z - zp - 2 * c
+    Z = z - zp - 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         - safe_atan2(X * Y, Z * rho)
@@ -401,7 +395,7 @@ def kernel_u_zz2_NA(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_x1_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_x1_MR(y, x, z, cz , yp, xp, zp):
     """
     Kernel for x-component of the infinite space condition (first system)
     computed with expressions given by Muñoz and Roehl (2017)
@@ -410,7 +404,7 @@ def kernel_u_x1_MR(y, x, z, c, yp, xp, zp):
     X = xp - x
     Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
+    epsilon = np.sign(zp - cz)
     kernel = epsilon * (
         Y * safe_log(Z + rho)
         + Z * safe_log(Y + rho)
@@ -421,14 +415,14 @@ def kernel_u_x1_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_x2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_x2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for x-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         Y * safe_log(Z + rho)
@@ -440,14 +434,14 @@ def kernel_u_x2_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_xz2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_xz2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for xz-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = - (1/3) * zp * (
         safe_log(X ** 2 + Y ** 2 - X * Z * 1j + Y * rho)
@@ -457,7 +451,7 @@ def kernel_u_xz2_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_y1_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_y1_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for y-component of the infinite space condition (first system)
     computed with expressions given by Muñoz and Roehl (2017)
@@ -466,7 +460,7 @@ def kernel_u_y1_MR(y, x, z, c, yp, xp, zp):
     X = xp - x
     Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
+    epsilon = np.sign(zp - cz)
     kernel = epsilon * (
         X * safe_log(Z + rho)
         + Z * safe_log(X + rho)
@@ -477,14 +471,14 @@ def kernel_u_y1_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_y2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_y2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for y-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Z + rho)
@@ -496,14 +490,14 @@ def kernel_u_y2_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_yz2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_yz2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for yz-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = - (1/3) * zp * (
         safe_log(X ** 2 + Y ** 2 - Y * Z * 1j + X * rho)
@@ -513,7 +507,7 @@ def kernel_u_yz2_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_z1_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_z1_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for z-component of the infinite space condition (first system)
     computed with expressions given by Muñoz and Roehl (2017)
@@ -522,7 +516,7 @@ def kernel_u_z1_MR(y, x, z, c, yp, xp, zp):
     X = xp - x
     Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    epsilon = np.sign(zp - c)
+    epsilon = np.sign(zp - cz)
     kernel = epsilon * (
         X * safe_log(Y + rho)
         + Y * safe_log(X + rho)
@@ -533,14 +527,14 @@ def kernel_u_z1_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_z2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_z2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for z-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Y + rho)
@@ -552,14 +546,14 @@ def kernel_u_z2_MR(y, x, z, c, yp, xp, zp):
 
 
 @jit(nopython=True)
-def kernel_u_zz2_MR(y, x, z, c, yp, xp, zp):
+def kernel_u_zz2_MR(y, x, z, cz, yp, xp, zp):
     """
     Kernel for zz-component of the semi-space condition (second system)
     computed with expressions given by Muñoz and Roehl (2017)
     """
     Y = yp - y
     X = xp - x
-    Z = zp - z + 2 * c
+    Z = zp - z + 2 * cz
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (1/3) * zp * 1j * (
         safe_log(- X ** 2 - Z ** 2 + Y * Z * 1j + X * rho)
@@ -605,9 +599,62 @@ def safe_log(argument):
 
 
 @jit(nopython=True)
-def Cm_4pi(poisson, young):
+def Cm(poisson, young):
     """
-    Normalized uniaxial compaction coefficient Cm/4pi (Muñoz and Roehl, 2017).
+    Uniaxial compaction coefficient Cm (Tempone et al, 2010).
     """
-    result = ((1+poisson)*(1-2*poisson))/(4*np.pi*young*(1-poisson))
+    result = ((1+poisson)*(1-2*poisson))/(young*(1-poisson))
     return result
+
+
+def prism_layer_rectangular(region, shape, bottom, top):
+    '''
+    Create a rectangular planar layer of prisms.
+    '''
+    y1, y2, x1, x2 = region
+    assert y2 > y1, 'y2 must be greater than y1'
+    assert x2 > x1, 'x2 must be greater than x1'
+    assert bottom > top, 'bottom must be greater than top (z points downward)'
+    dy = (y2 - y1)/shape[0]
+    dx = (x2 - x1)/shape[1]
+    layer = []
+    y = y1
+    for i in range(shape[0]):
+        x = x1
+        for j in range(shape[1]):
+            layer.append([y, y+dy, x, x+dx, bottom, top])
+            x += dx
+        y += dy
+    layer = np.array(layer)
+    return layer
+
+
+def prism_layer_circular(center, radius, shape, bottom, top):
+    '''
+    Create a circular planar layer of prisms.
+    '''
+    y0, x0 = center
+    assert radius > 0, 'radius must be positive'
+    assert bottom > top, 'bottom must be greater than top (z points downward)'
+    y_min = y0 - radius
+    y_max = y0 + radius
+    x_min = x0 - radius
+    x_max = x0 + radius
+    dy = (y_max - y_min)/shape[0]
+    dx = (x_max - x_min)/shape[1]
+    half_dy = 0.5*dy
+    half_dx = 0.5*dx
+    layer = []
+    y = y_min
+    for i in range(shape[0]):
+        yc = y + half_dy - y0
+        x = x_min
+        for j in range(shape[1]):
+            xc = x + half_dx - x0
+            r_prism = np.sqrt(xc**2 + yc**2)
+            if r_prism <= radius:
+                layer.append([y, y+dy, x, x+dx, bottom, top])
+            x += dx
+        y += dy
+    layer = np.array(layer)
+    return layer
