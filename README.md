@@ -1,10 +1,14 @@
 # Reservoir compaction modeling
 
 Simulate reservoir compaction due to pore-pressure changes by integrating the
-solution proposed by Tempone et al. (2010) on the volume of rectangular cells.
+solution proposed by Sharma (1956) and Tempone et al. (2010) on the volume of
+rectangular cells.
 This strategy is similar to that proposed by Muñoz and Roehl (2017). The
 difference here is that we solve the volume integrals according to
 Nagy et al. (2000) and Nagy et al. (2002).
+
+* Sharma, B. D. (1956). *Stresses in an infinite slab due to a nucleus of
+thermoelastic strain in it*. **Z. Angew. Math. Mech**. 36 (1/2): 75.
 
 * Nagy, D., Papp, G. and Benedek, J. (2000). *The gravitational potential and
 its derivatives for the prism*. **Journal of Geodesy** 74: 552.
