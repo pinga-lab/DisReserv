@@ -45,7 +45,6 @@ modeling, inversion, and processing gravity and magnetic data
 
 import numpy as np
 from numba import njit
-from scipy.special import ellipk, ellipe, ellipkinc, ellipeinc
 
 
 def displacement_x_component(coordinates, prisms, pressure, poisson, young):

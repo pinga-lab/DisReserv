@@ -16,9 +16,10 @@ Petroleum Related Rock Mechanics. Elsevier, 2nd edition. ISBN:978-0-444-50260-5
 
 import numpy as np
 from scipy.special import ellipk, ellipe, ellipkinc, ellipeinc
+from compaction import Cm
 
 
-def Geertsma_displacement(coordinates, disk, pressure, poisson, young):
+def Geertsma_disk_displacement(coordinates, disk, pressure, poisson, young):
     '''
     Radial and vertical components of the displacement field produced by a
     disk-shaped reservoir with center at (y0, x0, D), radius R and thickness h.
@@ -79,7 +80,7 @@ def Geertsma_displacement(coordinates, disk, pressure, poisson, young):
     return ur, uz
 
 
-def Geertsma_stress(coordinates, disk, pressure, poisson, young):
+def Geertsma_disk_stress(coordinates, disk, pressure, poisson, young):
     '''
     Radial, tangential and vertical components of the stress field produced by
     a disk-shaped reservoir with center at (y0, x0, D), radius R and
@@ -234,14 +235,6 @@ def Int6(q, r , R):
         8*np.pi*np.sqrt(r*R)**3*R*(1-m))
 
     return I6
-
-
-def Cm(poisson, young):
-    """
-    Uniaxial compaction coefficient.
-    """
-    result = ((1+poisson)*(1-2*poisson))/(young*(1-poisson))
-    return result
 
 
 def G(poisson, young):
