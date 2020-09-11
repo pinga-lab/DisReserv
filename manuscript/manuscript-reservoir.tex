@@ -79,7 +79,7 @@
 \begin{document}
 
 
-\title{DisReserv v1.0: Analytical displacement solution due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes}
+\title{DisReserv (v1.0): Analytical displacement solution due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes}
 
 
 % \Author[affil]{given_name}{surname}
@@ -127,9 +127,9 @@ We have presented analytical solutions for the displacement due to reservoir com
 These solutions are based on the similarity between the gravitational potential yielded by  a volume source under a density variation and the displacement field yielded by a volume source in a half-space under a pressure variation.
 This similarity enables the use of closed expressions of the gravitational potential and its derivatives for calculating the displacement field due to a volume source under a pressure variation.
 We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in the horizontal and vertical directions.
-Each grid prism has homogeneous pressure; however, pressure variations among different prisms are allowed. 
+Each prism has homogeneous pressure; however, pressure variations among different prisms are allowed. 
 This parametrization of the reservoir yields a piecewise-constant distribution of pressure  in the subsurface. 
-The discrete reservoir modeling to calculate the displacement field due to this pressure variation  follows the nucleus of strain concept in which the center of each prism represents the coordinate of a nucleus of strain.
+The discrete reservoir modeling to calculate the displacement field due to this pressure variation  follows the nucleus-of-strain concept in which the center of each prism represents the coordinate of a nucleus of strain.
 The displacement due to a nucleus of strain is considered the infinitesimal element of the 
 displacement due to an infinitesimal reservoir.
 The displacement field due to the pressure of each prism is calculated by integrating the infinitesimal element of the displacement over the volume of the prism.
@@ -141,7 +141,7 @@ By calculating the  stress field at the free surface, we verify that the zero st
 \end{abstract}
 
 
-\copyrightstatement{TEXT}
+\copyrightstatement{}
 
 
 \introduction  %% \introduction[modified heading if necessary]
@@ -155,7 +155,7 @@ The physical foundation of the displacement, stress and strain fields in the sub
 Theory of thermoelasticity has been laid in the first half of the nineteenth century to describe the interaction between the thermal field and elastic bodies.
 In the uncoupled thermoelasticity theory for quasi-static problems (i.e., problems with negligible inertia effects), \cite{Goodier37} employed the method of superposition using
 displacement potential functions and introduced the  concept of nucleus of thermoelastic strain in an infinite space.
-Specifically, Goodier’s \citeyear{Goodier37} method simplified the thermoelastic problem by replacing it by an isothermal elastic problem with different boundary conditions together with the solution of a Poisson’s equation \citep{Tao71}. 
+Specifically, Goodier’s (\citeyear{Goodier37}) method simplified the thermoelastic problem by replacing it by an isothermal elastic problem with different boundary conditions together with the solution of a Poisson’s equation \citep{Tao71}. 
 \cite{Mindlin&Cheng50} and \cite{Sen51} extended the Goodier's method to a homogenous half-space.
 \cite{Sharma56} deduced the displacement and stress fields in an infinite elastic plate due to a nucleus of thermoelastic strain located at a point inside it by using infinite integrals involving Bessel functions.
 
@@ -165,23 +165,23 @@ To our knowledge, \cite{Geertsma73} was the first to solve the poroelastic probl
 \cite{Geertsma73} derived analytical expressions for the stress and displacement fields for a thin disk-shaped reservoir. 
 \cite{Segall92} followed \cite{Geertsma73} and extended the analytical solutions of the displacement and stress fields assuming general axisymmetric geometries and an arbitrary radial pressure distribution. 
 
-\cite{Geertsma&Opstal73} applied the nucleus of strain concept in the half-space 
+\cite{Geertsma&Opstal73} applied the nucleus-of-strain concept in the half-space 
 to calculate the spatial subsidence distribution due to the production of reservoir with an arbitrary 3D shape.
 By assuming a producing reservoir embedded in an a homogeneous, isotropic, and elastic medium, and a reservoir model in which the pressure perturbations are related to the displacement field by a linear relationship, \cite{Geertsma&Opstal73} discretized the reservoir into a grid of  prisms and calculated the displacement due to the pressure change in the whole reservoir  by the superposition of the displacement due to the constant pressure change in each prism.
 \cite{Tempone10} adopted the same reservoir model used in \cite{Geertsma&Opstal73} and 
-extended the nucleus of strain concept in the half-space to consider the effects of a rigid basement. 
+extended the nucleus-of-strain concept in the half-space to consider the effects of a rigid basement. 
 Similarly, \cite{Tempone10} assumed a reservoir embedded in an a homogeneous, isotropic, and elastic medium and calculated the displacement, stress and strain fields subject to uniform depletion.
 The main drawbacks in \cite{Geertsma&Opstal73} and \cite{Tempone10} are the assumption of homogeneous reservoir and the solution is only valid outside the reservoir.
 In these case, the displacements within the reservoir are calculated by a linear interpolation of the displacements at the upper and lower edges of the reservoir \citep{Tempone12}.
 
 Considering an inhomogeneous poroelastic model consists of layered stratigraphy, \cite{Mehrabian&Abousleiman15} developed closed-form formulae for the  displacement and stress  fields outside and inside of the reservoir embedded within elastic strata with different mechanical properties and subjected to pore pressure disturbances due to fluid extraction or injection. 
 By assuming a linear elastic semi-infinite medium, \cite{Munoz&Roehl17} developed analytical solution for the  displacement field  outside and inside of an arbitrarily-shaped reservoir under arbitrary distribution of pressure changes. 
-\cite{Munoz&Roehl17} parametrized the reservoir into a grid of 3D prisms and used the nucleus of strain concept. 
+\cite{Munoz&Roehl17} parametrized the reservoir into a grid of 3D prisms and used the nucleus-of-strain concept. 
 The nucleus of strain is taking as an infinitesimal volume element  for each prism and the displacement solution due to each prism is obtained by a three-dimensional integration over the prism volume. 
 The displacement field outside and inside of the reservoir is given by the summation of the displacement fields of the displacements produced by all prisms setting up the reservoir model.
  
 The present work assumes a linear elastic semi-infinite medium and provides an analytical solution for displacement field due to an arbitrarily-shaped reservoir under arbitrary distribution of pressure changes. 
-Like \cite{Munoz&Roehl17} we used the nucleus of strain concept and discretized the
+Like \cite{Munoz&Roehl17} we used the nucleus-of-strain concept and discretized the
 reservoir into a grid of 3D prisms along the $x-$, $y-$ and $-z$directions.
 We also consider the nucleus of strain as an infinitesimal volume element  for each prism and the displacement solution due to each prism is obtained by a three-dimensional integration over the prism volume. 
 The final displacement field due to the whole reservoir is the sum of the displacements produced by the prisms. 
@@ -273,7 +273,7 @@ $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \end{equation}
 In equation \ref{eq:displacement_ui}, the functions 
 $\phi_{1} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}$ and  
-$\phi_{2} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}$
+$\phi_{2} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})}$
 are, respectively, given by 
 \begin{equation}
 \phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_1}_{ij} }
@@ -311,18 +311,9 @@ $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$.
 The $j$th image nucleus is located at the coordinates 
 $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$.
 The distances from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain and to the $j$th image nucleus are, respectively,  
-$ {R_1}_{ij}$ (equation \ref{eq:R1})  and $ {R_2}_{ij}$ (equation \ref{eq:R2}) 
+$ {R_1}_{ij}$ (equation \ref{eq:R1})  and $ {R_2}_{ij}$ (equation \ref{eq:R2}).
 The free surface is a horizontal plane where the components of the stress are null.
  
-
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Nucleus_Strain.png}
-\caption{Schematic representation of the geometry of the nucleus of strain in a semi-infinite medium. After \cite{Munoz&Roehl17}. 
-The adopted Cartesian coordinate system considered the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.} 
-\label{fig:nucleus_strain}
-\end{figure}
-
-
 Following the discrete form of the displacement solution (equation \ref{eq:displacement_ui}), 
 the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus at the coordinates $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ can be written as:
 \begin{equation}
@@ -338,13 +329,13 @@ where ${\bf{u_{1}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{1}}}_{i} $ is the gradient 
 \end{equation}
 and ${\bf{u_{2}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{2}}}_{i} $ is obtained by  applying the operator ${\bf{{\nabla}_{2}}}$ (equation \ref{eq:nabla2}) to the imagem potential $\phi_2$ (equation \ref{eq:nucleus-phi2})
 \begin{equation}
-{\bf{u_{2}}}_{i} = {\bf{{\nabla}_{2}}} \: {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \:  
+{\bf{u_{2}}}_{i} = {\bf{{\nabla}_{2}}} \: {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})} \:  
 = \frac{A  \: (1 + \nu)}{E} \: 
 \bigg[ 
-(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)   \:  
-+ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg) \: 
+(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
++ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
 - 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
-\bigg]   \: \Delta p_{j} \: \:dv_j , 
+\bigg]   \: \Delta p_{j}  \:dv_j , 
 \label{eq:nucleus-u2}
 \end{equation}
 where  $A$ is a constant given by: 
@@ -478,7 +469,7 @@ must be met.
 \subsection{The discrete displacement forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium} \label{u-model}
 
 
-We parametrized the reservoir as a grid of juxtaposed right rectangular prisms.
+We parameterized the reservoir as a grid of juxtaposed right rectangular prisms.
 Each grid prism has homogeneous pressure contrasts; however, pressure variations among different prisms are allowed. 
 To calculate the displacement due to the pressure change in the whole reservoir with this discretization model, we use the solution deduced for a single nucleus of strain in a homogeneous elastic semi-infinite medium (subsection \ref{solution-nucleus}) in the following way. 
 First, we assume that the coordinates of the $j$th prism center are the coordinates of a nucleus of strain.
@@ -486,35 +477,35 @@ Next, the displacement field calculated at the $i$th coordinates  $(x_i$, $y_i, 
 Then, from equation \ref{eq:nucleus-ui_total}, the displacement field produced by the $jth$ prism can be written as 
 \begin{equation}
 {\bf{u}}_{i} (x_i,y_i,z_i) =  
-\int_{zo_j - \Delta z/2}^{zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 {\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
 \: + \:
-\int_{- zo_j - \Delta z/2}^{- zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 {\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j.
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
 
-In equation \ref{eq:nucleus-ui_jth_prism},  ${\bf{u_{1}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}),  $xo_j, yo_j$ and $zo_j$ are, respectively, the $x-, y-$ and $z-$coordinates of the $j$th prism center and $\Delta x, \: \Delta y$ and $\Delta z$ are the dimensions of the prisms along the $x-, y-$ and $z-$directions, respectively. 
-Additionally, ${\bf{u_{2}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the effect of an image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}), where $xo_j, yo_j$ and $- zo_j$ are, respectively, the $x-, y-$ and $z-$coordinates of the $j$th image nucleus. 
+In equation \ref{eq:nucleus-ui_jth_prism},  ${\bf{u_{1}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and $z_1$ and $z_2$ are their depths to the top and bottom.
+Additionally, ${\bf{u_{2}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the effect of an image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}). 
  
 Note that the integrations in equation \ref{eq:nucleus-ui_jth_prism}, are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, denoting, respectively, the
 $x-, \: y-$, and $z-$coordinates of an arbitrary point belonging to the interior
 of the $j$th prism (or the $j$th image nucleus).
-Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir can be defined as the sum of the displacements yielded by each prism with constant pressure:
+Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir can be defined as the sum of the displacements yielded by each prism with constant pressure $\Delta p_{j}$:
 \begin{equation}
 {\bf{\tilde{u}}}_{i} (x_i,y_i,z_i) = \sum_{j=1}^{M} 
-\int_{zo_j - \Delta z/2}^{zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 {\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
 \: + \: 
-\int_{- zo_j - \Delta z/2}^{- zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 {\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j, 
 \label{eq:nucleus-ui_M_prisms}
 \end{equation}
@@ -587,7 +578,7 @@ The second and third integrals correspond, respectively, to the $\alpha-$compone
 
 The similarity between the displacement fields due to a volume source in a half-space and the gravity field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}).  
 
-The first integral in the right-hand side of equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}  is the first derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $x$, $y$ and $z$ are, respectively, given by the following closed expressions: 
+The first integral in the right-hand side of equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}  is the first derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $x$, $y$ and $z$ which are, respectively, given by the following closed expressions: 
 \begin{equation}
 \int\int\limits_{v_j}\int  \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_j =
 \Bigg|\Bigg|\Bigg| 
@@ -653,9 +644,10 @@ The third integral in the right-hand side of  equations  \ref{eq:u_til_alpha}  a
 \frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
 \Bigg|\Bigg|\Bigg|
  -   \tan^{-1} \Bigg( \frac{xy}{z \:{R_2}} \Bigg)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}, 
 \label{dz2}
 \end{equation}
+where the variable $z$ is given by equations \ref{z_image}  and \ref{z_c}.
 
 The horizontal displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir is calculated by 
 \begin{equation}
@@ -674,17 +666,19 @@ Like equation \ref{eq:nucleus-ui_M_prisms}, the stress field at the $i$th coordi
 \begin{equation}
 \tilde{\mbox{\boldmath$\sigma$}}_{i}(x_i,y_i,z_i)
 = \sum_{j=1}^{M} 
-\int_{zo_j - \Delta z/2}^{zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 \mbox{\boldmath$\sigma_{1}$}_{i}\: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
 \: + \: 
-\int_{- zo_j - \Delta z/2}^{- zo_j + \Delta z/2} \:\:
-\int_{yo_j - \Delta y/2}^{yo_j + \Delta y/2} \:\: 
-\int_{xo_j - \Delta x/2}^{xo_j + \Delta x/2} 
+\int_{z_1}^{z_2} \:\:
+\int_{y_1}^{y_2} \:\: 
+\int_{x_1}^{x_2} 
 \mbox{\boldmath$\sigma_{2}$}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j, 
 \label{eq:nucleus-stress_M_prisms}
 \end{equation}
+where the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and $z_1$ and $z_2$ are their depths to the top and bottom.
+
 
 From equations \ref{eq:nucleus-stress1-vector} and \ref{eq:nucleus-stress2-vector}, we write, respectively,  the $\alpha-$component (where  $\alpha = x$ and $y$) and the $z-$ component of the stress field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir, i.e.:
 \begin{equation}
@@ -775,25 +769,18 @@ If the argument of the logarithm is less than $10^{-10}$, the logarithm is repla
 Embedded in a semi-infinite homogenous medium, we simulated a vertical cylinder-like reservoir (Figure \ref{fig:cylinder}) with a radius of 500 m and whose horizontal coordinates of its center along the north-south and east-west directions are 0 m and 0 m, respectively.
 The depths to the top and to the bottom of the simulated reservoir are 750 m and 850 m, respectively.
 The reservoir is uniformly depleted by $\Delta p = -10$ MPa. 
-The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25,
+The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25, and
 the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is $2.2525 \: 10^{-4}$
 $\textrm{ MPa}^{-1}$.
 
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Cylinder.png}
-\caption{Disk-shaped reservoir under uniform depletion with a radius of 500 m}
-\label{fig:cylinder}
-\end{figure}
 
 
-We  discretized the cylinder  along the $x-$ and $y-$ directions into an $20 \times 20$ grid of prisms. 
-Hence, we totalized 400 prisms all of them centered at 800 m deep, with depths to the top and to the bottom at 750 m and 850 m  and with pressure contrast 
-$\Delta p_j$, $j = 1, ..., 400$ equal to $-10$ MPa.
+To apply our methodology, we  discretized the cylinder  along the $x-$ and $y-$ directions into an $20 \times 20$ grid of prisms. Hence, we totalized 400 prisms all of them centered at 800 m deep, with depths to the top and to the bottom at 750 m and 850 m  and with pressure contrast $\Delta p_j$, $j = 1, ..., 400$ equal to $-10$ MPa.
+To apply the Geertsma’s method \citep{Geertsma73}, we used the disk-shaped reservoir \citep{Fjaer08} with dimensions and physical properties described above.
  
-We calculate the displacement fields due to the pressure change in the whole cylindrical reservoir.
 Figures \ref{fig:displacement}  and \ref{fig:displacement_Geertsma}  show cross-sections at 
-$x  = 0$ m of the displacement fields in 2D contour plots  due to the pressure change in the whole reservoir by using our methodology and Geertsma’s method \citep{Geertsma73}, respectively.
-To use the Geertsma’s method \citep{Geertsma73}, we used a regular grid of $20 \times 20$ nuclei along the $x-$ and $y-$ directions all of them centered at 800 m deep. 
+$x  = 0$ m of the displacement fields in 2D contour plots  due to the pressure change in the whole  cylindrical reservoir by using our methodology and Geertsma’s method \citep{Geertsma73}, respectively.
+
 Because we defined the $z-$axis as positive downwards, the positive vertical displacement means a subsidence and the negative vertical displacement means an uplift.
 Figure \ref{fig:displacement}  shows the horizontal and vertical displacements  calculated, respectively, with equations \ref{eq:horizontal_displacement} and \ref{eq:u_til_z} by our methodology that uses the closed expressions of the full integrations (equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}) of \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1} $-$ \ref{dz2}).
 
@@ -821,38 +808,7 @@ This fact is important because the moviment of the seafloor should be monitored 
 Figure \ref{fig:Null_stress} shows the  null stress through the free surface at the plane 
 $z=0$ m (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir under uniform depletion.
 
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement.png}
-\caption{Reservoir under uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
-\label{fig:displacement}
-\end{figure}
 
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_Geertsma.png}
-\caption{Reservoir under uniform depletion: (a) Radial displacement and (b) vertical displacement using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion based on the nucleus-of-strain concept in the half-space (\cite{Mindlin&Cheng50} and \cite{Sen51})}
-\label{fig:displacement_Geertsma}
-\end{figure}
-
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels.png}
-\caption{Reservoir under uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
-These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
-\label{fig:displacement_z_levels}
-\end{figure}
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_Geertsma.png}
-\caption{Reservoir under uniform depletion: Vertical displacement using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion based on the nucleus-of-strain concept in the half-space (\cite{Mindlin&Cheng50}
-The displacement is calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), and reservoir bottom 
-($z = 850$ m).}
-\label{fig:displacement_z_levels_Geertsma}
-\end{figure}
-
-
-\begin{figure*}[h]
-\includegraphics[width=12cm]{Fig/Figure_Null_stress.png}
-\caption{Reservoir under uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
-\label{fig:Null_stress}
-\end{figure*}
 
 \subsubsection{Disk-shaped reservoir under non uniform depletion}
 
@@ -884,89 +840,53 @@ produced by the top (black line) and the bottom (red line) of the reservoir unde
 Finally, we stress that the subsidence on the seafloor due to the reservoir under non uniform depletion 
 (green line in Figure  \ref{fig:displacement_z_levels_non_uniform_depletion}b) attains higher values (close to 20 cm) than the subsidence of the seafloor due to the reservoir under uniform depletion (green line in Figure  \ref{fig:displacement_z_levels}b).
 
-Figure \ref{fig:Null_stress_non_uniform_depletion} shows the  null stress through the free surface at the plane $z=0$ m (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir under a non uniform depletion.
-
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
-\label{fig:displacement_non_uniform_depletion}
-\end{figure}
-
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
-These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
-\label{fig:displacement_z_levels_non_uniform_depletion}
-\end{figure}
-
-
-\begin{figure*}[h]
-\includegraphics[width=12cm]{Fig/Figure_Null_stress_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
-\label{fig:Null_stress_non_uniform_depletion}
-\end{figure*}
-
+We verify that the zero stress condition is satisfied at the free surface (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir under a non uniform depletion as shown in Figure \ref{fig:Null_stress_non_uniform_depletion}.
 
 \subsubsection{Reservoir with arbitrary geometry and under arbitrary pressure changes}
 
-The reservoir model is a simplification of a realistic reservoir 
-located in a production oil field in offshore Brazil.
-The entire model comprises dimensions of 14 km in the north-axis, 13 km in the
+In this numerical application, the reservoir model is a simplification of a realistic reservoir located in a production oil field in offshore Brazil.
+The entire reservoir model comprises dimensions of 14 km in the north-axis, 13 km in the
 east-axis, and 0.6 km in the down-axis. 
 The depths to the top and bottom of the reservoir model are 2,712 m and 3,312 m, respectively. 
 The components of the displacements are calculated at 0 m deep, 
-on a regular grid of 100 $\times$ 80  observation points, with a grid spacing of XXX and XXX m along the north- and east-directions, respectively. 
-
+on a regular grid of 100 $\times$ 80  observation points along the north- and east-directions, respectively. 
 We  discretized the reservoir  along the $x-$, $y-$ and $z-$ directions into an $14 \times 13 \times 2$ grid of prisms.
-The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25,
+The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25, and
 the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is $2.2525 \: 10^{-4}$
 $\textrm{ MPa}^{-1}$.
-Figure \ref{fig:pressure_complex_reservoir} shows a 3D perspective view of the pore pressure distribution of the simulated reservoir. 
-We can see that pressures vary from 0 to 35.6 MP
-
+In the 3D perspective view of the pore pressure distribution of the simulated reservoir shown in Figure \ref{fig:pressure_complex_reservoir}, we can see that the pressures vary from 0 to -0.72 MPa
 Figure \ref{fig:displacement_complex_reservoir} shows cross-sections at $x  = 8$ km of the horizontal and vertical displacements, in 2D contour plots, calculated in the whole reservoir by using our methodology.
 Figure \ref{fig:Null_stress_complex_reservoir} shows the  null stress through the free surface (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir with arbitrary geometry and under arbitrary pressure disribution.
 
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Pressure_complex_reservoir.png}
-\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: 3D perspective view of the pore pressure distribution of a realistic reservoir 
-located in a production oil field in offshore Brazil.}
-\label{fig:pressure_complex_reservoir}
-\end{figure}
-
-\begin{figure}[h]
-\includegraphics[width=8.3cm]{Fig/Figure_Displacement_complex_reservoir.png}
-\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
-\label{fig:displacement_complex_reservoir}
-\end{figure}
-
-\begin{figure*}[h]
-\includegraphics[width=12cm]{Fig/Figure_Null_stress_complex_reservoir.png}
-\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
-\label{fig:Null_stress_complex_reservoir}
-\end{figure*}
-
 
 \conclusions  %% \conclusions[modified heading if necessary]
-TEXT
-Parei neste texto ****
+Grounded on the similarity between the gravitational potential produced by a volume source under a density variation and the displacement field produced by a volume source in a half-space under a pressure variation, we have presented the analytical solution for the displacement field due to reservoir compaction with arbitrary geometry and under non-uniform  pressure distribution.
+Our approach calculates the displacement field due to a reservoir by approximating its 3D pressure distribution through a piecewise constant function defined on a user-specified grid of 3D vertical prisms juxtaposed in the $x-$, $y-$ and $z-$directions.
+By using the nucleus of strain as an infinitesimal volume element for each prism, 
+we have calculated the displacement solution yielded by each prism through a 3D integration over the prism volume. 
+The sum of the displacements produced by the prisms is the final displacement field due to the whole reservoir.
+The adopted exact analytical formulae, based on the gravitational field,  to carry out the full integrations and calculate the displacement field due to reservoir compaction are valid expressions either outside or inside the prisms because the implemented expressions make use of  modified arctangent function.
+We have demonstrated the use of these exact analytical expressions by applying them to calculate the displacement fields due to cylindrical reservoirs with uniform and non-uniform pressure distributions and to realistic reservoir model of a production oil field in offshore Brazil with arbitrary geometry and under arbitrary pressure distribution.
+All the numerical applications produced null stress fields  at the free surface
+showing that the condition of null tractions at the free surface has been met. 
+We have presented routines written in Python language (Python 3.7.6)  to calculate the displacement and stress fields due to a reservoir with arbitrary shape and non-uniform distribution of pressure changes. 
+The numerical applications and figures showing the results in this article were produced in
+Jupyter Notebook. 
 
 %% The following commands are for the statements about the availability of data sets and/or software code corresponding to the manuscript.
 %% It is strongly recommended to make use of these sections in case data sets and/or software code have been part of your research the article is based on.
 
-\codeavailability{TEXT} %% use this section when having only software code available
 
-
-\dataavailability{TEXT} %% use this section when having only data sets available
-
-
-\codedataavailability{TEXT} %% use this section when having data sets and software code available
-
-
-\sampleavailability{TEXT} %% use this section when having geoscientific samples available
-
-
-\videosupplement{TEXT} %% use this section when having video supplements available
+\codedataavailability{
+The current version of our code is freely distributed under the BSD 3-clause licence and it is available for download at Zenodo: http://doi.org/XXXXXXXX. 
+The latest development version of our code can be freely downloaded from a repository on GitHub (https://github.com/pinga-lab/reservoir-compaction). 
+Instructions for running  the current version of our code are also provided on the repository.
+The code is still being improved and we encourage the user to work with the latest development version. 
+The code was developed as an open-source Python language (Python 3.7.6).
+The numerical applications were produced in Jupyter Notebook. 
+The data of the pore pressure distribution simulating a realistic reservoir 
+$(realistic-model.pickle)$ are available  in the  above-mentioned repositories.
+} %% use this section when having data sets and software code available
 
 
 %\appendix
@@ -993,15 +913,19 @@ Parei neste texto ****
 
 
 
-\authorcontribution{TEXT} %% this section is mandatory
+\authorcontribution{} %% this section is mandatory
 
-\competinginterests{TEXT} %% this section is mandatory even if you declare that no competing interests are present
+\competinginterests{The authors declare that they have no conflict of interest.} %% this section is mandatory even if you declare that no competing interests are present
 
-\disclaimer{TEXT} %% optional section
 
 \begin{acknowledgements}
-TEXT
+Valeria C.F. Barbosa was supported by fellowships from: CNPq (grant 307135/2014- 4) and FAPERJ (grant E-26/202.582/2019). 
+Vanderlei C. Oliveira Jr. was supported by fellowships from: CNPq (grant 308945/2017-4) and FAPERJ (grant E-26/202.729/2018). 
 \end{acknowledgements}
+
+\financialsupport{This work is supported by the Brazilian research agencies
+Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq) and 
+Fundação Carlos Chagas Filho de Amparo à Pesquisa do Estado do Rio de Janeiro (FAPERJ).}
 
 %% REFERENCES
 
@@ -1010,91 +934,196 @@ TEXT
 \begin{thebibliography}{}
 
 
-\bibitem[Beltrami (1902–1920)]{Beltrami}
+\bibitem[Beltrami(1902–1920)]{Beltrami}
 Beltrami,  E.: Opere Matematiche, Hoepli, Milano, 1902–1920.
 
-\bibitem[Borges et al. (2020)]{Borges2020}
+\bibitem[Borges et al.(2020)]{Borges2020}
 Borges, F., Landro M., and  Duffaut, K.: Time-lapse seismic analysis of overburden water injection at the Ekofisk field, southern North Sea, GEOPHYSICS, 85, B9–B21, 2020
 
-\bibitem[Dahm et al. (2015)]{Dahmetal15}
+\bibitem[Dahm et al.(2015)]{Dahmetal15}
 Dahm, T.,  Cesca, S., Hainzl, S., Braun,  T., and Krüger, F.: Discrimination
 between induced, triggered, and natural earthquakes close to hydrocarbon reservoirs: A probabilistic approach based on the modeling of depletion-induced stress changes
 and seismological source parameters, J. Geophys. Res. Solid Earth, 120,
 2491–2509, 2015.
 
-\bibitem[Kellogg (1929)]{Kellogg29} 
-Kellogg, O. D.: Foundations of Potential Theory, rederick Ungar Publishing Company, 1929.
 
-\bibitem[Fukushima (2020)]{Fukushima2020} 
+\bibitem[Fjaer et al.(2008)]{Fjaer08}
+Faer, E.,  Holt, R. M., Horsrud,P., Raaen,  A.M., and Risnes, R.: Petroleum related rock mechanics: Elsevier, 53, 2008.
+
+
+\bibitem[Fukushima(2020)]{Fukushima2020} 
 Fukushima, T.: Speed and accuracy improvements in standard algorithm for prismatic gravitational field, Geophys. J. Int.,  222, 1898–1908,  2020.
 
 
-\bibitem[Geertsma (1957)]{Geertsma57} 
+\bibitem[Geertsma(1957)]{Geertsma57} 
 Geertsma, J.: A remark on the analogy between thermoelasticity and the
 elasticity of saturated porous media. J. Mech. Phys. Solids, 6, 13–16, 1957
 
-\bibitem[Geertsma (1966)]{Geertsma66} 
+\bibitem[Geertsma(1966)]{Geertsma66} 
 Geertsma, J.: Problems of rock mechanics in petroleum production engineering, in: Proc. First Cong. Int. Soc. Rock Mech., 1, 585–594, 1966.
 
-\bibitem[Geertsma (1973)]{Geertsma73} 
+\bibitem[Geertsma(1973)]{Geertsma73} 
 Geertsma, J.: Land Subsidence above compacting oil and gas reservoirs, J. Pet. Tech. 25, 734-744, 1973.
 
-\bibitem[Geertsma and van Opstal (1973)]{Geertsma&Opstal73} 
+\bibitem[Geertsma and van Opstal(1973)]{Geertsma&Opstal73} 
 Geertsma, J., and van Opstal, G.: A numerical technique for predicting subsidence above compacting reservoirs, based on the nucleus of strain concept,” Verhandelingen Kon.
 Ned. Geol. Mijnbouwk., 28, 63–78, 1973.
 
-\bibitem[Grigoli et al. (2017)]{Grigolietal17}
-Grigoli, F., Cesca, S., Priolo. E., Rinaldi, A.P., Clinton, J.F., Stabile, T.A., Dost, B., Fernandez, M.G., Wiemer, S. and, Dahm T.: Current challenges in monitoring, discrimination, and management of induced seismicity related to underground industrial activities: a European perspective, Rev, Geophys., 55, 310–340, 2017
- 
-\bibitem[Goodier (1937)]{Goodier37}
+
+\bibitem[Goodier(1937)]{Goodier37}
 Goodier, J. N.: On the Integration of the Thermo-elasti equations, Phil. Mag. 7, 1017-1032, 1937. 
 
-\bibitem[Mehrabian and  Abousleiman (2015)]{Mehrabian&Abousleiman15}
+\bibitem[Grigoli et al.(2017)]{Grigolietal17}
+Grigoli, F., Cesca, S., Priolo. E., Rinaldi, A.P., Clinton, J.F., Stabile, T.A., Dost, B., Fernandez, M.G., Wiemer, S. and, Dahm T.: Current challenges in monitoring, discrimination, and management of induced seismicity related to underground industrial activities: a European perspective, Rev, Geophys., 55, 310–340, 2017
+ 
+
+\bibitem[Kellogg(1929)]{Kellogg29} 
+Kellogg, O. D.: Foundations of Potential Theory, rederick Ungar Publishing Company, 1929.
+
+\bibitem[Mehrabian and  Abousleiman(2015)]{Mehrabian&Abousleiman15}
 Mehrabian, A., and  Abousleiman,  Y.A.: Geertsma’s subsidence solution extended to layered stratigraphy, J. Pet. Sci. Eng., 130, 68–76, 2015.
 
-\bibitem[Mindlin and Cheng (1950)]{Mindlin&Cheng50}
+\bibitem[Mindlin and Cheng(1950)]{Mindlin&Cheng50}
 Mindlin, R.D.  and   Cheng, D.H.: Thermoelastic stress in the semi-infinite solid, J. Appl. Phys. 21, 931–933, 1950.
 
-\bibitem[Sen (1951)]{Sen51}
-Sen, B.: Note on the Stresses Produced by Nuclei of Thermoelastic Strain
-in a Semi-infinite Solid, Quart. Appl. Math., 8, 365–369, 1951. 
+\bibitem[Muñoz and Roehl(2017)]{Munoz&Roehl17}
+Muñoz, L.F.P. and Roehl, D: An analytical solution for displacements due to reservoir
+compaction under arbitrary pressure changes, Appl. Math. Modell., 52, 145–159, 2017.
 
 
-\bibitem[Nagy et al. (2000)]{Nagyetal2000}
+\bibitem[Nagy et al.(2000)]{Nagyetal2000}
 Nagy, D.,  Papp, G., and  Benedek, J.: The gravitational potential and its
 derivatives for the prism: Journal of Geodesy, 74, 552–560, 2000.
 
 
-\bibitem[Nagy et al. (2002)]{Nagyetal2002}
+\bibitem[Nagy et al.(2002)]{Nagyetal2002}
 Nagy, D.,  Papp, G., and  Benedek, J.: Corrections to "The gravitational potential and its
 derivatives for the prism": Journal of Geodesy, 76, 475, 2002.
 
-
-\bibitem[Muñoz and Roehl (2017)]{Munoz&Roehl17}
-Muñoz, L.F.P. and Roehl, D: An analytical solution for displacements due to reservoir
-compaction under arbitrary pressure changes, Appl. Math. Modell., 52, 145–159, 2017.
-
-\bibitem[Tao (1971)]{Tao71}
-Tao, L.N: Integration of the dynamic thermoelastic equations, 
-Int. J. Eng. Sci., 9, 489–505, 1971
-
-\bibitem[Tempone et al. (2010)]{Tempone10}
-Tempone, P.,  Fjaer, E., and  Landro, M.: Improved solution of displacements due to a compacting reservoir over a rigid basement, Appl. Math. Modell. 34, 3352–3362, 2010.
-
-\bibitem[Tempone et al. (2012)]{Tempone12}
-Tempone, P.,  Landro, M., and Fjaer, E.: I4D gravity response of compacting reservoirs: Analytical approach, Geophysics, 77, G45–G54, 2012.
-
-\bibitem[Segall (1992)]{Segall92}
+\bibitem[Segall(1992)]{Segall92}
 Segall, P.: Induced stresses due to fluid extraction from
 axisymmetric reservoirs. Pure Appl. Phys. 139, 536–560, 1992.
 
-\bibitem[Sharma (1956)]{Sharma56}
+\bibitem[Sen(1951)]{Sen51}
+Sen, B.: Note on the Stresses Produced by Nuclei of Thermoelastic Strain
+in a Semi-infinite Solid, Quart. Appl. Math., 8, 365–369, 1951. 
+
+\bibitem[Sharma(1956)]{Sharma56}
 Sharma, B.D.: Stresses in an infinite slab due to a nucleus of thermoelastic strain in it, Z. Angew. Math. Mech., 36, 565–589, 1956. 
 
-\bibitem[van Thienen-visser and Fokker (2017)]{vanThienen-visser&Fokker17}
+\bibitem[Tao(1971)]{Tao71}
+Tao, L.N: Integration of the dynamic thermoelastic equations, 
+Int. J. Eng. Sci., 9, 489–505, 1971
+
+\bibitem[Tempone et al.(2010)]{Tempone10}
+Tempone, P.,  Fjaer, E., and  Landro, M.: Improved solution of displacements due to a compacting reservoir over a rigid basement, Appl. Math. Modell. 34, 3352–3362, 2010.
+
+\bibitem[Tempone et al.(2012)]{Tempone12}
+Tempone, P.,  Landro, M., and Fjaer, E.: 4D gravity response of compacting reservoirs: Analytical approach, Geophysics, 77, G45–G54, 2012.
+
+
+\bibitem[van Thienen-visser and Fokker(2017)]{vanThienen-visser&Fokker17}
 van Thienen-Visser, K. and Fokker, P. A.:The future of subsidence modelling: compaction and subsidence due to gas depletion of the Groningen gas field in the Netherlands, 96, Netherlands Journal of Geosciences, 96, s105–s116, 2017.
 
 \end{thebibliography}
+
+\clearpage
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Nucleus_Strain.png}
+\caption{Schematic representation of the geometry of the nucleus of strain in a semi-infinite medium. After \cite{Munoz&Roehl17}. 
+The adopted Cartesian coordinate system considered the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.} 
+\label{fig:nucleus_strain}
+\end{figure}
+
+%%% First Test: Disk-shaped reservoir under non uniform depletion
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Cylinder.png}
+\caption{Disk-shaped reservoir under uniform depletion with a radius of 500 m}
+\label{fig:cylinder}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement.png}
+\caption{Reservoir under uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\label{fig:displacement}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_Geertsma.png}
+\caption{Reservoir under uniform depletion: (a) Radial displacement and (b) vertical displacement using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion \citep{Fjaer08}}
+\label{fig:displacement_Geertsma}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels.png}
+\caption{Reservoir under uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
+These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
+\label{fig:displacement_z_levels}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_Geertsma.png}
+\caption{Reservoir under uniform depletion: Vertical displacement using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion \citep{Fjaer08}.
+The displacement is calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), and reservoir bottom 
+($z = 850$ m).}
+\label{fig:displacement_z_levels_Geertsma}
+\end{figure}
+
+
+\begin{figure*}[h]
+\includegraphics[width=12cm]{Fig/Figure_Null_stress.png}
+\caption{Reservoir under uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\label{fig:Null_stress}
+\end{figure*}
+
+
+%%% Second test: Disk-shaped reservoir under non uniform depletion
+
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_non_uniform_depletion.png}
+\caption{Reservoir under non uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\label{fig:displacement_non_uniform_depletion}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_non_uniform_depletion.png}
+\caption{Reservoir under non uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
+These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
+\label{fig:displacement_z_levels_non_uniform_depletion}
+\end{figure}
+
+
+\begin{figure*}[h]
+\includegraphics[width=12cm]{Fig/Figure_Null_stress_non_uniform_depletion.png}
+\caption{Reservoir under non uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\label{fig:Null_stress_non_uniform_depletion}
+\end{figure*}
+
+%% Third test: Reservoir with arbitrary geometry and under arbitrary pressure changes
+
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Pressure_complex_reservoir.png}
+\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: 3D perspective view of the pore pressure distribution of a realistic reservoir 
+located in a production oil field in offshore Brazil.}
+\label{fig:pressure_complex_reservoir}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[width=8.3cm]{Fig/Figure_Displacement_complex_reservoir.png}
+\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\label{fig:displacement_complex_reservoir}
+\end{figure}
+
+\begin{figure*}[h]
+\includegraphics[width=12cm]{Fig/Figure_Null_stress_complex_reservoir.png}
+\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\label{fig:Null_stress_complex_reservoir}
+\end{figure*}
+
 
 %% Since the Copernicus LaTeX package includes the BibTeX style file copernicus.bst,
 %% authors experienced with BibTeX only have to include the following two lines:

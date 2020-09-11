@@ -216,7 +216,7 @@ def field_component(
     coordinates = tuple(np.atleast_1d(i).ravel() for i in coordinates[:3])
     nuclei = np.atleast_2d(nuclei)
     assert np.isscalar(pressure), 'pressure must be a scalar'
-
+    
     # Compute the component
     jit_field_component(
         coordinates, nuclei, pressure, kernels[kernel], result
@@ -252,14 +252,15 @@ def jit_field_component(
     """
     # Iterate over computation points and nuclei
     for l in range(coordinates[0].size):
-        for nucleus in nuclei:
+        for nucleus in range(nuclei.shape[0]):
+        #for nucleus in nuclei:
             # Iterate over the nuclei
             out[l] += (
                 pressure
                 * kernel(
-                    nucleus[0],
-                    nucleus[1],
-                    nucleus[2],
+                    nuclei[nucleus][0],
+                    nuclei[nucleus][1],
+                    nuclei[nucleus][2],                    
                     coordinates[0][l],
                     coordinates[1][l],
                     coordinates[2][l]
