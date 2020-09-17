@@ -82,11 +82,11 @@ is located):
 
 To activate the conda environment, run
 
-    source activate DisReserv
+    source activate disreserv
 
 or, if you're on Windows,
 
-    activate DisReserv
+    activate disreserv
 
 This will enable the environment for your current terminal session.
 After running the code, deactivate the environment with the following
