@@ -1,0 +1,11 @@
+name: disreserv
+channels:
+    - defaults
+dependencies:
+    - python=3.7
+    - numpy
+    - scipy
+    - numba
+    - pytest
+    - pytest-cov
+    - coverage
