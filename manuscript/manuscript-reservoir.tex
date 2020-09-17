@@ -172,7 +172,7 @@ By assuming a producing reservoir embedded in an a homogeneous, isotropic, and e
 extended the nucleus-of-strain concept in the half-space to consider the effects of a rigid basement. 
 Similarly, \cite{Tempone10} assumed a reservoir embedded in an a homogeneous, isotropic, and elastic medium and calculated the displacement, stress and strain fields subject to uniform depletion.
 The main drawbacks in \cite{Geertsma&Opstal73} and \cite{Tempone10} are the assumption of homogeneous reservoir and the solution is only valid outside the reservoir.
-In these case, the displacements within the reservoir are calculated by a linear interpolation of the displacements at the upper and lower edges of the reservoir \citep{Tempone12}.
+In this case, the displacements within the reservoir are calculated by a linear interpolation of the displacements at the upper and lower edges of the reservoir \citep{Tempone12}.
 
 Considering an inhomogeneous poroelastic model consists of layered stratigraphy, \cite{Mehrabian&Abousleiman15} developed closed-form formulae for the  displacement and stress  fields outside and inside of the reservoir embedded within elastic strata with different mechanical properties and subjected to pore pressure disturbances due to fluid extraction or injection. 
 By assuming a linear elastic semi-infinite medium, \cite{Munoz&Roehl17} developed analytical solution for the  displacement field  outside and inside of an arbitrarily-shaped reservoir under arbitrary distribution of pressure changes. 
@@ -182,7 +182,7 @@ The displacement field outside and inside of the reservoir is given by the summa
  
 The present work assumes a linear elastic semi-infinite medium and provides an analytical solution for displacement field due to an arbitrarily-shaped reservoir under arbitrary distribution of pressure changes. 
 Like \cite{Munoz&Roehl17} we used the nucleus-of-strain concept and discretized the
-reservoir into a grid of 3D prisms along the $x-$, $y-$ and $-z$directions.
+reservoir into a grid of 3D prisms along the $x-$, $y-$ and $-z$ directions.
 We also consider the nucleus of strain as an infinitesimal volume element  for each prism and the displacement solution due to each prism is obtained by a three-dimensional integration over the prism volume. 
 The final displacement field due to the whole reservoir is the sum of the displacements produced by the prisms. 
 In contrast with \cite{Munoz&Roehl17}'s method we take advantage the similarity between 
@@ -215,7 +215,7 @@ From the potential theory, a particular  solution of equation \ref{eq:poisson} i
 \label{eq:phi}
 \end{equation}
 where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} at the coordinates $x, y$ and $z$ produced by a continuous distribution of mass defined by a set of very small masses $ -  \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} ) \: dv$, where $T(x^{\prime}, y^{\prime}, z^{\prime}) $ stands for the density distribution. 
-The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the x-, y-, and z-coordinates of an arbitrary point belonging to the interior of the volume $v$ of the gravity source. 
+The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the $x-$, $y-$ and $-z$ coordinates of an arbitrary point belonging to the interior of the volume $v$ of the gravity source. 
 
 
 From equation \ref{eq:phi} and the potential-field theory, \citet{Goodier37} showed that if an element of volume $dv$ in the infinite solid is at a temperature $T(x^{\prime}, y^{\prime}, z^{\prime}) $, the remainder being at temperature zero, the displacement vector $\bf{u}$ caused by this temperature is the gradient of the Goodier’s thermoelastic displacement potential, i.e.,
@@ -459,8 +459,10 @@ We validate our equations by verifying if the null stress acting through the fre
 Hence, by taking the elements of stress vectors $\mbox{\boldmath$\sigma_{1}$}_{i}$ and 
 $\mbox{\boldmath$\sigma_{2}$}_{i}$  at the $i$th coordinates of the free surface ($x_i$, $y_i$ and $z_i = 0$) the following relationship:
 \begin{equation}
-{\widehat{xz}_{1}} + {\widehat{xz}_{2}} = {\widehat{yz}_{1}} + {\widehat{yz}_{2}}
-+ {\widehat{zz}_{1}} + {\widehat{zz}_{2}}  = 0
+{\widehat{xz}_{1}} + {\widehat{xz}_{2}} 
+= {\widehat{yz}_{1}} + {\widehat{yz}_{2}}
+= {\widehat{zz}_{1}} + {\widehat{zz}_{2}}  
+= 0
 \label{eq:null_stress_i}
 \end{equation}
 must be met.
@@ -531,7 +533,7 @@ From equation  \ref{eq:nucleus-u2-vector}, we can get the $ x-$ and $y-$componen
 where  $\alpha$  belongs to the set of $ x-$ and $y-$directions, and the $z-$component of the displacement vectors ${\bf{u_{2}}}_{i}$  
 \begin{equation}
 {u_{2}}_z =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-(3  - 4 \nu)    \: - \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
+\: - (3  - 4 \nu)  \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
 + 2 \: z_{i} \:  
 \frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
 \Delta p_{j}
@@ -776,7 +778,7 @@ $\textrm{ MPa}^{-1}$.
 
 
 To apply our methodology, we  discretized the cylinder  along the $x-$ and $y-$ directions into an $20 \times 20$ grid of prisms. Hence, we totalized 400 prisms all of them centered at 800 m deep, with depths to the top and to the bottom at 750 m and 850 m  and with pressure contrast $\Delta p_j$, $j = 1, ..., 400$ equal to $-10$ MPa.
-To apply the Geertsma’s method \citep{Geertsma73}, we used the disk-shaped reservoir \citep{Fjaer08} with dimensions and physical properties described above.
+To apply the Geertsma’s method \citep{Geertsma73}, we used the disk-shaped reservoir described in \cite{Fjaer08} with dimensions and physical properties defined above.
  
 Figures \ref{fig:displacement}  and \ref{fig:displacement_Geertsma}  show cross-sections at 
 $x  = 0$ m of the displacement fields in 2D contour plots  due to the pressure change in the whole  cylindrical reservoir by using our methodology and Geertsma’s method \citep{Geertsma73}, respectively.
@@ -818,7 +820,7 @@ We simulated a non-uniform depletion scenario where the cylindrical reservoir is
 The deepest cylinder is uniformly depleted by $\Delta p = -20$ MPa with its top and bottom at, respectively, 800 and 850 m deep.
 The shallowest cylinder is uniformly depleted by $\Delta p = -40$ MPa with its top and bottom at, respectively, 750 and 800 m deep.
 
-We  discretized the cylinder  along the $x-$, $y-$ and $z-$ directions into an $20 \times 20 \times 2$ grid of prisms.
+We  discretized the cylinders  along the $x-$, $y-$ and $z-$ directions into an $20 \times 20 \times 2$ grid of prisms.
 This simulation totalized 800 prisms whose thicknesses are 50 m.
 The 400 deepest prisms are centered at 825 deep, with pressure contrast equal to $-20$ MPa and the 400 shalowest prisms are centered at 775 deep, with pressure contrast equal to $-40$ MPa  
 
@@ -854,7 +856,7 @@ We  discretized the reservoir  along the $x-$, $y-$ and $z-$ directions into an 
 The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25, and
 the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is $2.2525 \: 10^{-4}$
 $\textrm{ MPa}^{-1}$.
-In the 3D perspective view of the pore pressure distribution of the simulated reservoir shown in Figure \ref{fig:pressure_complex_reservoir}, we can see that the pressures vary from 0 to -0.72 MPa
+In the 3D perspective view of the pore pressure distribution of the simulated reservoir shown in Figure \ref{fig:pressure_complex_reservoir}, we can see that the pressures vary from $0$ to $-0.72$ MPa.
 Figure \ref{fig:displacement_complex_reservoir} shows cross-sections at $x  = 8$ km of the horizontal and vertical displacements, in 2D contour plots, calculated in the whole reservoir by using our methodology.
 Figure \ref{fig:Null_stress_complex_reservoir} shows the  null stress through the free surface (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir with arbitrary geometry and under arbitrary pressure disribution.
 
@@ -913,12 +915,18 @@ $(realistic-model.pickle)$ are available  in the  above-mentioned repositories.
 
 
 
-\authorcontribution{} %% this section is mandatory
+\authorcontribution{
+VCFB and VCOJr deduced the equations in this paper.
+VCFB  and ADA implemented the numerical applications presented in this paper.
+Most of the python codes were developed by VCOJr with some participation of VCFB.
+All authors contributed to the writing of the paper.
+} %% this section is mandatory
 
 \competinginterests{The authors declare that they have no conflict of interest.} %% this section is mandatory even if you declare that no competing interests are present
 
 
 \begin{acknowledgements}
+Andre D. Arelaro thanks Petrobras, especially, the Multiphysics Group.
 Valeria C.F. Barbosa was supported by fellowships from: CNPq (grant 307135/2014- 4) and FAPERJ (grant E-26/202.582/2019). 
 Vanderlei C. Oliveira Jr. was supported by fellowships from: CNPq (grant 308945/2017-4) and FAPERJ (grant E-26/202.729/2018). 
 \end{acknowledgements}
