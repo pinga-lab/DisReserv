@@ -6,7 +6,7 @@ import geertsma_disk as disk
 
 # Integrals of Bessel functions
 def test_Int1():
-    'compare with reference results'
+    'compare with reference values from Fjær et al., 2008, Appendix D-5'
     r1 = 0.2
     q1 = 0.4
     R1 = 1.2
@@ -19,7 +19,7 @@ def test_Int1():
 
 
 def test_Int2():
-    'compare with reference results'
+    'compare with reference values from Fjær et al., 2008, Appendix D-5'
     r1 = 0.2
     q1 = 0.4
     R1 = 1.2
@@ -32,7 +32,7 @@ def test_Int2():
 
 
 def test_Int3():
-    'compare with reference results'
+    'compare with reference values from Fjær et al., 2008, Appendix D-5'
     r1 = 0.2
     q1 = 0.4
     R1 = 1.2
@@ -45,7 +45,7 @@ def test_Int3():
 
 
 def test_Int4():
-    'compare with reference results'
+    'compare with reference values from Fjær et al., 2008, Appendix D-5'
     r1 = 0.2
     q1 = 0.4
     R1 = 1.2
@@ -58,7 +58,7 @@ def test_Int4():
 
 
 def test_Int6():
-    'compare with reference results'
+    'compare with reference values from Fjær et al., 2008, Appendix D-5'
     r1 = 0.2
     q1 = 0.4
     R1 = 1.2

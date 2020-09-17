@@ -801,7 +801,7 @@ def _check_prisms(prisms):
             err_msg += "\tInvalid prism: {}\n".format(prism)
         raise ValueError(err_msg)
     if bad_z.any():
-        err_msg += "The z2 radius boundary can't be greater than the z1 one.\n"
+        err_msg += "The z2 boundary can't be greater than the z1 one.\n"
         for prism in prisms[bad_z]:
             err_msg += "\tInvalid prism: {}\n".format(prism)
         raise ValueError(err_msg)
@@ -845,7 +845,7 @@ def safe_log(argument):
 
 def Cm(poisson, young):
     """
-    Uniaxial compaction coefficient Cm (Tempone et al, 2010).
+    Uniaxial compaction coefficient Cm.
     """
     result = ((1+poisson)*(1-2*poisson))/(young*(1-poisson))
     return result
