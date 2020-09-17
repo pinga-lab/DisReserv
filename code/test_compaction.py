@@ -3,10 +3,10 @@ import scipy as sp
 from numpy.testing import assert_almost_equal as aae
 import pytest
 import compaction as cp
-import geertsma as ge
+import geertsma_disk as ge
 
 
-# volume integral versus Geertsma's model
+# volume integral versus Geertsma's disk-shaped model
 def test_vol_integral_versus_Geertsma_displacement():
     'compare volume integral and Geertsma model'
     # models
@@ -31,7 +31,7 @@ def test_vol_integral_versus_Geertsma_displacement():
     young = 1000
     pressure = -10
 
-    # volume integral
+    # volume integral (proposed methodology)
     dx1 = cp.displacement_x_component(
         coordinates, prism, pressure, poisson, young
     )
@@ -43,10 +43,10 @@ def test_vol_integral_versus_Geertsma_displacement():
     )
     dr1 = np.sqrt(dx1**2 + dy1**2)
 
-    # Geertsma
-    dr2, dz2 = ge.Geertsma_displacement(
+    # Geertsma's disk-shaped model
+    dr2, dz2 = ge.Geertsma_disk_displacement(
         coordinates, disk, pressure, poisson, young
     )
 
-    aae(dz1, dz2, decimal=8)
-    aae(dr1, dr2, decimal=8)
+    aae(dz1, dz2, decimal=4)
+    aae(dr1, dr2, decimal=4)
