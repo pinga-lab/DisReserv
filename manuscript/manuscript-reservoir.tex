@@ -137,8 +137,7 @@ prisms are allowed.
 This parametrization of the reservoir yields a piecewise-constant distribution of 
 pressure in the subsurface. 
 The discrete reservoir modeling to calculate the displacement and stress fields due to 
-this pressure variation follows the nucleus-of-strain concept, in which the center of 
-each prism represents the coordinate of a nucleus of strain.
+this pressure variation follows the nucleus-of-strain concept.
 The nucleus of strain is considered an infinitesimal reservoir volume element.
 The displacement and stress fields due each prism are calculated by integrating the 
 nucleus of strain over the volume of the prism.
@@ -212,37 +211,37 @@ Tests with synthetic data validate our approach.
 
 \section{THEORY}
 
-The subsidence or displacement, stress and strain fields in the subsurface caused by reservoir compactation due to hydrocarbon production are grounded on the theory of thermoelasticity. 
+The displacement, stress and strain fields in the subsurface caused by reservoir compactation due to hydrocarbon production are grounded on the theory of thermoelasticity. 
 
 The Goodier’s thermoelastic displacement potential $\phi$ satisfies the Poisson's equation \citep{Goodier37}, i.e.:
 \begin{equation}
 \nabla^{2} \phi =  m \: T,
 \label{eq:poisson}
 \end{equation}
-where $\nabla^{2}$ is the Laplacian operator, $T $ is the temperature difference and 
+where $\nabla^{2}$ is the Laplacian operator, $T $ is the temperature variation and 
 \begin{equation}
 m =  \:  \alpha \: \frac{1 + \nu}{ 1 -\nu},
 \label{eq:m}
 \end{equation}
-where $\alpha$  is the coefficient of linear thermal expansion and $\nu$ is the Poisson's ratio.
+where $\alpha$ is the coefficient of linear thermal expansion and $\nu$ is the Poisson's ratio.
 
-From the potential theory, a particular  solution of equation \ref{eq:poisson} is
+From the potential theory, a particular solution of equation \ref{eq:poisson} is
 \begin{equation}
 \phi(x,y,z) = -  \frac{m}{4 \pi} \int\int\limits_{v}\int \frac{T(x^{\prime}, y^{\prime}, z^{\prime} )}{\sqrt{(x - x^{\prime})^{2} + (y - y^{\prime})^{2} + (z - z^{\prime})^{2}}} \: dv,
 \label{eq:phi}
 \end{equation}
-where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} at the coordinates $x, y$ and $z$ produced by a continuous distribution of mass defined by a set of very small masses $ -  \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} ) \: dv$, where $T(x^{\prime}, y^{\prime}, z^{\prime}) $ stands for the density distribution. 
-The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the $x-$, $y-$ and $-z$ coordinates of an arbitrary point belonging to the interior of the volume $v$ of the gravity source. 
+where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} that would be produced at the coordinates $x, y$ and $z$ by a continuous density distribution $- \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} )$. 
+The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the $x-$, $y-$ and $-z$ coordinates of an arbitrary point belonging to the interior of the volume $v$ of the solid. 
 
 
-From equation \ref{eq:phi} and the potential-field theory, \citet{Goodier37} showed that if an element of volume $dv$ in the infinite solid is at a temperature $T(x^{\prime}, y^{\prime}, z^{\prime}) $, the remainder being at temperature zero, the displacement vector $\bf{u}$ caused by this temperature is the gradient of the Goodier’s thermoelastic displacement potential, i.e.,
+From equation \ref{eq:phi} and the potential theory, \citet{Goodier37} showed that, if an element of volume $dv$ in the infinite solid is at a temperature $T(x^{\prime}, y^{\prime}, z^{\prime}) $, the remainder being at temperature zero, the displacement vector $\bf{u}$ caused by this temperature is the gradient of the Goodier’s thermoelastic displacement potential, i.e.,
 \begin{equation}
-{\bf{u}} = {\bf {\nabla}} \phi(x,y,z). 
+{\bf{u}} = {\bf {\nabla}} \phi(x,y,z) \: ,
 \label{eq:displacement-general}
 \end{equation}
 where $\bf{\nabla}$ is the gradient operator.  
 
-To a homogenous half-space, \citet{Mindlin&Cheng50} showed that the method proposed by  \citet{Goodier37}  can be extended by the displacement solution given by:
+To a homogenous half-space, \citet{Mindlin&Cheng50} showed that the method proposed by  \citet{Goodier37} can be extended by the displacement solution given by:
 \begin{equation}
 \bf{u} = {\bf{\nabla}} \: \phi_{1} \: + \: {\bf{{\nabla}_{2}}} \phi_{2}, 
 \label{eq:displacement-solution}
@@ -256,31 +255,33 @@ $(x^{\prime}, y^{\prime}, -z^{\prime} )$ and the operator $\bf{{\nabla}_{2}}$ is
 \label{eq:nabla2}
 \end{equation}
 where ${\bf{\hat{z}}}$ is the unit vector in the $z-$direction and 
-${\bf{{\nabla}^{2}_{z}}}$ is a scalar operator in which the operand is firtly multiplied by z and then operated upon by Laplacian operator ${\bf{\nabla}^{2}}$. 
+${\bf{{\nabla}^{2}_{z}}}$ is a scalar operator in which the operand is first to be  multiplied by $z$ and then operated upon by the Laplacian ${\bf{\nabla}^{2}}$. 
 
 Equation \ref{eq:displacement-solution} is the displacement solution for the variation of temperature due to a single nucleus of strain buried at depth $z^{\prime}$ in a
 semi-infinite homogeneous medium. 
 In the right hand side of equation \ref{eq:displacement-solution}, the first term 
-$ {\bf{\nabla}} \: \phi_{1} $ represents the displacement in an infinite medium, and the second term represents a correction of the displacement due a half-space, also known as image nucleus solution.
+$ {\bf{\nabla}} \: \phi_{1} $ represents the displacement in an infinite medium, and the second term represents a correction of the displacement due a half-space, also known as "image nucleus solution".
 
 \section{METHODOLOGY}
 
 Let's assume that a reservoir in the interior of the Earth is subject to a compactation due to hydrocarbon production. 
 The compactation is caused by the pressure change within the reservoir, which in turn causes  a surface subsidence (or surface displacement). 
-We discretized the reservoir into an $ m_{x} \times m_{y} \times m_{z} $ grid of 3D vertical juxtaposed prisms $(m_{x} \cdot m_{y} \cdot m_{z} = M)$ in which
-the pressure within each prism is assumed to be constant and known. 
-Each grid prism in the reservoir model may undergo a distinct pressure change.
-Hence, the subsidence effect is the displacement field due to the pressure change throughout the reservoir and it can be calculated by the sum of the displacement produced by each prism.
+Here, we use a Cartesian coordinate system with the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.
+We discretize the reservoir into an $ m_{x} \times m_{y} \times m_{z} $ grid of 3D vertical juxtaposed prisms $(m_{x} \cdot m_{y} \cdot m_{z} = M)$ along the 
+$x$, $y$ and $z$ axes, respectively, in which the pressure within each prism is 
+assumed to be constant and known. 
+Each prism in the reservoir model may undergo a distinct pressure change.
+The subsidence effect is the displacement field due to the pressure change throughout the reservoir and is calculated by the sum of the displacement produced by each prism.
 
 
-The discrete forward modeling to calculate the displacement and stress fields due to a piecewise-constant distribution of the pressure contrast within a reservoir follows the nucleus of strain approach. 
-By assuming that the center of each prism represents the coordinate of a nucleus of
-strain, we can calculate the displacement field due to the pressure contrast of this prism by integrating over its volume.
-The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
+The discrete forward modeling to calculate the displacement and stress fields due to a piecewise-constant distribution of the pressure contrast within a reservoir follows the nucleus-of-strain approach. 
+We assume that a nucleus of strain represents an infinitesimal reservoir volume 
+element. The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
+Then we calculate the displacement field due to the pressure contrast of a prism by integrating the nucleus of strain over its volume.
+
 
 \subsection{The discrete forward modeling due to a nucleus of strain in a homogeneous elastic semi-infinite medium}\label{solution-nucleus}
 
-Here, we use a Cartesian coordinate system with the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.
 By considering the discrete form of equation \ref{eq:displacement-solution}, the displacement field  $ {\bf{u}}_{i} \equiv  {\bf{u}}(x_{i}, y_{i}, z_{i})$ at an arbitrary point $(x_{i}, y_{i}, z_{i})$ due to the $j$th nucleus of strain at the coordinates 
 $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \begin{equation}
