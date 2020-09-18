@@ -151,9 +151,8 @@ We calculate the displacement and stress fields in three scenarios: i) cylindric
 reservoir under uniform depletion; ii) cylindrical reservoir under non uniform
 depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure 
 distribution.
-The results obtained for the three scenarios show that the Beltrami's and equilibrium 
-equations are satisfied, which means that our method produces null stress field 
-components at the free surface.
+The results obtained for the three scenarios show that our method produces null 
+stress field components at the free surface.
 \end{abstract}
 
 
@@ -277,7 +276,8 @@ The subsidence effect is the displacement field due to the pressure change throu
 The discrete forward modeling to calculate the displacement and stress fields due to a piecewise-constant distribution of the pressure contrast within a reservoir follows the nucleus-of-strain approach. 
 We assume that a nucleus of strain represents an infinitesimal reservoir volume 
 element. The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
-Then we calculate the displacement field due to the pressure contrast of a prism by integrating the nucleus of strain over its volume.
+Then we calculate the displacement field due to the pressure contrast of a prism by integrating the nucleus of strain over its volume. The same approach is used to 
+compute the stress field due to the prism.
 
 
 \subsection{The discrete forward modeling due to a nucleus of strain in a homogeneous elastic semi-infinite medium}\label{solution-nucleus}
@@ -286,7 +286,7 @@ By considering the discrete form of equation \ref{eq:displacement-solution}, the
 $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \begin{equation}
 {\bf{u}}_{i}  = {\bf{\nabla}} \: 
-{\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: + \: {\bf{{\nabla}_{2}}} {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}, 
+{\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: + \: {\bf{{\nabla}_{2}}} {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: . 
 \label{eq:displacement_ui}
 \end{equation}
 In equation \ref{eq:displacement_ui}, the functions 
@@ -302,14 +302,12 @@ and
 \phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_2}_{ij} }.
 \label{eq:nucleus-phi2}
 \end{equation}
-
 In equations \ref{eq:nucleus-phi1} and \ref{eq:nucleus-phi2}, $\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j$ is an infinitesimal element of volume of the $j$th nucleus, and $C_m$ is the uniaxial compaction coefficient (see \citeauthor{Geertsma66}, \citeyear{Geertsma66}; \citeauthor{Tempone10}, \citeyear{Tempone10} and \citeauthor{Munoz&Roehl17}, \citeyear{Munoz&Roehl17}) given by
 \begin{equation}
 C_m = \frac{1}{E} \: \frac{(1 + \nu) (1  - 2\nu)}{(1-\nu)},
 \label{eq:Cm}
 \end{equation}
 where $E$ is the Young’s modulus.
-
 In equation \ref{eq:nucleus-phi1}, $ {R_1}_{ij}$ is the distance from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th coordinate of the nucleus of strain $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, i.e.:
 \begin{equation}
 {R_1}_{ij} = {\sqrt{(x_{i}- x^{\prime}_{j})^{2} + (y_{i} - y^{\prime}_{j})^{2} + 
@@ -322,6 +320,7 @@ In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th 
 (z_{i} + z^{\prime}_{j})^{2}}}.
 \label{eq:R2}
 \end{equation}
+
 Figure \ref{fig:nucleus_strain} shows a schematic representation of the geometry
 of the nucleus of strain problem in a semi-infinite medium. 
 The $j$th nucleus of strain is located at the coordinates 
@@ -330,7 +329,7 @@ The $j$th image nucleus is located at the coordinates
 $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$.
 The distances from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain and to the $j$th image nucleus are, respectively,  
 $ {R_1}_{ij}$ (equation \ref{eq:R1})  and $ {R_2}_{ij}$ (equation \ref{eq:R2}).
-The free surface is a horizontal plane where the components of the stress are null.
+The horizontal plane $z = 0$ is called free surface.
  
 Following the discrete form of the displacement solution (equation \ref{eq:displacement_ui}), 
 the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus at the coordinates $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ can be written as:
@@ -345,7 +344,7 @@ where ${\bf{u_{1}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{1}}}_{i} $ is the gradient 
 \: \Delta p_{j} \: \:dv_j
 \label{eq:nucleus-u1}
 \end{equation}
-and ${\bf{u_{2}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{2}}}_{i} $ is obtained by  applying the operator ${\bf{{\nabla}_{2}}}$ (equation \ref{eq:nabla2}) to the imagem potential $\phi_2$ (equation \ref{eq:nucleus-phi2})
+and ${\bf{u_{2}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{2}}}_{i} $ is obtained by  applying the operator ${\bf{{\nabla}_{2}}}$ (equation \ref{eq:nabla2}) to the image potential $\phi_2$ (equation \ref{eq:nucleus-phi2})
 \begin{equation}
 {\bf{u_{2}}}_{i} = {\bf{{\nabla}_{2}}} \: {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})} \:  
 = \frac{A  \: (1 + \nu)}{E} \: 
@@ -412,7 +411,7 @@ By following \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \c
 The stress field  at the coordinates $x_i$, $y_i$ and $z_i$  due to the $j$th single nucleus of strain buried in the half space is given by
 \begin{equation}
 \mbox{\boldmath$\sigma$}_{i}(x_i,y_i,z_i) = \mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) + 
-\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) 
+\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) \: ,
 \label{eq:stress_nucleus}
 \end{equation}
 where $\mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) \equiv \mbox{\boldmath$\sigma_{1}$}_{i}$ represents the stress in an infinite medium, and 
@@ -423,8 +422,7 @@ Besides the Beltrami’s equations \citep{Beltrami} and the equilibrium equation
 \mbox{\boldmath$\sigma_{2}$}(x_i,y_i,0) \: = \: \mbox{ \boldmath$0$},
 \label{eq:null_stress}
 \end{equation}
-where $\mbox{ \boldmath$0$}$ is the null vector that represents the null stress at the coordinates $x_i$, $y_i$ and $z_i = 0$.
-
+where $\mbox{ \boldmath$0$}$ is the null vector.
 The elements  of the stress vector $\mbox{\boldmath$\sigma_{1}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
 \begin{equation}
 \mbox{\boldmath$\sigma_{1}$}_{i}  = 
@@ -444,7 +442,6 @@ The elements  of the stress vector $\mbox{\boldmath$\sigma_{1}$}_{i}$ (equation 
 \end{equation}
 where ${\widehat{xz}_{1}}$, ${\widehat{yz}_{1}}$ and ${\widehat{zz}_{1}}$ are the $x-$, $y-$  and $z-$components
 of  $\mbox{\boldmath$\sigma_{1}$}_{i}$ that gives the stress in an infinite medium due to the $j$th nucleus of strain.
-
 The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
 \begin{equation}
 \mbox{\boldmath$\sigma_{2}$}_{i}  = 
@@ -472,18 +469,17 @@ The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation 
 \end{equation}
 where ${\widehat{xz}_{2}}$, ${\widehat{yz}_{2}}$ and ${\widehat{zz}_{2}}$ are the $x-$, $y-$  and $z-$components
 of  $\mbox{\boldmath$\sigma_{2}$}_{i}$ that gives the correction of the stress considering  a semi-space due to the $j$th image nucleus.
-
-We validate our equations by verifying if the null stress acting through the free surface (equation \ref{eq:null_stress}) is satisfied.
-Hence, by taking the elements of stress vectors $\mbox{\boldmath$\sigma_{1}$}_{i}$ and 
-$\mbox{\boldmath$\sigma_{2}$}_{i}$  at the $i$th coordinates of the free surface ($x_i$, $y_i$ and $z_i = 0$) the following relationship:
+By taking the elements of stress vectors $\mbox{\boldmath$\sigma_{1}$}_{i}$ and 
+$\mbox{\boldmath$\sigma_{2}$}_{i}$ at any point on the free surface $(x_i, y_i, z_i = 0)$, we obtain
 \begin{equation}
 {\widehat{xz}_{1}} + {\widehat{xz}_{2}} 
 = {\widehat{yz}_{1}} + {\widehat{yz}_{2}}
 = {\widehat{zz}_{1}} + {\widehat{zz}_{2}}  
-= 0
+= 0 \: ,
 \label{eq:null_stress_i}
 \end{equation}
-must be met.
+which satisfies the boundary conditions at the free surface 
+(equation \ref{eq:null_stress}).
 
 
 \subsection{The discrete displacement forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium} \label{u-model}
