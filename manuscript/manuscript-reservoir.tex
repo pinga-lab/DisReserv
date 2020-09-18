@@ -277,118 +277,95 @@ The discrete forward modeling to calculate the displacement and stress fields du
 We assume that a nucleus of strain represents an infinitesimal reservoir volume 
 element. The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
 Then we calculate the displacement field due to the pressure contrast of a prism by integrating the nucleus of strain over its volume. The same approach is used to 
-compute the stress field due to the prism.
+compute the stress field due to a prism.
 
 
 \subsection{The discrete forward modeling due to a nucleus of strain in a homogeneous elastic semi-infinite medium}\label{solution-nucleus}
 
-By considering the discrete form of equation \ref{eq:displacement-solution}, the displacement field  $ {\bf{u}}_{i} \equiv  {\bf{u}}(x_{i}, y_{i}, z_{i})$ at an arbitrary point $(x_{i}, y_{i}, z_{i})$ due to the $j$th nucleus of strain at the coordinates 
+By considering the discrete form of equation \ref{eq:displacement-solution}, the displacement vector  $ {\bf{u}}_{ij} \equiv  {\bf{u}}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ at an arbitrary point $(x_{i}, y_{i}, z_{i})$ due to the $j$th nucleus of strain at the coordinates 
 $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \begin{equation}
-{\bf{u}}_{i}  = {\bf{\nabla}} \: 
-{\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: + \: {\bf{{\nabla}_{2}}} {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: . 
+{\bf{u}}_{ij}  = {\bf{u_{1}}}_{ij} + {\bf{u_{2}}}_{ij} \: ,
 \label{eq:displacement_ui}
 \end{equation}
-In equation \ref{eq:displacement_ui}, the functions 
-$\phi_{1} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}$ and  
-$\phi_{2} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})}$
-are, respectively, given by 
+where ${\bf{u_{1}}}_{ij}$ is the displacement vector at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus in the infinite space and ${\bf{u_{2}}}_{ij}$ 
+is the correction of the displacements considering a semi-space (image nucleus solution).
+The term ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
-\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_1}_{ij} }
+{\bf{u_{1}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
+\: \Delta p_{j} \: \:dv_j
+\label{eq:nucleus-u1}
+\end{equation}
+and represents the gradient of the potential
+\begin{equation}
+\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_1}_{ij} } \: .
 \label{eq:nucleus-phi1}
 \end{equation}
-and
+The term ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
-\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_2}_{ij} }.
+{\bf{u_{2}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: 
+\bigg[ 
+(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
++ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
+- 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
+\bigg]   \: \Delta p_{j}  \:dv_j
+\label{eq:nucleus-u2}
+\end{equation}
+and is obtained by applying the operator ${\bf{{\nabla}_{2}}}$ (equation 
+\ref{eq:nabla2}) to the image potential
+\begin{equation}
+\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_2}_{ij} } \: .
 \label{eq:nucleus-phi2}
 \end{equation}
-In equations \ref{eq:nucleus-phi1} and \ref{eq:nucleus-phi2}, $\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j$ is an infinitesimal element of volume of the $j$th nucleus, and $C_m$ is the uniaxial compaction coefficient (see \citeauthor{Geertsma66}, \citeyear{Geertsma66}; \citeauthor{Tempone10}, \citeyear{Tempone10} and \citeauthor{Munoz&Roehl17}, \citeyear{Munoz&Roehl17}) given by
+In equations \ref{eq:nucleus-u1}--\ref{eq:nucleus-phi2}, 
+all derivatives are computed with respect to the coordinates of the point 
+$(x_{i}, y_{i}, z_{i})$, 
+$\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j$ is an 
+infinitesimal element of volume of the $j$th nucleus, $A$ is the constant
 \begin{equation}
-C_m = \frac{1}{E} \: \frac{(1 + \nu) (1  - 2\nu)}{(1-\nu)},
+A = - \frac{C_m E}{4 \pi (1 + \nu)} \: ,
+\label{eq:nucleus-A}
+\end{equation}
+$C_m$ is the uniaxial compaction coefficient (see \citeauthor{Geertsma66}, 
+\citeyear{Geertsma66}; \citeauthor{Tempone10}, \citeyear{Tempone10} and 
+\citeauthor{Munoz&Roehl17}, \citeyear{Munoz&Roehl17}) 
+\begin{equation}
+C_m = \frac{1}{E} \: \frac{(1 + \nu) (1  - 2\nu)}{(1-\nu)} \: ,
 \label{eq:Cm}
 \end{equation}
-where $E$ is the Young’s modulus.
-In equation \ref{eq:nucleus-phi1}, $ {R_1}_{ij}$ is the distance from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th coordinate of the nucleus of strain $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, i.e.:
+and $E$ is the Young’s modulus.
+In equation \ref{eq:nucleus-phi1}, $ {R_1}_{ij}$ is the distance from the $i$th point $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, i.e.:
 \begin{equation}
 {R_1}_{ij} = {\sqrt{(x_{i}- x^{\prime}_{j})^{2} + (y_{i} - y^{\prime}_{j})^{2} + 
 (z_{i} - z^{\prime}_{j})^{2}}}.
 \label{eq:R1}
 \end{equation}
-In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th coordinate of the image nucleus $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$, i.e.:
+In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th point $ (x_{i}, y_{i}, z_{i})$ to the $j$th image nucleus $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$, i.e.:
 \begin{equation}
 {R_2}_{ij} = {\sqrt{(x_{i}- x^{\prime}_{j})^{2} + (y_{i} - y^{\prime}_{j})^{2} + 
-(z_{i} + z^{\prime}_{j})^{2}}}.
+(z_{i} + z^{\prime}_{j})^{2}}} \: .
 \label{eq:R2}
 \end{equation}
-
 Figure \ref{fig:nucleus_strain} shows a schematic representation of the geometry
 of the nucleus of strain problem in a semi-infinite medium. 
-The $j$th nucleus of strain is located at the coordinates 
-$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. 
-The $j$th image nucleus is located at the coordinates 
-$(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$.
-The distances from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain and to the $j$th image nucleus are, respectively,  
-$ {R_1}_{ij}$ (equation \ref{eq:R1})  and $ {R_2}_{ij}$ (equation \ref{eq:R2}).
-The horizontal plane $z = 0$ is called free surface.
- 
-Following the discrete form of the displacement solution (equation \ref{eq:displacement_ui}), 
-the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus at the coordinates $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ can be written as:
+The horizontal plane $z = 0$ is called "free surface".
+For convenience, the $x-$, $y-$ and $z-$components of the vectors ${\bf{u_{1}}}_{i}$ (equation \ref{eq:nucleus-u1}) and ${\bf{u_{2}}}_{i}$ (equation \ref{eq:nucleus-u2}) 
+can be explicitly defined as follows:
 \begin{equation}
-{\bf{u}}_{i} (x_i,y_i,z_i) = {\bf{u_{1}}}_{i} (x_i,y_i,z_i) + {\bf{u_{2}}}_{i} (x_i,y_i,z_i), 
-\label{eq:nucleus-ui_total}
-\end{equation}
-where ${\bf{u_{1}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{1}}}_{i} $ is the gradient of the function $\phi_1$ (equation \ref{eq:nucleus-phi1}) 
-\begin{equation}
-{\bf{u_{1}}}_{i}  = {\bf{\nabla}} \: {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \:
-= \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
-\: \Delta p_{j} \: \:dv_j
-\label{eq:nucleus-u1}
-\end{equation}
-and ${\bf{u_{2}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{2}}}_{i} $ is obtained by  applying the operator ${\bf{{\nabla}_{2}}}$ (equation \ref{eq:nabla2}) to the image potential $\phi_2$ (equation \ref{eq:nucleus-phi2})
-\begin{equation}
-{\bf{u_{2}}}_{i} = {\bf{{\nabla}_{2}}} \: {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})} \:  
-= \frac{A  \: (1 + \nu)}{E} \: 
-\bigg[ 
-(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
-+ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
-- 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
-\bigg]   \: \Delta p_{j}  \:dv_j , 
-\label{eq:nucleus-u2}
-\end{equation}
-where  $A$ is a constant given by: 
-\begin{equation}
-A = - \frac{C_m E}{4 \pi (1 + \nu)}.  
-\label{eq:nucleus-A}
-\end{equation}
-The elements  of the displacement vector ${\bf{u_{1}}}_{i}$ (equation \ref{eq:nucleus-u1}) are
-\begin{equation}
-{\bf{u_{1}}}_{i}  = 
-\begin{bmatrix} 
-{u_{1}}_x \\
-{u_{1}}_y \\
-{u_{1}}_z
-\end{bmatrix}
- = \frac{A  \: (1 + \nu)}{E} \: 
+{\bf{u_{1}}}_{ij} = 
+\frac{A  \: (1 + \nu)}{E} \: 
 \begin{bmatrix} 
 \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
- \: \Delta p_{j} \: \:dv_j \:  ,  
+ \: \Delta p_{j} \: \:dv_j
 \label{eq:nucleus-u1-vector}
 \end{equation}
-where ${u_{1}}_x$, ${u_{1}}_y$ and ${u_{1}}_z$ are the $x-$, $y-$  and $z-$ components
-of  ${\bf{u_{1}}}_{i} $ that gives the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space.
-
-The elements  of the displacement vector ${\bf{u_{2}}}_{i} $ (equation \ref{eq:nucleus-u2}) are
+and
 \begin{equation}
-{\bf{u_{2}}}_{i}  = 
-\begin{bmatrix} 
-{u_{2}}_x \\
-{u_{2}}_y \\
-{u_{2}}_z
-\end{bmatrix}
- = \frac{A  \: (1 + \nu)}{E} \: \left\{   (3  - 4 \nu)
+{\bf{u_{2}}}_{ij} = 
+\frac{A  \: (1 + \nu)}{E} \: \left\{   (3  - 4 \nu)
 \begin{bmatrix} 
   \: \frac{\partial }{\partial x} {\frac{1}{{R_2}_{ij}}}  \\
   \: \frac{\partial }{\partial y} {\frac{1}{{R_2}_{ij}}}  \\
@@ -401,56 +378,40 @@ The elements  of the displacement vector ${\bf{u_{2}}}_{i} $ (equation \ref{eq:n
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j,
+\: \Delta p_{j} \: \:dv_j \: .
 \label{eq:nucleus-u2-vector}
 \end{equation}
-where ${u_{2}}_x$, ${u_{2}}_y$ and ${u_{2}}_z$ are the $x-$, $y-$  and $z-$ components
-of  ${\bf{u_{2}}}_{i} $ that gives the correction of the displacements considering  a semi-space (image nucleus solution).
 
-By following \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \citep{Beltrami} and the equilibrium equations must be satisfied to obtain the contribution of the stress field in the half space. 
-The stress field  at the coordinates $x_i$, $y_i$ and $z_i$  due to the $j$th single nucleus of strain buried in the half space is given by
+By following \cite{Sharma56} and \cite{Tempone10}, 
+the stress vector 
+$\mbox{\boldmath$\sigma$}_{ij} \equiv \mbox{\boldmath$\sigma$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ 
+at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus of strain buried 
+in the half space is given by
 \begin{equation}
-\mbox{\boldmath$\sigma$}_{i}(x_i,y_i,z_i) = \mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) + 
-\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) \: ,
+\mbox{\boldmath$\sigma$}_{ij} = \mbox{\boldmath$\sigma_{1}$}_{ij} + 
+\mbox{\boldmath$\sigma_{2}$}_{ij} \: ,
 \label{eq:stress_nucleus}
 \end{equation}
-where $\mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) \equiv \mbox{\boldmath$\sigma_{1}$}_{i}$ represents the stress in an infinite medium, and 
-$\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) \equiv \mbox{\boldmath$\sigma_{2}$}_{i}$ represents a correction of the stress in a half-space due to an image nucleus.
-Besides the Beltrami’s equations \citep{Beltrami} and the equilibrium equations that must be satisfied, the following boundary conditions at the free surface ($z_i = 0$) must be satisfied, i.e.:
+where 
+$\mbox{\boldmath$\sigma_{1}$}_{ij} \equiv \mbox{\boldmath$\sigma_{1}$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ is the stress vector 
+at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus in the infinite space and $\mbox{\boldmath$\sigma_{2}$}_{ij} \equiv \mbox{\boldmath$\sigma_{2}$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ is the stress vector 
+at the point $(x_{i}, y_{i}, z_{i})$ that gives the correction of the stress due to the 
+$j$th image nucleus considering a semi-space. These two vectors are given by
 \begin{equation}
-\mbox{\boldmath$\sigma$}_{i}(x_i,y_i,0) = \mbox{\boldmath$\sigma_{1}$}(x_i,y_i,0) + 
-\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,0) \: = \: \mbox{ \boldmath$0$},
-\label{eq:null_stress}
-\end{equation}
-where $\mbox{ \boldmath$0$}$ is the null vector.
-The elements  of the stress vector $\mbox{\boldmath$\sigma_{1}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
-\begin{equation}
-\mbox{\boldmath$\sigma_{1}$}_{i}  = 
-\begin{bmatrix} 
-{\widehat{xz}_{1}} \\
-{\widehat{yz}_{1}}  \\
-{\widehat{zz}_{1}} 
-\end{bmatrix}
- = A  \: 
+\mbox{\boldmath$\sigma_{1}$}_{ij} =
+A  \: 
 \begin{bmatrix} 
 \frac{\partial^{2} }{\partial x \partial z} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial^{2} }{\partial y \partial z} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
- \: \Delta p_{j} \: \:dv_j \:  ,  
+\: \Delta p_{j} \: \:dv_j \: ,
 \label{eq:nucleus-stress1-vector}
 \end{equation}
-where ${\widehat{xz}_{1}}$, ${\widehat{yz}_{1}}$ and ${\widehat{zz}_{1}}$ are the $x-$, $y-$  and $z-$components
-of  $\mbox{\boldmath$\sigma_{1}$}_{i}$ that gives the stress in an infinite medium due to the $j$th nucleus of strain.
-The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
+and 
 \begin{equation}
-\mbox{\boldmath$\sigma_{2}$}_{i}  = 
-\begin{bmatrix} 
-{\widehat{xz}_{2}} \\
-{\widehat{yz}_{2}}  \\
-{\widehat{zz}_{2}} 
-\end{bmatrix}
-= A  \: 
+\mbox{\boldmath$\sigma_{2}$}_{ij} = 
+A  \: 
 \left\{
 \begin{bmatrix} 
 \frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}} \\
@@ -464,33 +425,32 @@ The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation 
 \frac{\partial^{3} }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j,
+\: \Delta p_{j} \: \:dv_j \: .
 \label{eq:nucleus-stress2-vector}
 \end{equation}
-where ${\widehat{xz}_{2}}$, ${\widehat{yz}_{2}}$ and ${\widehat{zz}_{2}}$ are the $x-$, $y-$  and $z-$components
-of  $\mbox{\boldmath$\sigma_{2}$}_{i}$ that gives the correction of the stress considering  a semi-space due to the $j$th image nucleus.
-By taking the elements of stress vectors $\mbox{\boldmath$\sigma_{1}$}_{i}$ and 
-$\mbox{\boldmath$\sigma_{2}$}_{i}$ at any point on the free surface $(x_i, y_i, z_i = 0)$, we obtain
+According to \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \citep{Beltrami} and the equilibrium equations must be satisfied to obtain the contribution of the stress field in the half space. 
+Additionally, the following boundary conditions at the free surface ($z_i = 0$) 
+must be satisfied
 \begin{equation}
-{\widehat{xz}_{1}} + {\widehat{xz}_{2}} 
-= {\widehat{yz}_{1}} + {\widehat{yz}_{2}}
-= {\widehat{zz}_{1}} + {\widehat{zz}_{2}}  
-= 0 \: ,
-\label{eq:null_stress_i}
+\mbox{\boldmath$\sigma$}_{ij} = \mbox{\boldmath$\sigma_{1}$}_{ij} + 
+\mbox{\boldmath$\sigma_{2}$}_{ij} = \mbox{ \boldmath$0$},
+\label{eq:null_stress}
 \end{equation}
-which satisfies the boundary conditions at the free surface 
-(equation \ref{eq:null_stress}).
+where $\mbox{ \boldmath$0$}$ is the null vector.
+This condition can be easily verified by adding the vectors 
+$\mbox{\boldmath$\sigma_{1}$}_{ij}$ (equation \ref{eq:nucleus-stress1-vector}) and 
+$\mbox{\boldmath$\sigma_{2}$}_{ij}$ (equation \ref{eq:nucleus-stress2-vector}) 
+computed at any point on the free surface $(x_i, y_i, z_i = 0)$.
 
 
 \subsection{The discrete displacement forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium} \label{u-model}
 
 
-We parameterized the reservoir as a grid of juxtaposed right rectangular prisms.
-Each grid prism has homogeneous pressure contrasts; however, pressure variations among different prisms are allowed. 
-To calculate the displacement due to the pressure change in the whole reservoir with this discretization model, we use the solution deduced for a single nucleus of strain in a homogeneous elastic semi-infinite medium (subsection \ref{solution-nucleus}) in the following way. 
-First, we assume that the coordinates of the $j$th prism center are the coordinates of a nucleus of strain.
-Next, the displacement field calculated at the $i$th coordinates  $(x_i$, $y_i, z_i)$  due to the pressure contrast of the $j$th prism is calculated with a integration over its volume.
-Then, from equation \ref{eq:nucleus-ui_total}, the displacement field produced by the $jth$ prism can be written as 
+We parameterize the reservoir as a grid of juxtaposed right rectangular prisms.
+Each grid prism has a constant pressure contrast $\Delta p_{j}$; however, pressure variations among different prisms are allowed. 
+To calculate the displacement field produced by the $jth$ prism
+at the $i$th coordinates  $(x_i$, $y_i, z_i)$, we integrate the solution deduced for a single nucleus of strain (equation \ref{eq:nucleus-ui_total})
+over its volume and obtain
 \begin{equation}
 {\bf{u}}_{i} (x_i,y_i,z_i) =  
 \int_{z_1}^{z_2} \:\:
@@ -498,20 +458,20 @@ Then, from equation \ref{eq:nucleus-ui_total}, the displacement field produced b
 \int_{x_1}^{x_2} 
 {\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
 \: + \:
-\int_{z_1}^{z_2} \:\:
+\int_{z_1 - 2 \, z_c}^{z_2 - 2 \, z_c} \:\:
 \int_{y_1}^{y_2} \:\: 
 \int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j.
+{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j \: ,
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
-
-In equation \ref{eq:nucleus-ui_jth_prism},  ${\bf{u_{1}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and $z_1$ and $z_2$ are their depths to the top and bottom.
-Additionally, ${\bf{u_{2}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the effect of an image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}). 
- 
-Note that the integrations in equation \ref{eq:nucleus-ui_jth_prism}, are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, denoting, respectively, the
-$x-, \: y-$, and $z-$coordinates of an arbitrary point belonging to the interior
-of the $j$th prism (or the $j$th image nucleus).
-Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir can be defined as the sum of the displacements yielded by each prism with constant pressure $\Delta p_{j}$:
+where the limits of the integrals are defined by the borders and the center 
+of the $j$th prism in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders; $z_1$ and $z_2$ are their depths to the top and bottom; and $z_c = \frac{1}{2}(z_1 + z_2)$ is its center depth. 
+In equation \ref{eq:nucleus-ui_jth_prism}, the integrations are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. 
+The integral depending on ${\bf{u_{1}}}_{i}$,
+the displacement field due to a single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), is conducted over the volume of the $j$th prism. The integral depending on ${\bf{u_{2}}}_{i}$,
+the displacement field due to the image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}), is conducted over the volume of a different prism
+symmetrically positioned above the free surface and conveniently called "image prism".
+Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir is defined as the sum of the displacements yielded by each prism with constant pressure $\Delta p_{j}$:
 \begin{equation}
 {\bf{\tilde{u}}}_{i} (x_i,y_i,z_i) = \sum_{j=1}^{M} 
 \int_{z_1}^{z_2} \:\:
@@ -527,41 +487,41 @@ Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due t
 \end{equation}
 where $M$ is the number of prisms setting up the reservoir model.
 
-From equation \ref{eq:nucleus-u1-vector},  we can get the   
-$\alpha-$components of the displacement vectors ${\bf{u_{1}}}_{i}$  (the integrand of the first integral of equation \ref{eq:nucleus-ui_M_prisms})
-\begin{equation}
-{u_{1}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[  \frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \Bigg] \: \Delta p_{j} \:\:\:  
-\label{eq:u1_alpha_component}
-\end{equation}
-where $\alpha$  belongs to the set of $ x-$ $y-$ and $z-$directions of the Cartesian coordinates system.
+%From equation \ref{eq:nucleus-u1-vector},  we can get the   
+%$\alpha-$components of the displacement vectors ${\bf{u_{1}}}_{i}$  (the integrand of the first integral of equation \ref{eq:nucleus-ui_M_prisms})
+%\begin{equation}
+%{u_{1}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[  \frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \Bigg] \: \Delta p_{j} \:\:\:  
+%\label{eq:u1_alpha_component}
+%\end{equation}
+%where $\alpha$  belongs to the set of $ x-$ $y-$ and $z-$directions of the Cartesian coordinates system.
 
-From equation  \ref{eq:nucleus-u2-vector}, we can get the $ x-$ and $y-$components of the displacement vectors ${\bf{u_{2}}}_{i}$  (the integrand of the second integral of equation \ref{eq:nucleus-ui_M_prisms})
-\begin{equation}
-{u_{2}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-(3  - 4 \nu)    \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\: 
-+ 2 \: z_{i} \:  
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-\Delta p_{j} ,
-\label{eq:u2_alpha_component}
-\end{equation}
-where  $\alpha$  belongs to the set of $ x-$ and $y-$directions, and the $z-$component of the displacement vectors ${\bf{u_{2}}}_{i}$  
-\begin{equation}
-{u_{2}}_z =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-\: - (3  - 4 \nu)  \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
-+ 2 \: z_{i} \:  
-\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-\Delta p_{j}
-\label{eq:u2_z_component}
-\end{equation}
+%From equation  \ref{eq:nucleus-u2-vector}, we can get the $ x-$ and $y-$components of the displacement vectors ${\bf{u_{2}}}_{i}$  (the integrand of the second integral of equation \ref{eq:nucleus-ui_M_prisms})
+%\begin{equation}
+%{u_{2}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
+%(3  - 4 \nu)    \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\: 
+%+ 2 \: z_{i} \:  
+%\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
+%\Delta p_{j} ,
+%\label{eq:u2_alpha_component}
+%\end{equation}
+%where  $\alpha$  belongs to the set of $ x-$ and $y-$directions, and the $z-$component of the displacement vectors ${\bf{u_{2}}}_{i}$  
+%\begin{equation}
+%{u_{2}}_z =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
+%\: - (3  - 4 \nu)  \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
+%+ 2 \: z_{i} \:  
+%\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
+%\Delta p_{j}
+%\label{eq:u2_z_component}
+%\end{equation}
 
 
-Equation \ref{eq:u1_alpha_component} shows that the $\alpha-$component of the displacement vector ${\bf{u_{1}}}_{i}$  depends on the first derivative of ${\frac{1}{{R_1}_{ij}}}$  
-with respect to the variable $\alpha$.
-Conversely, the $\alpha-$component of the displacement vector ${\bf{u_{2}}}_{i}$  
-(equation \ref{eq:u2_alpha_component}) depends not only on the first derivative of 
-${\frac{1}{{R_2}_{ij}}}$  with respect to the variable $\alpha$ but also on the second derivative of ${\frac{1}{{R_2}_{ij}}}$  with respect to the variables $\alpha$ and $z$.
+%Equation \ref{eq:u1_alpha_component} shows that the $\alpha-$component of the displacement vector ${\bf{u_{1}}}_{i}$  depends on the first derivative of ${\frac{1}{{R_1}_{ij}}}$  
+%with respect to the variable $\alpha$.
+%Conversely, the $\alpha-$component of the displacement vector ${\bf{u_{2}}}_{i}$  
+%(equation \ref{eq:u2_alpha_component}) depends not only on the first derivative of 
+%${\frac{1}{{R_2}_{ij}}}$  with respect to the variable $\alpha$ but also on the second derivative of ${\frac{1}{{R_2}_{ij}}}$  with respect to the variables $\alpha$ and $z$.
 
-By substituting equations \ref{eq:u1_alpha_component} $-$ \ref{eq:u2_z_component} into equation \ref{eq:nucleus-ui_M_prisms}, we can obtain, respectively,  the $\alpha-$component (where  $\alpha = x$ and $y$) and the $z-$ component of the displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir, i.e.:
+By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_M_prisms}, we obtain the components of the displacement field ${\bf{\tilde{u}}}_{i} (x_i,y_i,z_i)$ due to the pressure change in the whole reservoir, i.e.:
 \begin{equation}
 {\tilde{u}}_{{i}_\alpha} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
 \: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
@@ -570,10 +530,10 @@ By substituting equations \ref{eq:u1_alpha_component} $-$ \ref{eq:u2_z_component
 (3  - 4 \nu)  \int\int\limits_{v_j}\int
 \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\:  dv_j
 + \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
+\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j \: , 
 \label{eq:u_til_alpha}
 \end{equation}
-and 
+and
 \begin{equation}
 {\tilde{u}}_{{i}_z} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
 \: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
@@ -581,10 +541,10 @@ and
 \: - \: (3  - 4 \nu)  \int\int\limits_{v_j}\int
 \: \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\:  dv_j
 + \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
+\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j \: , 
 \label{eq:u_til_z}
 \end{equation}
-where $dv_j$ is the $j$th element of volume of the $j$th prism whose volume is $v_j$.
+where $\alpha = x, y$, $dv_j$ is the $j$th element of volume of the $j$th prism whose volume is $v_j$.
 
 
 In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals are equal to  quantities of the gravitational attraction produced by the $j$th prism considering that 
