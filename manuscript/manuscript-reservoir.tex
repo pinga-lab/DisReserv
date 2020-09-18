@@ -449,110 +449,66 @@ computed at any point on the free surface $(x_i, y_i, z_i = 0)$.
 We parameterize the reservoir as a grid of juxtaposed right rectangular prisms.
 Each grid prism has a constant pressure contrast $\Delta p_{j}$; however, pressure variations among different prisms are allowed. 
 To calculate the displacement field produced by the $jth$ prism
-at the $i$th coordinates  $(x_i$, $y_i, z_i)$, we integrate the solution deduced for a single nucleus of strain (equation \ref{eq:nucleus-ui_total})
+at the $i$th coordinates  $(x_i$, $y_i, z_i)$, we integrate the solution deduced for a single nucleus of strain (equation \ref{eq:displacement_ui})
 over its volume and obtain
 \begin{equation}
-{\bf{u}}_{i} (x_i,y_i,z_i) =  
+{\bf{\tilde{u}}}_{ij} = 
 \int_{z_1}^{z_2} \:\:
 \int_{y_1}^{y_2} \:\: 
 \int_{x_1}^{x_2} 
-{\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
+{\bf{u_{1}}}_{ij} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
 \: + \:
 \int_{z_1 - 2 \, z_c}^{z_2 - 2 \, z_c} \:\:
 \int_{y_1}^{y_2} \:\: 
 \int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j \: ,
+{\bf{u_{2}}}_{ij} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j \: ,
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
 where the limits of the integrals are defined by the borders and the center 
 of the $j$th prism in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders; $z_1$ and $z_2$ are their depths to the top and bottom; and $z_c = \frac{1}{2}(z_1 + z_2)$ is its center depth. 
 In equation \ref{eq:nucleus-ui_jth_prism}, the integrations are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. 
-The integral depending on ${\bf{u_{1}}}_{i}$,
-the displacement field due to a single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), is conducted over the volume of the $j$th prism. The integral depending on ${\bf{u_{2}}}_{i}$,
+The integral depending on ${\bf{u_{1}}}_{ij}$,
+the displacement field due to a single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), is conducted over the volume of the $j$th prism. The integral depending on ${\bf{u_{2}}}_{ij}$,
 the displacement field due to the image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}), is conducted over the volume of a different prism
 symmetrically positioned above the free surface and conveniently called "image prism".
-Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir is defined as the sum of the displacements yielded by each prism with constant pressure $\Delta p_{j}$:
+
+By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_jth_prism}, we obtain the components of the displacement vector ${\bf{\tilde{u}}}_{ij}$ due to the pressure change in the $j$th prism, i.e.:
 \begin{equation}
-{\bf{\tilde{u}}}_{i} (x_i,y_i,z_i) = \sum_{j=1}^{M} 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
-\: + \: 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j, 
-\label{eq:nucleus-ui_M_prisms}
-\end{equation}
-where $M$ is the number of prisms setting up the reservoir model.
-
-%From equation \ref{eq:nucleus-u1-vector},  we can get the   
-%$\alpha-$components of the displacement vectors ${\bf{u_{1}}}_{i}$  (the integrand of the first integral of equation \ref{eq:nucleus-ui_M_prisms})
-%\begin{equation}
-%{u_{1}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[  \frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \Bigg] \: \Delta p_{j} \:\:\:  
-%\label{eq:u1_alpha_component}
-%\end{equation}
-%where $\alpha$  belongs to the set of $ x-$ $y-$ and $z-$directions of the Cartesian coordinates system.
-
-%From equation  \ref{eq:nucleus-u2-vector}, we can get the $ x-$ and $y-$components of the displacement vectors ${\bf{u_{2}}}_{i}$  (the integrand of the second integral of equation \ref{eq:nucleus-ui_M_prisms})
-%\begin{equation}
-%{u_{2}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-%(3  - 4 \nu)    \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\: 
-%+ 2 \: z_{i} \:  
-%\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-%\Delta p_{j} ,
-%\label{eq:u2_alpha_component}
-%\end{equation}
-%where  $\alpha$  belongs to the set of $ x-$ and $y-$directions, and the $z-$component of the displacement vectors ${\bf{u_{2}}}_{i}$  
-%\begin{equation}
-%{u_{2}}_z =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-%\: - (3  - 4 \nu)  \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
-%+ 2 \: z_{i} \:  
-%\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-%\Delta p_{j}
-%\label{eq:u2_z_component}
-%\end{equation}
-
-
-%Equation \ref{eq:u1_alpha_component} shows that the $\alpha-$component of the displacement vector ${\bf{u_{1}}}_{i}$  depends on the first derivative of ${\frac{1}{{R_1}_{ij}}}$  
-%with respect to the variable $\alpha$.
-%Conversely, the $\alpha-$component of the displacement vector ${\bf{u_{2}}}_{i}$  
-%(equation \ref{eq:u2_alpha_component}) depends not only on the first derivative of 
-%${\frac{1}{{R_2}_{ij}}}$  with respect to the variable $\alpha$ but also on the second derivative of ${\frac{1}{{R_2}_{ij}}}$  with respect to the variables $\alpha$ and $z$.
-
-By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_M_prisms}, we obtain the components of the displacement field ${\bf{\tilde{u}}}_{i} (x_i,y_i,z_i)$ due to the pressure change in the whole reservoir, i.e.:
-\begin{equation}
-{\tilde{u}}_{{i}_\alpha} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
+{\tilde{u}}_{{ij}_\alpha} = \frac{A  \: (1 + \nu)}{E} 
+\: \Delta p_{j}  \: \left[ \int\int\limits_{v_j}\int 
 \frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
 \: + \: 
 (3  - 4 \nu)  \int\int\limits_{v_j}\int
 \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\:  dv_j
 + \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j \: , 
+\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j 
+\right] \: , 
 \label{eq:u_til_alpha}
 \end{equation}
 and
 \begin{equation}
-{\tilde{u}}_{{i}_z} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
+{\tilde{u}}_{{ij}_z} = \frac{A  \: (1 + \nu)}{E} 
+\: \Delta p_{j}  \: \left[ \int\int\limits_{v_j}\int 
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
 \: - \: (3  - 4 \nu)  \int\int\limits_{v_j}\int
 \: \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\:  dv_j
 + \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j \: , 
+\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j 
+\right] \: , 
 \label{eq:u_til_z}
 \end{equation}
-where $\alpha = x, y$, $dv_j$ is the $j$th element of volume of the $j$th prism whose volume is $v_j$.
+where $\alpha = x, y$ and $dv_j$ is the $j$th element of volume of the $j$th prism 
+whose volume is $v_j$.
+In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals have the same form of derivatives of the gravitational field produced by the 
+$j$th prism. 
+The first integral corresponds to the $\alpha-$component of the gravitational attraction 
+produced by the $j$th prism.
+The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravitational 
+gradient tensor produced by the $j$th image prism. 
+The similarity between the displacement fields due to a volume source in a half-space and the gravitational field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}).  
 
+PAREI AQUI
 
-In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals are equal to  quantities of the gravitational attraction produced by the $j$th prism considering that 
-$\Delta p_{j}$ is the density of the $j$th prism and the constants are equivalent to the gravitational constant. 
-The first integral corresponds to the $\alpha-$component of the gravitational attraction produced by the $j$th prism.
-The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravity gradient tensor produced by the $j$th image nucleus. 
-
-The similarity between the displacement fields due to a volume source in a half-space and the gravity field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}).  
 
 The first integral in the right-hand side of equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}  is the first derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $x$, $y$ and $z$ which are, respectively, given by the following closed expressions: 
 \begin{equation}
@@ -625,6 +581,15 @@ The third integral in the right-hand side of  equations  \ref{eq:u_til_alpha}  a
 \end{equation}
 where the variable $z$ is given by equations \ref{z_image}  and \ref{z_c}.
 
+% Displacement produced by the whole reservoir 
+Finally, the displacement field at the point $(x_i, y_i, z_i)$ due to the pressure change in the whole reservoir is defined as the sum of the displacements 
+${\bf{u}}_{ij}$ (equation \ref{eq:nucleus-ui_jth_prism}) yielded by each prism 
+with constant pressure $\Delta p_{j}$:
+\begin{equation}
+{\bf{\tilde{u}}}_{ij} = \sum_{j=1}^{M} {\bf{u}}_{ij} \: ,
+\label{eq:nucleus-ui_M_prisms}
+\end{equation}
+where $M$ is the number of prisms setting up the reservoir model.
 The horizontal displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir is calculated by 
 \begin{equation}
 {\tilde{u}}_{{i}_h} = \sqrt{ {\tilde{u}}_{{i}_x}^{2}  +  {\tilde{u}}_{{i}_y}^{2} }  
