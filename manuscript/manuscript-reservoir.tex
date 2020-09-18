@@ -124,20 +124,37 @@
 %%\twocolumn
 \begin{abstract}
 We have presented analytical solutions for the displacement due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes.
-These solutions are based on the similarity between the gravitational potential yielded by  a volume source under a density variation and the displacement field yielded by a volume source in a half-space under a pressure variation.
-This similarity enables the use of closed expressions of the gravitational potential and its derivatives for calculating the displacement field due to a volume source under a pressure variation.
-We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in the horizontal and vertical directions.
-Each prism has homogeneous pressure; however, pressure variations among different prisms are allowed. 
-This parametrization of the reservoir yields a piecewise-constant distribution of pressure  in the subsurface. 
-The discrete reservoir modeling to calculate the displacement field due to this pressure variation  follows the nucleus-of-strain concept in which the center of each prism represents the coordinate of a nucleus of strain.
-The displacement due to a nucleus of strain is considered the infinitesimal element of the 
-displacement due to an infinitesimal reservoir.
-The displacement field due to the pressure of each prism is calculated by integrating the infinitesimal element of the displacement over the volume of the prism.
-Finally, the displacement due to the reservoir can be approximated by the sum of the contributions of each prism of the discretized model.
-We provide python codes (DisReserv) to calculate the displacement fields due to a reservoir with arbitrary shape and distribution of pressure changes. 
-The displacement field is calculated inside and outside the reservoir. 
-We calculate the displacement fields in three scenarios: i) cylindrical reservoir under uniform depletion; ii) cylindrical reservoir under non uniform depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure distribution.
-By calculating the  stress field at the free surface, we verify that the zero stress condition is satisfied.
+These solutions are based on the similarity between the gravitational potential yielded 
+by a volume source under a density variation and the thermoelastic displacement 
+potential yielded by a volume source in a half-space under a pressure variation.
+This similarity enables the use of closed expressions of the gravitational potential 
+and its derivatives for calculating the displacement and stress fields due to a volume 
+source under a pressure variation.
+We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in 
+the horizontal and vertical directions.
+Each prism has homogeneous pressure; however, pressure variations among different 
+prisms are allowed. 
+This parametrization of the reservoir yields a piecewise-constant distribution of 
+pressure in the subsurface. 
+The discrete reservoir modeling to calculate the displacement and stress fields due to 
+this pressure variation follows the nucleus-of-strain concept, in which the center of 
+each prism represents the coordinate of a nucleus of strain.
+The nucleus of strain is considered an infinitesimal reservoir volume element.
+The displacement and stress fields due each prism are calculated by integrating the 
+nucleus of strain over the volume of the prism.
+Finally, the displacement and stress due to the reservoir are computed by the sum of 
+the contributions of each prism.
+We provide a Python implementation (DisReserv) of our method to calculate the 
+displacement and stress fields due to a reservoir with arbitrary shape and distribution 
+of pressure changes. 
+Our expressions are valid both inside and outside the reservoir. 
+We calculate the displacement and stress fields in three scenarios: i) cylindrical 
+reservoir under uniform depletion; ii) cylindrical reservoir under non uniform
+depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure 
+distribution.
+The results obtained for the three scenarios show that the Beltrami's and equilibrium 
+equations are satisfied, which means that our method produces null stress field 
+components at the free surface.
 \end{abstract}
 
 
@@ -197,7 +214,7 @@ Tests with synthetic data validate our approach.
 
 The subsidence or displacement, stress and strain fields in the subsurface caused by reservoir compactation due to hydrocarbon production are grounded on the theory of thermoelasticity. 
 
-The Goodier’s thermoelastic displacement potential $\phi$ satifies the Poisson's equation \citep{Goodier37}, i.e.:
+The Goodier’s thermoelastic displacement potential $\phi$ satisfies the Poisson's equation \citep{Goodier37}, i.e.:
 \begin{equation}
 \nabla^{2} \phi =  m \: T,
 \label{eq:poisson}
