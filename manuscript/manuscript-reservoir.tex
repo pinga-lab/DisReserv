@@ -226,7 +226,7 @@ where $\alpha$ is the coefficient of linear thermal expansion and $\nu$ is the P
 
 From the potential theory, a particular solution of equation \ref{eq:poisson} is
 \begin{equation}
-\phi(x,y,z) = -  \frac{m}{4 \pi} \int\int\limits_{v}\int \frac{T(x^{\prime}, y^{\prime}, z^{\prime} )}{\sqrt{(x - x^{\prime})^{2} + (y - y^{\prime})^{2} + (z - z^{\prime})^{2}}} \: dv,
+\phi(x,y,z) = -  \frac{m}{4 \pi} \int\int\limits_{v}\int \frac{T(x^{\prime}, y^{\prime}, z^{\prime} )}{\sqrt{(x - x^{\prime})^{2} + (y - y^{\prime})^{2} + (z - z^{\prime})^{2}}} \: dv^{\prime},
 \label{eq:phi}
 \end{equation}
 where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} that would be produced at the coordinates $x, y$ and $z$ by a continuous density distribution $- \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} )$. 
@@ -293,12 +293,12 @@ is the correction of the displacements considering a semi-space (image nucleus s
 The term ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
 {\bf{u_{1}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
-\: \Delta p_{j} \: \:dv_j
+\: \Delta p_{j} \: \:dv_j^{\prime}
 \label{eq:nucleus-u1}
 \end{equation}
 and represents the gradient of the potential
 \begin{equation}
-\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_1}_{ij} } \: .
+\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j^{\prime}}{ {R_1}_{ij} } \: .
 \label{eq:nucleus-phi1}
 \end{equation}
 The term ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
@@ -308,20 +308,21 @@ The term ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 (3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
 + 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
 - 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
-\bigg]   \: \Delta p_{j}  \:dv_j
+\bigg]   \: \Delta p_{j}  \:dv_j^{\prime}
 \label{eq:nucleus-u2}
 \end{equation}
 and is obtained by applying the operator ${\bf{{\nabla}_{2}}}$ (equation 
 \ref{eq:nabla2}) to the image potential
 \begin{equation}
-\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_2}_{ij} } \: .
+\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j^{\prime}}{ {R_2}_{ij} } \: .
 \label{eq:nucleus-phi2}
 \end{equation}
 In equations \ref{eq:nucleus-u1}--\ref{eq:nucleus-phi2}, 
 all derivatives are computed with respect to the coordinates of the point 
 $(x_{i}, y_{i}, z_{i})$, 
-$\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j$ is an 
-infinitesimal element of volume of the $j$th nucleus, $A$ is the constant
+$\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j^{\prime}$ is an 
+infinitesimal element of volume centered at the $j$th nucleus of strain 
+$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, $A$ is the constant
 \begin{equation}
 A = - \frac{C_m E}{4 \pi (1 + \nu)} \: ,
 \label{eq:nucleus-A}
@@ -359,7 +360,7 @@ can be explicitly defined as follows:
 \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
- \: \Delta p_{j} \: \:dv_j
+ \: \Delta p_{j} \: \:dv_j^{\prime}
 \label{eq:nucleus-u1-vector}
 \end{equation}
 and
@@ -378,7 +379,7 @@ and
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j \: .
+\: \Delta p_{j} \: \:dv_j^{\prime} \: .
 \label{eq:nucleus-u2-vector}
 \end{equation}
 
@@ -405,7 +406,7 @@ A  \:
 \frac{\partial^{2} }{\partial y \partial z} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
-\: \Delta p_{j} \: \:dv_j \: ,
+\: \Delta p_{j} \: \:dv_j^{\prime} \: ,
 \label{eq:nucleus-stress1-vector}
 \end{equation}
 and 
@@ -425,7 +426,7 @@ A  \:
 \frac{\partial^{3} }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j \: .
+\: \Delta p_{j} \: \:dv_j^{\prime} \: .
 \label{eq:nucleus-stress2-vector}
 \end{equation}
 According to \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \citep{Beltrami} and the equilibrium equations must be satisfied to obtain the contribution of the stress field in the half space. 
@@ -448,91 +449,106 @@ computed at any point on the free surface $(x_i, y_i, z_i = 0)$.
 
 We parameterize the reservoir as a grid of juxtaposed right rectangular prisms.
 Each grid prism has a constant pressure contrast $\Delta p_{j}$; however, pressure variations among different prisms are allowed. 
-To calculate the displacement field produced by the $jth$ prism
+To calculate the displacement field produced by the $j$th prism
 at the $i$th coordinates  $(x_i$, $y_i, z_i)$, we integrate the solution deduced for a single nucleus of strain (equation \ref{eq:displacement_ui})
 over its volume and obtain
 \begin{equation}
 {\bf{\tilde{u}}}_{ij} = 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{1}}}_{ij} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
+\iiint\limits_{{v_{1}}_{j}}
+{\bf{u_{1}}}_{ij} \: \:  dv_{j}^{\prime}
 \: + \:
-\int_{z_1 - 2 \, z_c}^{z_2 - 2 \, z_c} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{ij} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j \: ,
+\iiint\limits_{{v_{2}}_{j}}
+{\bf{u_{2}}}_{ij} \:\:  dv_{j}^{\prime} \: ,
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
-where the limits of the integrals are defined by the borders and the center 
-of the $j$th prism in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders; $z_1$ and $z_2$ are their depths to the top and bottom; and $z_c = \frac{1}{2}(z_1 + z_2)$ is its center depth. 
-In equation \ref{eq:nucleus-ui_jth_prism}, the integrations are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. 
-The integral depending on ${\bf{u_{1}}}_{ij}$,
-the displacement field due to a single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), is conducted over the volume of the $j$th prism. The integral depending on ${\bf{u_{2}}}_{ij}$,
-the displacement field due to the image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}), is conducted over the volume of a different prism
-symmetrically positioned above the free surface and conveniently called "image prism".
-
-By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_jth_prism}, we obtain the components of the displacement vector ${\bf{\tilde{u}}}_{ij}$ due to the pressure change in the $j$th prism, i.e.:
+where both integrals are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, but the first is conducted over the volume ${v_{1}}_{j}$ of the $j$th prism and the second is conducted over the volume 
+${v_{2}}_{j}$ of a different prism symmetrically positioned above the free surface 
+and conveniently called $j$th "image prism".
+Volume ${v_{1}}_{j}$ is defined by ${x_1}_{j}$, ${x_2}_{j}$, ${y_1}_{j}$, ${y_2}_{j}$,
+${z_1}_{j}$, and ${z_2}_{j}$, which represent, respectively, the south, north, west, 
+east, top, and bottom borders of the $j$th prism.
+Volume ${v_{2}}_{j}$ of the $j$th image prism is defined in a similar way, but with 
+top and bottom borders given by $z_1 - 2 \, z_c$ and $z_2 - 2 \, z_c$, where 
+$z_c = \frac{1}{2}(z_1 + z_2)$ is the center depth of the $j$th prism.
+By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_jth_prism}, we obtain
 \begin{equation}
 {\tilde{u}}_{{ij}_\alpha} = \frac{A  \: (1 + \nu)}{E} 
-\: \Delta p_{j}  \: \left[ \int\int\limits_{v_j}\int 
-\frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
+\: \Delta p_{j}  \: \left[ \iiint\limits_{{v_{1}}_{j}} 
+\frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \:  dv_{j}^{\prime} 
 \: + \: 
-(3  - 4 \nu)  \int\int\limits_{v_j}\int
+(3  - 4 \nu)  \iiint\limits_{{v_{2}}_{j}}
 \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j 
++ \: 2 \: z_{i} \:  \iiint\limits_{{v_{2}}_{j}}
+\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_{j}^{\prime} 
 \right] \: , 
 \label{eq:u_til_alpha}
 \end{equation}
-and
+where $\alpha = x, y$, and
 \begin{equation}
 {\tilde{u}}_{{ij}_z} = \frac{A  \: (1 + \nu)}{E} 
-\: \Delta p_{j}  \: \left[ \int\int\limits_{v_j}\int 
+\: \Delta p_{j}  \: \left[ \iiint\limits_{{v_{1}}_{j}}
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
-\: - \: (3  - 4 \nu)  \int\int\limits_{v_j}\int
+\: - \: (3  - 4 \nu)  \iiint\limits_{{v_{2}}_{j}}
 \: \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
++ \: 2 \: z_{i} \:  \iiint\limits_{{v_{2}}_{j}}
 \frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j 
-\right] \: , 
+\right] \: .
 \label{eq:u_til_z}
 \end{equation}
-where $\alpha = x, y$ and $dv_j$ is the $j$th element of volume of the $j$th prism 
-whose volume is $v_j$.
-In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals have the same form of derivatives of the gravitational field produced by the 
+In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals have the same form of derivatives of the gravitational potential produced by the 
 $j$th prism. 
 The first integral corresponds to the $\alpha-$component of the gravitational attraction 
 produced by the $j$th prism.
 The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravitational 
 gradient tensor produced by the $j$th image prism. 
-The similarity between the displacement fields due to a volume source in a half-space and the gravitational field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}).  
-
-PAREI AQUI
-
-
-The first integral in the right-hand side of equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}  is the first derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $x$, $y$ and $z$ which are, respectively, given by the following closed expressions: 
+The similarity between the displacement fields due to a volume source in a half-space and the gravitational field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism.  
+In equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the integrals depending on 
+first derivatives of ${\frac{1}{{R_1}_{ij}}}$ have the following closed solutions 
+\citep{Nagyetal2000, Nagyetal2002}:
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg| 
 y \ln(z + {R_1}) + z \ln(y + {R_1}) -  x  \tan^{-1} \Bigg( \frac{yz}{x \:{R_1}} \Bigg) 
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dx1}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
 x \ln(z + {R_1}) + z \ln(x + {R_1}) -  y  \tan^{-1} \Bigg( \frac{xz}{y \:{R_1}} 
 \Bigg)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dy1}
 \end{equation}
+and
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
 x \ln(y + {R_1}) + y \ln(x + {R_1}) -  z  \tan^{-1} \Bigg( \frac{xy}{z \:{R_1}} \Bigg) 
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dz1}
 \end{equation}
+where all derivatives are computed with respect to the coordinates of the $i$th point 
+$(x_i, y_i, z_i)$, ${R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$, and
+\begin{equation}
+\begin{array}{ll}
+{X_1}_{j} &= x_i - {x_1}_{j} \\
+{X_2}_{j} &= x_i - {x_2}_{j} \\
+{Y_1}_{j} &= y_i - {y_1}_{j} \\
+{Y_2}_{j} &= y_i - {y_2}_{j} \\
+{Z_1}_{j} &= z_i - {z_1}_{j} \\
+{Z_2}_{j} &= z_i - {z_2}_{j}
+\end{array} \quad .
+\label{eq:Nagy_solutions_1}
+\end{equation}
+
+
+
+PAREI AQUI 
+
 For simplicity,  we omit the subscripts $i$ and $j$ in equations \ref{dx1} $-$ \ref{dz1}; hence, the variables $x$, $y$ and $z$  are relative coordinates of the $i$th point of the displacement referred to the coordinates to the corner of the $j$th prism modeling the reservoir, i.e.,  $x = x_j - x_i $, $\: y = y_j - y_i $, $\: z = z_j - z_i $ and 
 $\: {R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$.
 In equations \ref{dx1} $-$ \ref{dz1}, the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and 
