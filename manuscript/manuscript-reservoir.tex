@@ -289,7 +289,7 @@ $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \label{eq:displacement_ui}
 \end{equation}
 where ${\bf{u_{1}}}_{ij}$ is the displacement vector at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus in the infinite space and ${\bf{u_{2}}}_{ij}$ 
-is the correction of the displacements considering a semi-space (image nucleus solution).
+is the correction of the displacement considering a semi-space (image nucleus solution).
 The term ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
 {\bf{u_{1}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
@@ -350,7 +350,7 @@ In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th 
 Figure \ref{fig:nucleus_strain} shows a schematic representation of the geometry
 of the nucleus of strain problem in a semi-infinite medium. 
 The horizontal plane $z = 0$ is called "free surface".
-For convenience, the $x-$, $y-$ and $z-$components of the vectors ${\bf{u_{1}}}_{i}$ (equation \ref{eq:nucleus-u1}) and ${\bf{u_{2}}}_{i}$ (equation \ref{eq:nucleus-u2}) 
+The $x-$, $y-$ and $z-$components of the vectors ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:nucleus-u1}) and ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:nucleus-u2}) 
 can be explicitly defined as follows:
 \begin{equation}
 {\bf{u_{1}}}_{ij} = 
@@ -461,16 +461,20 @@ over its volume and obtain
 {\bf{u_{2}}}_{ij} \:\:  dv_{j}^{\prime} \: ,
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
-where both integrals are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, but the first is conducted over the volume ${v_{1}}_{j}$ of the $j$th prism and the second is conducted over the volume 
+where both integrals are conducted with respect to the variables 
+$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. The first integral in equation 
+\ref{eq:nucleus-ui_jth_prism} is conducted over the volume ${v_{1}}_{j}$ of the $j$th
+prism and the second is conducted over the volume 
 ${v_{2}}_{j}$ of a different prism symmetrically positioned above the free surface 
 and conveniently called $j$th "image prism".
 Volume ${v_{1}}_{j}$ is defined by ${x_1}_{j}$, ${x_2}_{j}$, ${y_1}_{j}$, ${y_2}_{j}$,
 ${z_1}_{j}$, and ${z_2}_{j}$, which represent, respectively, the south, north, west, 
 east, top, and bottom borders of the $j$th prism.
 Volume ${v_{2}}_{j}$ of the $j$th image prism is defined in a similar way, but with 
-top and bottom borders given by $z_1 - 2 \, z_c$ and $z_2 - 2 \, z_c$, where 
+top and bottom given by $z_1 - 2 \, z_c$ and $z_2 - 2 \, z_c$, where 
 $z_c = \frac{1}{2}(z_1 + z_2)$ is the center depth of the $j$th prism.
-By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} into equation \ref{eq:nucleus-ui_jth_prism}, we obtain
+By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} 
+into equation \ref{eq:nucleus-ui_jth_prism}, we obtain
 \begin{equation}
 {\tilde{u}}_{{ij}_\alpha} = \frac{A  \: (1 + \nu)}{E} 
 \: \Delta p_{j}  \: \left[ \iiint\limits_{{v_{1}}_{j}} 
@@ -502,6 +506,7 @@ produced by the $j$th prism.
 The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravitational 
 gradient tensor produced by the $j$th image prism. 
 The similarity between the displacement fields due to a volume source in a half-space and the gravitational field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism.  
+
 In equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the integrals depending on 
 first derivatives of ${\frac{1}{{R_1}_{ij}}}$ have the following closed solutions 
 \citep{Nagyetal2000, Nagyetal2002}:
@@ -509,7 +514,7 @@ first derivatives of ${\frac{1}{{R_1}_{ij}}}$ have the following closed solution
 \int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
 \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg| 
-y \ln(z + {R_1}) + z \ln(y + {R_1}) -  x  \tan^{-1} \Bigg( \frac{yz}{x \:{R_1}} \Bigg) 
+y \ln(z + R) + z \ln(y + R) -  x  \tan^{-1} \Bigg( \frac{yz}{x \: R} \Bigg) 
 \Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dx1}
 \end{equation}
@@ -517,7 +522,7 @@ y \ln(z + {R_1}) + z \ln(y + {R_1}) -  x  \tan^{-1} \Bigg( \frac{yz}{x \:{R_1}} 
 \int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
 \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-x \ln(z + {R_1}) + z \ln(x + {R_1}) -  y  \tan^{-1} \Bigg( \frac{xz}{y \:{R_1}} 
+x \ln(z + R) + z \ln(x + R) -  y  \tan^{-1} \Bigg( \frac{xz}{y \: R} 
 \Bigg)
 \Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dy1}
@@ -527,12 +532,12 @@ and
 \int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-x \ln(y + {R_1}) + y \ln(x + {R_1}) -  z  \tan^{-1} \Bigg( \frac{xy}{z \:{R_1}} \Bigg) 
+x \ln(y + R) + y \ln(x + R) -  z  \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg) 
 \Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dz1}
 \end{equation}
 where all derivatives are computed with respect to the coordinates of the $i$th point 
-$(x_i, y_i, z_i)$, ${R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$, and
+$(x_i, y_i, z_i)$, $R = \sqrt{x^{2} + y^{2} + z^{2}}$, and
 \begin{equation}
 \begin{array}{ll}
 {X_1}_{j} &= x_i - {x_1}_{j} \\
@@ -542,76 +547,94 @@ $(x_i, y_i, z_i)$, ${R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$, and
 {Z_1}_{j} &= z_i - {z_1}_{j} \\
 {Z_2}_{j} &= z_i - {z_2}_{j}
 \end{array} \quad .
-\label{eq:Nagy_solutions_1}
+\label{eq:Nagy_limits_1}
 \end{equation}
-
-
-
-PAREI AQUI 
-
-For simplicity,  we omit the subscripts $i$ and $j$ in equations \ref{dx1} $-$ \ref{dz1}; hence, the variables $x$, $y$ and $z$  are relative coordinates of the $i$th point of the displacement referred to the coordinates to the corner of the $j$th prism modeling the reservoir, i.e.,  $x = x_j - x_i $, $\: y = y_j - y_i $, $\: z = z_j - z_i $ and 
-$\: {R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$.
-In equations \ref{dx1} $-$ \ref{dz1}, the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and 
-$z_1$ and $z_2$ are their depths to the top and bottom.
-\cite{Nagyetal2000} and (\citeyear{Nagyetal2002}) provided limit values of integrals shown in equations \ref{dx1} $-$ \ref{dz1} when the computation point coincides with the corner of the prism.
-
-The second and third integrals in the right-hand side of equations  \ref{eq:u_til_alpha}  and \ref{eq:u_til_z} are related with the correction of the displacements considering  a semi-space (image nucleus solution).
-These integrals depend on the distance ${R_2}_{ij}$ from the $i$th coordinate point of the displacement to the $j$th image nucleus.
-Likewise, $\: {R_2} = \sqrt{x^{2} + y^{2} + z^{2}}$; however, the variable $z$  that represents the relative coordinate of the $i$th point of the displacement referred to the coordinates to the corner of the $j$th image nucleus is given by
+The remaining integrals depending on first and second derivatives 
+of ${\frac{1}{{R_2}_{ij}}}$ in the right-hand side of equations 
+\ref{eq:u_til_alpha} and \ref{eq:u_til_z} are conducted over the volume 
+${v_{2}}_{j}$ of the $j$th image prism and have the following closed solutions 
+\citep{Nagyetal2000, Nagyetal2002}:
 \begin{equation}
-z = z_j - z_i - 2 z_c
-\label{z_image}
-\end{equation}
-where  $z_c$ is the $z-$coordinate of the $j$th image nucleus
-\begin{equation}
-z_c = 0.5 (z_1 + z_2)
-\label{z_c}
-\end{equation}
-
-The second integral in the right-hand side of  equations  \ref{eq:u_til_alpha} and  \ref{eq:u_til_z} is the first derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $x$, $y$ and $z$.
-These derivatives are equal to equations \ref{dx1} $-$ \ref{dz1}, the only difference is the variable $z$  that is given by equations \ref{z_image}  and \ref{z_c}.
-
-The third integral in the right-hand side of  equations  \ref{eq:u_til_alpha}  and  \ref{eq:u_til_z} is the second derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $xz$, $yz$ and $zz$ which are, respectively, given by the following closed expressions: 
-\begin{equation}
-\int\int\limits_{v_j}\int 
-\frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j = \Bigg|\Bigg|\Bigg| 
-\ln(y + {R_2})
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial x} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg| 
+y \ln(z + R) + z \ln(y + R) -  x  \tan^{-1} \Bigg( \frac{yz}{x \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dx2}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial y \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial y} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-\ln(x + {R_2})
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+x \ln(z + R) + z \ln(x + R) -  y  \tan^{-1} \Bigg( \frac{xz}{y \: R} 
+\Bigg)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dy2}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
- -   \tan^{-1} \Bigg( \frac{xy}{z \:{R_2}} \Bigg)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}, 
+x \ln(y + R) + y \ln(x + R) -  z  \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dz2}
 \end{equation}
-where the variable $z$ is given by equations \ref{z_image}  and \ref{z_c}.
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j = \Bigg|\Bigg|\Bigg| 
+\ln(y + R)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dxz2}
+\end{equation}
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial y \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\Bigg|\Bigg|\Bigg|
+\ln(x + {R_2})
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dyz2}
+\end{equation}
+and
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\Bigg|\Bigg|\Bigg|
+-   \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad .
+\label{dzz2}
+\end{equation}
+In these integrals related to the $j$th image prism 
+(equations \ref{dx2}--\ref{dzz2}), the integration limits along the $z$ direction
+are given by
+\begin{equation}
+\begin{array}{ll}
+{Z_1}_{j} &= z_i - {z_1}_{j} + 2 \, z_c \\
+{Z_2}_{j} &= z_i - {z_2}_{j} + 2 \, z_c
+\end{array} \quad ,
+\label{eq:Nagy_limits_2}
+\end{equation}
+where $z_c = \frac{1}{2}(z_1 + z_2)$ is the center depth of the $j$th prism. 
+The remaining limits along $x$ and $y$ directions are the same defined by equation 
+\ref{eq:Nagy_limits_1}.
 
 % Displacement produced by the whole reservoir 
-Finally, the displacement field at the point $(x_i, y_i, z_i)$ due to the pressure change in the whole reservoir is defined as the sum of the displacements 
+Finally, the total displacement vector at the point $(x_i, y_i, z_i)$ due to the
+pressure change in the whole reservoir is defined as the sum of the displacements 
 ${\bf{u}}_{ij}$ (equation \ref{eq:nucleus-ui_jth_prism}) yielded by each prism 
 with constant pressure $\Delta p_{j}$:
 \begin{equation}
-{\bf{\tilde{u}}}_{ij} = \sum_{j=1}^{M} {\bf{u}}_{ij} \: ,
+{\bf{\tilde{u}}}_{i} = \sum_{j=1}^{M} {\bf{\tilde{u}}}_{ij} \: ,
 \label{eq:nucleus-ui_M_prisms}
 \end{equation}
 where $M$ is the number of prisms setting up the reservoir model.
-The horizontal displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir is calculated by 
+The horizontal component of the total displacement vector ${\bf{\tilde{u}}}_{i}$ 
+(equation \ref{eq:nucleus-ui_M_prisms}) is calculated by 
 \begin{equation}
-{\tilde{u}}_{{i}_h} = \sqrt{ {\tilde{u}}_{{i}_x}^{2}  +  {\tilde{u}}_{{i}_y}^{2} }  
+{\tilde{u}}_{{i}_h} = \sqrt{ {\tilde{u}}_{{i}_x}^{2}  +  {\tilde{u}}_{{i}_y}^{2} } 
+\: ,
 \label{eq:horizontal_displacement}
 \end{equation}
-where ${\tilde{u}}_{{i}_x}$ and ${\tilde{u}}_{{i}_y}$ are the $x-$ and $y-$ components of the displacement field at the $i$th coordinates given by equation \ref{eq:u_til_alpha}, with $\alpha = x $ and $y$.
+where ${\tilde{u}}_{{i}_x}$ and ${\tilde{u}}_{{i}_y}$ are the $x-$ and $y-$ components.
 
 
 \subsection{The discrete stress forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium}
