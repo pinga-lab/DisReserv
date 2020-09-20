@@ -216,7 +216,7 @@ def field_component(
     coordinates = tuple(np.atleast_1d(i).ravel() for i in coordinates[:3])
     nuclei = np.atleast_2d(nuclei)
     assert np.isscalar(pressure), 'pressure must be a scalar'
-    
+
     # Compute the component
     jit_field_component(
         coordinates, nuclei, pressure, kernels[kernel], result
@@ -260,7 +260,7 @@ def jit_field_component(
                 * kernel(
                     nuclei[nucleus][0],
                     nuclei[nucleus][1],
-                    nuclei[nucleus][2],                    
+                    nuclei[nucleus][2],
                     coordinates[0][l],
                     coordinates[1][l],
                     coordinates[2][l]
@@ -273,11 +273,15 @@ def kernel_d_x1(y, x, z, yp, xp, zp):
     Kernel for x-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = X/rho**3
+    # kernel = X/rho**3
+    kernel = -X/rho**3
     return kernel
 
 
@@ -287,11 +291,15 @@ def kernel_d_y1(y, x, z, yp, xp, zp):
     Kernel for y-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = Y/rho**3
+    # kernel = Y/rho**3
+    kernel = -Y/rho**3
     return kernel
 
 
@@ -301,11 +309,15 @@ def kernel_d_z1(y, x, z, yp, xp, zp):
     Kernel for z-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = Z/rho**3
+    # kernel = Z/rho**3
+    kernel = -Z/rho**3
     return kernel
 
 
@@ -315,11 +327,15 @@ def kernel_d_x2(y, x, z, yp, xp, zp):
     Kernel for x-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = X/rho**3
+    # kernel = X/rho**3
+    kernel = -X/rho**3
     return kernel
 
 
@@ -329,11 +345,15 @@ def kernel_d_y2(y, x, z, yp, xp, zp):
     Kernel for y-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = Y/rho**3
+    # kernel = Y/rho**3
+    kernel = -Y/rho**3
     return kernel
 
 
@@ -343,11 +363,15 @@ def kernel_d_z2(y, x, z, yp, xp, zp):
     Kernel for z-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
-    kernel = Z/rho**3
+    # kernel = Z/rho**3
+    kernel = -Z/rho**3
     return kernel
 
 
@@ -357,9 +381,12 @@ def kernel_d_xz2(y, x, z, yp, xp, zp):
     Kernel for xz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp *((3*X*Z)/rho**5)
     return kernel
@@ -371,9 +398,12 @@ def kernel_d_yz2(y, x, z, yp, xp, zp):
     Kernel for yz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * ((3*Y*Z)/rho**5)
     return kernel
@@ -385,9 +415,12 @@ def kernel_d_zz2(y, x, z, yp, xp, zp):
     Kernel for zz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z + zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z + zp
+    Y = yp - y
+    X = xp - x
+    Z = zp + z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel =  2 * zp * ( (3*(Z**2))/rho**5  - ( 1./rho**3 ) )
     return kernel

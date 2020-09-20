@@ -475,9 +475,12 @@ def kernel_d_x1(y, x, z, zc, yp, xp, zp):
     Kernel for x-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         Y * safe_log(Z + rho)
@@ -493,9 +496,12 @@ def kernel_d_y1(y, x, z, zc, yp, xp, zp):
     Kernel for y-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Z + rho)
@@ -511,9 +517,12 @@ def kernel_d_z1(y, x, z, zc, yp, xp, zp):
     Kernel for z-component of displacement in the infinite space domain
     (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Y + rho)
@@ -529,9 +538,12 @@ def kernel_d_x2(y, x, z, zc, yp, xp, zp):
     Kernel for x-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         Y * safe_log(Z + rho)
@@ -547,9 +559,12 @@ def kernel_d_y2(y, x, z, zc, yp, xp, zp):
     Kernel for y-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Z + rho)
@@ -565,9 +580,12 @@ def kernel_d_z2(y, x, z, zc, yp, xp, zp):
     Kernel for z-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         X * safe_log(Y + rho)
@@ -583,9 +601,12 @@ def kernel_d_xz2(y, x, z, zc, yp, xp, zp):
     Kernel for xz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         safe_log(Y + rho)
@@ -599,9 +620,12 @@ def kernel_d_yz2(y, x, z, zc, yp, xp, zp):
     Kernel for yz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         safe_log(X + rho)
@@ -615,9 +639,12 @@ def kernel_d_zz2(y, x, z, zc, yp, xp, zp):
     Kernel for zz-component of displacement in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = 2 * zp * (
         - safe_atan2(X * Y, Z * rho)
@@ -630,9 +657,12 @@ def kernel_s_xz1(y, x, z, zc, yp, xp, zp):
     """
     Kernel for xz-component of stress in the infinite space domain (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         safe_log(Y + rho)
@@ -645,9 +675,12 @@ def kernel_s_yz1(y, x, z, zc, yp, xp, zp):
     """
     Kernel for yz-component of stress in the infinite space domain (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         safe_log(X + rho)
@@ -660,9 +693,12 @@ def kernel_s_zz1(y, x, z, zc, yp, xp, zp):
     """
     Kernel for zz-component of stress in the infinite space domain (1st system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp
+    Y = yp - y
+    X = xp - x
+    Z = zp - z
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         - safe_atan2(X * Y, Z * rho)
@@ -676,9 +712,12 @@ def kernel_s_xz2(y, x, z, zc, yp, xp, zp):
     Kernel for xz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         safe_log(Y + rho)
@@ -692,9 +731,12 @@ def kernel_s_yz2(y, x, z, zc, yp, xp, zp):
     Kernel for yz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         safe_log(X + rho)
@@ -708,9 +750,12 @@ def kernel_s_zz2(y, x, z, zc, yp, xp, zp):
     Kernel for zz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     rho = np.sqrt(Y ** 2 + X ** 2 + Z ** 2)
     kernel = (
         - safe_atan2(X * Y, Z * rho)
@@ -724,9 +769,12 @@ def kernel_s_xzz2(y, x, z, zc, yp, xp, zp):
     Kernel for xzz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     aux = X ** 2 + Z ** 2
     rho = np.sqrt(Y ** 2 + aux)
     kernel = 2 * zp * (
@@ -741,9 +789,12 @@ def kernel_s_yzz2(y, x, z, zc, yp, xp, zp):
     Kernel for yzz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     aux = Y ** 2 + Z ** 2
     rho = np.sqrt(X ** 2 + aux)
     kernel = 2 * zp * (
@@ -758,9 +809,12 @@ def kernel_s_zzz2(y, x, z, zc, yp, xp, zp):
     Kernel for zzz-component of stress in the semi-infinite space domain
     (2nd system)
     """
-    Y = y - yp
-    X = x - xp
-    Z = z - zp - 2 * zc
+    # Y = y - yp
+    # X = x - xp
+    # Z = z - zp - 2 * zc
+    Y = yp - y
+    X = xp - x
+    Z = zp - z + 2 * zc
     X2 = X ** 2
     Y2 = Y ** 2
     Z2 = Z ** 2
