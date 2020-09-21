@@ -3,7 +3,7 @@
 Simulate reservoir compaction due to pore-pressure changes by integrating the
 solution proposed by Sharma (1956) and Tempone et al. (2010) on the volume of
 rectangular cells.
-This strategy is similar to that proposed by Muñoz and Roehl (2017). 
+This strategy is similar to that proposed by Muñoz and Roehl (2017).
 The difference here is that we solve the volume integrals according to
 Nagy et al. (2000), Nagy et al. (2002) and Fukushima (2020)
 
@@ -26,7 +26,7 @@ displacements due to a compacting reservoir over a rigid basement*.
 displacements due to reservoir compaction under arbitrary pressure changes*.
 **Applied Mathematical Modelling** 52: 145. https://doi.org/10.1016/j.apm.2017.06.023
 
-* Fukushima, T. (2020). *Speed and accuracy improvements in standard algorithm for prismatic gravitational field*. 
+* Fukushima, T. (2020). *Speed and accuracy improvements in standard algorithm for prismatic gravitational field*.
 **Geophysical Journal International** 222: 1898–1908.
 https://doi.org/10.1093/gji/ggaa240
 
@@ -37,7 +37,7 @@ This paper has been submitted for publication in
 
 ## Abstract
 
-We have presented analytical solutions for the displacement due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes. These solutions are based on the similarity between the gravitational potential yielded by  a volume source under a density variation and the displacement field yielded by a volume source in a half-space under a pressure variation. This similarity enables the use of closed expressions of the gravitational potential and its derivatives for calculating the displacement field due to a volume source under a pressure variation. We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in the horizontal and vertical directions. Each prism has homogeneous pressure; however, pressure variations among different prisms are allowed. 
+We have presented analytical solutions for the displacement due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes. These solutions are based on the similarity between the gravitational potential yielded by  a volume source under a density variation and the displacement field yielded by a volume source in a half-space under a pressure variation. This similarity enables the use of closed expressions of the gravitational potential and its derivatives for calculating the displacement field due to a volume source under a pressure variation. We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in the horizontal and vertical directions. Each prism has homogeneous pressure; however, pressure variations among different prisms are allowed.
 This parametrization of the reservoir yields a piecewise-constant distribution of pressure  in the subsurface. The discrete reservoir modeling to calculate the displacement field due to this pressure variation  follows the nucleus-of-strain concept in which the center of each prism represents the coordinate of a nucleus of strain. The displacement due to a nucleus of strain is considered the infinitesimal element of the displacement due to an infinitesimal reservoir. The displacement field due to the pressure of each prism is calculated by integrating the infinitesimal element of the displacement over the volume of the prism. Finally, the displacement due to the reservoir can be approximated by the sum of the contributions of each prism of the discretized model. We provide python codes (DisReserv) to calculate the displacement fields due to a reservoir with arbitrary shape and distribution of pressure changes. The displacement field is calculated inside and outside the reservoir. We calculate the displacement fields in three scenarios: i) cylindrical reservoir under uniform depletion; ii) cylindrical reservoir under non uniform depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure distribution. By calculating the  stress field at the free surface, we verify that the zero stress condition is satisfied.
 
 
@@ -130,7 +130,7 @@ from the menu bar.
 
 You can also find an archived version of the code at:
 
-[![DOI](https://zenodo.org/XXXXXXXXX)](https://zenodo.org/XXXXXXXXXX)
+[![DOI](https://zenodo.org/badge/267659712.svg)](https://zenodo.org/badge/latestdoi/267659712)
 
 
 ## License
@@ -142,6 +142,3 @@ to the authors.  See `LICENSE.md` for the full license text.
 The manuscript text is not open source. The authors reserve the rights to the
 article content, which is currently submitted for publication in
 [*Geoscientific Model Development (GMD)*](http://www.geoscientific-model-development.net/).
-
-
-
