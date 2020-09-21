@@ -124,20 +124,35 @@
 %%\twocolumn
 \begin{abstract}
 We have presented analytical solutions for the displacement due to reservoir compaction with arbitrary geometry and under arbitrary pressure changes.
-These solutions are based on the similarity between the gravitational potential yielded by  a volume source under a density variation and the displacement field yielded by a volume source in a half-space under a pressure variation.
-This similarity enables the use of closed expressions of the gravitational potential and its derivatives for calculating the displacement field due to a volume source under a pressure variation.
-We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in the horizontal and vertical directions.
-Each prism has homogeneous pressure; however, pressure variations among different prisms are allowed. 
-This parametrization of the reservoir yields a piecewise-constant distribution of pressure  in the subsurface. 
-The discrete reservoir modeling to calculate the displacement field due to this pressure variation  follows the nucleus-of-strain concept in which the center of each prism represents the coordinate of a nucleus of strain.
-The displacement due to a nucleus of strain is considered the infinitesimal element of the 
-displacement due to an infinitesimal reservoir.
-The displacement field due to the pressure of each prism is calculated by integrating the infinitesimal element of the displacement over the volume of the prism.
-Finally, the displacement due to the reservoir can be approximated by the sum of the contributions of each prism of the discretized model.
-We provide python codes (DisReserv) to calculate the displacement fields due to a reservoir with arbitrary shape and distribution of pressure changes. 
-The displacement field is calculated inside and outside the reservoir. 
-We calculate the displacement fields in three scenarios: i) cylindrical reservoir under uniform depletion; ii) cylindrical reservoir under non uniform depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure distribution.
-By calculating the  stress field at the free surface, we verify that the zero stress condition is satisfied.
+These solutions are based on the similarity between the gravitational potential yielded 
+by a volume source under a density variation and the thermoelastic displacement 
+potential yielded by a volume source in a half-space under a pressure variation.
+This similarity enables the use of closed expressions of the gravitational potential 
+and its derivatives for calculating the displacement and stress fields due to a volume 
+source under a pressure variation.
+We discretized the reservoir as a grid of 3D right rectangular prisms  juxtaposed in 
+the horizontal and vertical directions.
+Each prism has homogeneous pressure; however, pressure variations among different 
+prisms are allowed. 
+This parametrization of the reservoir yields a piecewise-constant distribution of 
+pressure in the subsurface. 
+The discrete reservoir modeling to calculate the displacement and stress fields due to 
+this pressure variation follows the nucleus-of-strain concept.
+The nucleus of strain is considered an infinitesimal reservoir volume element.
+The displacement and stress fields due each prism are calculated by integrating the 
+nucleus of strain over the volume of the prism.
+Finally, the displacement and stress due to the reservoir are computed by the sum of 
+the contributions of each prism.
+We provide a Python implementation (DisReserv) of our method to calculate the 
+displacement and stress fields due to a reservoir with arbitrary shape and distribution 
+of pressure changes. 
+Our expressions are valid both inside and outside the reservoir. 
+We calculate the displacement and stress fields in three scenarios: i) cylindrical 
+reservoir under uniform depletion; ii) cylindrical reservoir under non uniform
+depletion and iii) reservoir with arbitrary geometry and under arbitrary pressure 
+distribution.
+The results obtained for the three scenarios show that our method produces null 
+stress field components at the free surface.
 \end{abstract}
 
 
@@ -195,37 +210,37 @@ Tests with synthetic data validate our approach.
 
 \section{THEORY}
 
-The subsidence or displacement, stress and strain fields in the subsurface caused by reservoir compactation due to hydrocarbon production are grounded on the theory of thermoelasticity. 
+The displacement, stress and strain fields in the subsurface caused by reservoir compactation due to hydrocarbon production are grounded on the theory of thermoelasticity. 
 
-The Goodier’s thermoelastic displacement potential $\phi$ satifies the Poisson's equation \citep{Goodier37}, i.e.:
+The Goodier’s thermoelastic displacement potential $\phi$ satisfies the Poisson's equation \citep{Goodier37}, i.e.:
 \begin{equation}
 \nabla^{2} \phi =  m \: T,
 \label{eq:poisson}
 \end{equation}
-where $\nabla^{2}$ is the Laplacian operator, $T $ is the temperature difference and 
+where $\nabla^{2}$ is the Laplacian operator, $T $ is the temperature variation and 
 \begin{equation}
 m =  \:  \alpha \: \frac{1 + \nu}{ 1 -\nu},
 \label{eq:m}
 \end{equation}
-where $\alpha$  is the coefficient of linear thermal expansion and $\nu$ is the Poisson's ratio.
+where $\alpha$ is the coefficient of linear thermal expansion and $\nu$ is the Poisson's ratio.
 
-From the potential theory, a particular  solution of equation \ref{eq:poisson} is
+From the potential theory, a particular solution of equation \ref{eq:poisson} is
 \begin{equation}
-\phi(x,y,z) = -  \frac{m}{4 \pi} \int\int\limits_{v}\int \frac{T(x^{\prime}, y^{\prime}, z^{\prime} )}{\sqrt{(x - x^{\prime})^{2} + (y - y^{\prime})^{2} + (z - z^{\prime})^{2}}} \: dv,
+\phi(x,y,z) = -  \frac{m}{4 \pi} \int\int\limits_{v}\int \frac{T(x^{\prime}, y^{\prime}, z^{\prime} )}{\sqrt{(x - x^{\prime})^{2} + (y - y^{\prime})^{2} + (z - z^{\prime})^{2}}} \: dv^{\prime},
 \label{eq:phi}
 \end{equation}
-where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} at the coordinates $x, y$ and $z$ produced by a continuous distribution of mass defined by a set of very small masses $ -  \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} ) \: dv$, where $T(x^{\prime}, y^{\prime}, z^{\prime}) $ stands for the density distribution. 
-The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the $x-$, $y-$ and $-z$ coordinates of an arbitrary point belonging to the interior of the volume $v$ of the gravity source. 
+where $\phi(x,y,z)$ represents the Newtonian gravitational potential \citep{Kellogg29} that would be produced at the coordinates $x, y$ and $z$ by a continuous density distribution $- \frac{m}{4 \pi}  \: T( x^{\prime}, y^{\prime}, z^{\prime} )$. 
+The integral in equation \ref{eq:phi} is conducted over the coordinates $x^{\prime}$,$y^{\prime}$ and $z^{\prime}$, denoting, respectively, the $x-$, $y-$ and $-z$ coordinates of an arbitrary point belonging to the interior of the volume $v$ of the solid. 
 
 
-From equation \ref{eq:phi} and the potential-field theory, \citet{Goodier37} showed that if an element of volume $dv$ in the infinite solid is at a temperature $T(x^{\prime}, y^{\prime}, z^{\prime}) $, the remainder being at temperature zero, the displacement vector $\bf{u}$ caused by this temperature is the gradient of the Goodier’s thermoelastic displacement potential, i.e.,
+From equation \ref{eq:phi} and the potential theory, \citet{Goodier37} showed that, if an element of volume $dv$ in the infinite solid is at a temperature $T(x^{\prime}, y^{\prime}, z^{\prime}) $, the remainder being at temperature zero, the displacement vector $\bf{u}$ caused by this temperature is the gradient of the Goodier’s thermoelastic displacement potential, i.e.,
 \begin{equation}
-{\bf{u}} = {\bf {\nabla}} \phi(x,y,z). 
+{\bf{u}} = {\bf {\nabla}} \phi(x,y,z) \: ,
 \label{eq:displacement-general}
 \end{equation}
 where $\bf{\nabla}$ is the gradient operator.  
 
-To a homogenous half-space, \citet{Mindlin&Cheng50} showed that the method proposed by  \citet{Goodier37}  can be extended by the displacement solution given by:
+To a homogenous half-space, \citet{Mindlin&Cheng50} showed that the method proposed by  \citet{Goodier37} can be extended by the displacement solution given by:
 \begin{equation}
 \bf{u} = {\bf{\nabla}} \: \phi_{1} \: + \: {\bf{{\nabla}_{2}}} \phi_{2}, 
 \label{eq:displacement-solution}
@@ -239,139 +254,120 @@ $(x^{\prime}, y^{\prime}, -z^{\prime} )$ and the operator $\bf{{\nabla}_{2}}$ is
 \label{eq:nabla2}
 \end{equation}
 where ${\bf{\hat{z}}}$ is the unit vector in the $z-$direction and 
-${\bf{{\nabla}^{2}_{z}}}$ is a scalar operator in which the operand is firtly multiplied by z and then operated upon by Laplacian operator ${\bf{\nabla}^{2}}$. 
+${\bf{{\nabla}^{2}_{z}}}$ is a scalar operator in which the operand is firstly
+multiplied by $z$ and then operated upon by the Laplacian ${\bf{\nabla}^{2}}$. 
 
 Equation \ref{eq:displacement-solution} is the displacement solution for the variation of temperature due to a single nucleus of strain buried at depth $z^{\prime}$ in a
 semi-infinite homogeneous medium. 
 In the right hand side of equation \ref{eq:displacement-solution}, the first term 
-$ {\bf{\nabla}} \: \phi_{1} $ represents the displacement in an infinite medium, and the second term represents a correction of the displacement due a half-space, also known as image nucleus solution.
+$ {\bf{\nabla}} \: \phi_{1} $ represents the displacement in an infinite medium, and the second term represents a correction of the displacement due a half-space, also known as "image nucleus solution".
 
 \section{METHODOLOGY}
 
 Let's assume that a reservoir in the interior of the Earth is subject to a compactation due to hydrocarbon production. 
 The compactation is caused by the pressure change within the reservoir, which in turn causes  a surface subsidence (or surface displacement). 
-We discretized the reservoir into an $ m_{x} \times m_{y} \times m_{z} $ grid of 3D vertical juxtaposed prisms $(m_{x} \cdot m_{y} \cdot m_{z} = M)$ in which
-the pressure within each prism is assumed to be constant and known. 
-Each grid prism in the reservoir model may undergo a distinct pressure change.
-Hence, the subsidence effect is the displacement field due to the pressure change throughout the reservoir and it can be calculated by the sum of the displacement produced by each prism.
+Here, we use a Cartesian coordinate system with the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.
+We discretize the reservoir into an $ m_{x} \times m_{y} \times m_{z} $ grid of 3D vertical juxtaposed prisms $(m_{x} \cdot m_{y} \cdot m_{z} = M)$ along the 
+$x$, $y$ and $z$ axes, respectively, in which the pressure within each prism is 
+assumed to be constant and known. 
+Each prism in the reservoir model may undergo a distinct pressure change.
+The subsidence effect is the displacement field due to the pressure change throughout the reservoir and is calculated by the sum of the displacement produced by each prism.
 
 
-The discrete forward modeling to calculate the displacement and stress fields due to a piecewise-constant distribution of the pressure contrast within a reservoir follows the nucleus of strain approach. 
-By assuming that the center of each prism represents the coordinate of a nucleus of
-strain, we can calculate the displacement field due to the pressure contrast of this prism by integrating over its volume.
-The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
+The discrete forward modeling to calculate the displacement and stress fields due to a piecewise-constant distribution of the pressure contrast within a reservoir follows the nucleus-of-strain approach. 
+We assume that a nucleus of strain represents an infinitesimal reservoir volume 
+element. The displacement solution for a single nucleus of strain in a homogeneous elastic semi-infinite medium (equation \ref{eq:displacement-solution}) will be used as an element of the displacement.
+Then we calculate the displacement field due to the pressure contrast of a prism by integrating the nucleus of strain over its volume. The same approach is used to 
+compute the stress field due to a prism.
+
 
 \subsection{The discrete forward modeling due to a nucleus of strain in a homogeneous elastic semi-infinite medium}\label{solution-nucleus}
 
-Here, we use a Cartesian coordinate system with the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.
-By considering the discrete form of equation \ref{eq:displacement-solution}, the displacement field  $ {\bf{u}}_{i} \equiv  {\bf{u}}(x_{i}, y_{i}, z_{i})$ at an arbitrary point $(x_{i}, y_{i}, z_{i})$ due to the $j$th nucleus of strain at the coordinates 
+By considering the discrete form of equation \ref{eq:displacement-solution}, the displacement vector  $ {\bf{u}}_{ij} \equiv  {\bf{u}}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ at an arbitrary point $(x_{i}, y_{i}, z_{i})$ due to the $j$th nucleus of strain at the coordinates 
 $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ will be calculated by
 \begin{equation}
-{\bf{u}}_{i}  = {\bf{\nabla}} \: 
-{\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \: + \: {\bf{{\nabla}_{2}}} {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}, 
+{\bf{u}}_{ij}  = {\bf{u_{1}}}_{ij} + {\bf{u_{2}}}_{ij} \: ,
 \label{eq:displacement_ui}
 \end{equation}
-In equation \ref{eq:displacement_ui}, the functions 
-$\phi_{1} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})}$ and  
-$\phi_{2} \equiv {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})}$
-are, respectively, given by 
+where ${\bf{u_{1}}}_{ij}$ is the displacement vector at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus in the infinite space and ${\bf{u_{2}}}_{ij}$ 
+is the correction of the displacement considering a semi-space (image nucleus solution).
+The term ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
-\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_1}_{ij} }
+{\bf{u_{1}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
+\: \Delta p_{j} \: \:dv_j^{\prime}
+\label{eq:nucleus-u1}
+\end{equation}
+and represents the gradient of the potential
+\begin{equation}
+\phi_{1} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j^{\prime}}{ {R_1}_{ij} } \: .
 \label{eq:nucleus-phi1}
 \end{equation}
-and
+The term ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:displacement_ui}) is given by
 \begin{equation}
-\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j}{ {R_2}_{ij} }.
+{\bf{u_{2}}}_{ij} = \frac{A  \: (1 + \nu)}{E} \: 
+\bigg[ 
+(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
++ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
+- 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
+\bigg]   \: \Delta p_{j}  \:dv_j^{\prime}
+\label{eq:nucleus-u2}
+\end{equation}
+and is obtained by applying the operator ${\bf{{\nabla}_{2}}}$ (equation 
+\ref{eq:nabla2}) to the image potential
+\begin{equation}
+\phi_{2} = - \frac{C_m}{4 \pi}  \frac{\Delta p_{j} \: \:dv_j^{\prime}}{ {R_2}_{ij} } \: .
 \label{eq:nucleus-phi2}
 \end{equation}
-
-In equations \ref{eq:nucleus-phi1} and \ref{eq:nucleus-phi2}, $\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j$ is an infinitesimal element of volume of the $j$th nucleus, and $C_m$ is the uniaxial compaction coefficient (see \citeauthor{Geertsma66}, \citeyear{Geertsma66}; \citeauthor{Tempone10}, \citeyear{Tempone10} and \citeauthor{Munoz&Roehl17}, \citeyear{Munoz&Roehl17}) given by
+In equations \ref{eq:nucleus-u1}--\ref{eq:nucleus-phi2}, 
+all derivatives are computed with respect to the coordinates of the point 
+$(x_{i}, y_{i}, z_{i})$, 
+$\Delta p_j$  is the pressure contrast of the $j$th nucleus, $dv_j^{\prime}$ is an 
+infinitesimal element of volume centered at the $j$th nucleus of strain 
+$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, $A$ is the constant
 \begin{equation}
-C_m = \frac{1}{E} \: \frac{(1 + \nu) (1  - 2\nu)}{(1-\nu)},
+A = - \frac{C_m E}{4 \pi (1 + \nu)} \: ,
+\label{eq:nucleus-A}
+\end{equation}
+$C_m$ is the uniaxial compaction coefficient (see \citeauthor{Geertsma66}, 
+\citeyear{Geertsma66}; \citeauthor{Tempone10}, \citeyear{Tempone10} and 
+\citeauthor{Munoz&Roehl17}, \citeyear{Munoz&Roehl17}) 
+\begin{equation}
+C_m = \frac{1}{E} \: \frac{(1 + \nu) (1  - 2\nu)}{(1-\nu)} \: ,
 \label{eq:Cm}
 \end{equation}
-where $E$ is the Young’s modulus.
-
-In equation \ref{eq:nucleus-phi1}, $ {R_1}_{ij}$ is the distance from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th coordinate of the nucleus of strain $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, i.e.:
+and $E$ is the Young’s modulus.
+In equation \ref{eq:nucleus-phi1}, $ {R_1}_{ij}$ is the distance from the $i$th point $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, i.e.:
 \begin{equation}
 {R_1}_{ij} = {\sqrt{(x_{i}- x^{\prime}_{j})^{2} + (y_{i} - y^{\prime}_{j})^{2} + 
 (z_{i} - z^{\prime}_{j})^{2}}}.
 \label{eq:R1}
 \end{equation}
-In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th coordinate of the image nucleus $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$, i.e.:
+In equation \ref{eq:nucleus-phi2}, $ {R_2}_{ij}$ is the distance from the $i$th point $ (x_{i}, y_{i}, z_{i})$ to the $j$th image nucleus $(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$, i.e.:
 \begin{equation}
 {R_2}_{ij} = {\sqrt{(x_{i}- x^{\prime}_{j})^{2} + (y_{i} - y^{\prime}_{j})^{2} + 
-(z_{i} + z^{\prime}_{j})^{2}}}.
+(z_{i} + z^{\prime}_{j})^{2}}} \: .
 \label{eq:R2}
 \end{equation}
 Figure \ref{fig:nucleus_strain} shows a schematic representation of the geometry
 of the nucleus of strain problem in a semi-infinite medium. 
-The $j$th nucleus of strain is located at the coordinates 
-$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. 
-The $j$th image nucleus is located at the coordinates 
-$(x^{\prime}_{j}, y^{\prime}_{j}, - z^{\prime}_{j})$.
-The distances from the $i$th coordinate point of the displacement $ (x_{i}, y_{i}, z_{i})$ to the $j$th nucleus of strain and to the $j$th image nucleus are, respectively,  
-$ {R_1}_{ij}$ (equation \ref{eq:R1})  and $ {R_2}_{ij}$ (equation \ref{eq:R2}).
-The free surface is a horizontal plane where the components of the stress are null.
- 
-Following the discrete form of the displacement solution (equation \ref{eq:displacement_ui}), 
-the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus at the coordinates $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ can be written as:
+The horizontal plane $z = 0$ is called "free surface".
+The $x-$, $y-$ and $z-$components of the vectors ${\bf{u_{1}}}_{ij}$ (equation \ref{eq:nucleus-u1}) and ${\bf{u_{2}}}_{ij}$ (equation \ref{eq:nucleus-u2}) 
+can be explicitly defined as follows:
 \begin{equation}
-{\bf{u}}_{i} (x_i,y_i,z_i) = {\bf{u_{1}}}_{i} (x_i,y_i,z_i) + {\bf{u_{2}}}_{i} (x_i,y_i,z_i), 
-\label{eq:nucleus-ui_total}
-\end{equation}
-where ${\bf{u_{1}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{1}}}_{i} $ is the gradient of the function $\phi_1$ (equation \ref{eq:nucleus-phi1}) 
-\begin{equation}
-{\bf{u_{1}}}_{i}  = {\bf{\nabla}} \: {\phi_{1}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})} \:
-= \frac{A  \: (1 + \nu)}{E} \: {\bf{\nabla}} \bigg( {\frac{1}{{R_1}_{ij}}} \bigg) 
-\: \Delta p_{j} \: \:dv_j
-\label{eq:nucleus-u1}
-\end{equation}
-and ${\bf{u_{2}}}_{i} (x_i,y_i,z_i) \equiv {\bf{u_{2}}}_{i} $ is obtained by  applying the operator ${\bf{{\nabla}_{2}}}$ (equation \ref{eq:nabla2}) to the imagem potential $\phi_2$ (equation \ref{eq:nucleus-phi2})
-\begin{equation}
-{\bf{u_{2}}}_{i} = {\bf{{\nabla}_{2}}} \: {\phi_{2}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, -z^{\prime}_{j})} \:  
-= \frac{A  \: (1 + \nu)}{E} \: 
-\bigg[ 
-(3 - 4\nu){\bf{\nabla}} \bigg(  {\frac{1}{{R_2}_{ij}}} \bigg)     
-+ 2 {\bf{\nabla}} \bigg( z \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} \bigg)  
-- 4(1- \nu){\bf{\hat{z}}} {\bf{{\nabla}^{2}}}  \bigg( {\frac{z}{{R_2}_{ij}}} \bigg)
-\bigg]   \: \Delta p_{j}  \:dv_j , 
-\label{eq:nucleus-u2}
-\end{equation}
-where  $A$ is a constant given by: 
-\begin{equation}
-A = - \frac{C_m E}{4 \pi (1 + \nu)}.  
-\label{eq:nucleus-A}
-\end{equation}
-The elements  of the displacement vector ${\bf{u_{1}}}_{i}$ (equation \ref{eq:nucleus-u1}) are
-\begin{equation}
-{\bf{u_{1}}}_{i}  = 
-\begin{bmatrix} 
-{u_{1}}_x \\
-{u_{1}}_y \\
-{u_{1}}_z
-\end{bmatrix}
- = \frac{A  \: (1 + \nu)}{E} \: 
+{\bf{u_{1}}}_{ij} = 
+\frac{A  \: (1 + \nu)}{E} \: 
 \begin{bmatrix} 
 \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
- \: \Delta p_{j} \: \:dv_j \:  ,  
+ \: \Delta p_{j} \: \:dv_j^{\prime}
 \label{eq:nucleus-u1-vector}
 \end{equation}
-where ${u_{1}}_x$, ${u_{1}}_y$ and ${u_{1}}_z$ are the $x-$, $y-$  and $z-$ components
-of  ${\bf{u_{1}}}_{i} $ that gives the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space.
-
-The elements  of the displacement vector ${\bf{u_{2}}}_{i} $ (equation \ref{eq:nucleus-u2}) are
+and
 \begin{equation}
-{\bf{u_{2}}}_{i}  = 
-\begin{bmatrix} 
-{u_{2}}_x \\
-{u_{2}}_y \\
-{u_{2}}_z
-\end{bmatrix}
- = \frac{A  \: (1 + \nu)}{E} \: \left\{   (3  - 4 \nu)
+{\bf{u_{2}}}_{ij} = 
+\frac{A  \: (1 + \nu)}{E} \: \left\{   (3  - 4 \nu)
 \begin{bmatrix} 
   \: \frac{\partial }{\partial x} {\frac{1}{{R_2}_{ij}}}  \\
   \: \frac{\partial }{\partial y} {\frac{1}{{R_2}_{ij}}}  \\
@@ -384,58 +380,40 @@ The elements  of the displacement vector ${\bf{u_{2}}}_{i} $ (equation \ref{eq:n
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j,
+\: \Delta p_{j} \: \:dv_j^{\prime} \: .
 \label{eq:nucleus-u2-vector}
 \end{equation}
-where ${u_{2}}_x$, ${u_{2}}_y$ and ${u_{2}}_z$ are the $x-$, $y-$  and $z-$ components
-of  ${\bf{u_{2}}}_{i} $ that gives the correction of the displacements considering  a semi-space (image nucleus solution).
 
-By following \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \citep{Beltrami} and the equilibrium equations must be satisfied to obtain the contribution of the stress field in the half space. 
-The stress field  at the coordinates $x_i$, $y_i$ and $z_i$  due to the $j$th single nucleus of strain buried in the half space is given by
+By following \cite{Sharma56} and \cite{Tempone10}, 
+the stress vector 
+$\mbox{\boldmath$\sigma$}_{ij} \equiv \mbox{\boldmath$\sigma$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ 
+at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus of strain buried 
+in the half space is given by
 \begin{equation}
-\mbox{\boldmath$\sigma$}_{i}(x_i,y_i,z_i) = \mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) + 
-\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) 
+\mbox{\boldmath$\sigma$}_{ij} = \mbox{\boldmath$\sigma_{1}$}_{ij} + 
+\mbox{\boldmath$\sigma_{2}$}_{ij} \: ,
 \label{eq:stress_nucleus}
 \end{equation}
-where $\mbox{\boldmath$\sigma_{1}$}(x_i,y_i,z_i) \equiv \mbox{\boldmath$\sigma_{1}$}_{i}$ represents the stress in an infinite medium, and 
-$\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,z_i) \equiv \mbox{\boldmath$\sigma_{2}$}_{i}$ represents a correction of the stress in a half-space due to an image nucleus.
-Besides the Beltrami’s equations \citep{Beltrami} and the equilibrium equations that must be satisfied, the following boundary conditions at the free surface ($z_i = 0$) must be satisfied, i.e.:
+where 
+$\mbox{\boldmath$\sigma_{1}$}_{ij} \equiv \mbox{\boldmath$\sigma_{1}$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ is the stress vector 
+at the point $(x_{i}, y_{i}, z_{i})$ due to the $j$th single nucleus in the infinite space and $\mbox{\boldmath$\sigma_{2}$}_{ij} \equiv \mbox{\boldmath$\sigma_{2}$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ is the stress vector 
+at the point $(x_{i}, y_{i}, z_{i})$ that gives the correction of the stress due to the 
+$j$th image nucleus considering a semi-space. These two vectors are given by
 \begin{equation}
-\mbox{\boldmath$\sigma$}_{i}(x_i,y_i,0) = \mbox{\boldmath$\sigma_{1}$}(x_i,y_i,0) + 
-\mbox{\boldmath$\sigma_{2}$}(x_i,y_i,0) \: = \: \mbox{ \boldmath$0$},
-\label{eq:null_stress}
-\end{equation}
-where $\mbox{ \boldmath$0$}$ is the null vector that represents the null stress at the coordinates $x_i$, $y_i$ and $z_i = 0$.
-
-The elements  of the stress vector $\mbox{\boldmath$\sigma_{1}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
-\begin{equation}
-\mbox{\boldmath$\sigma_{1}$}_{i}  = 
-\begin{bmatrix} 
-{\widehat{xz}_{1}} \\
-{\widehat{yz}_{1}}  \\
-{\widehat{zz}_{1}} 
-\end{bmatrix}
- = A  \: 
+\mbox{\boldmath$\sigma_{1}$}_{ij} =
+A  \: 
 \begin{bmatrix} 
 \frac{\partial^{2} }{\partial x \partial z} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial^{2} }{\partial y \partial z} {\frac{1}{{R_1}_{ij}}}  \\
 \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_1}_{ij}}} 
 \end{bmatrix}
- \: \Delta p_{j} \: \:dv_j \:  ,  
+\: \Delta p_{j} \: \:dv_j^{\prime} \: ,
 \label{eq:nucleus-stress1-vector}
 \end{equation}
-where ${\widehat{xz}_{1}}$, ${\widehat{yz}_{1}}$ and ${\widehat{zz}_{1}}$ are the $x-$, $y-$  and $z-$components
-of  $\mbox{\boldmath$\sigma_{1}$}_{i}$ that gives the stress in an infinite medium due to the $j$th nucleus of strain.
-
-The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation \ref{eq:stress_nucleus}) are
+and 
 \begin{equation}
-\mbox{\boldmath$\sigma_{2}$}_{i}  = 
-\begin{bmatrix} 
-{\widehat{xz}_{2}} \\
-{\widehat{yz}_{2}}  \\
-{\widehat{zz}_{2}} 
-\end{bmatrix}
-= A  \: 
+\mbox{\boldmath$\sigma_{2}$}_{ij} = 
+A  \: 
 \left\{
 \begin{bmatrix} 
 \frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}} \\
@@ -449,318 +427,353 @@ The elements  of the stress vector $\mbox{\boldmath$\sigma_{2}$}_{i}$ (equation 
 \frac{\partial^{3} }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}} 
 \end{bmatrix}
 \right\}
-\: \Delta p_{j} \: \:dv_j,
+\: \Delta p_{j} \: \:dv_j^{\prime} \: .
 \label{eq:nucleus-stress2-vector}
 \end{equation}
-where ${\widehat{xz}_{2}}$, ${\widehat{yz}_{2}}$ and ${\widehat{zz}_{2}}$ are the $x-$, $y-$  and $z-$components
-of  $\mbox{\boldmath$\sigma_{2}$}_{i}$ that gives the correction of the stress considering  a semi-space due to the $j$th image nucleus.
-
-We validate our equations by verifying if the null stress acting through the free surface (equation \ref{eq:null_stress}) is satisfied.
-Hence, by taking the elements of stress vectors $\mbox{\boldmath$\sigma_{1}$}_{i}$ and 
-$\mbox{\boldmath$\sigma_{2}$}_{i}$  at the $i$th coordinates of the free surface ($x_i$, $y_i$ and $z_i = 0$) the following relationship:
-\begin{equation}
-{\widehat{xz}_{1}} + {\widehat{xz}_{2}} 
-= {\widehat{yz}_{1}} + {\widehat{yz}_{2}}
-= {\widehat{zz}_{1}} + {\widehat{zz}_{2}}  
-= 0
-\label{eq:null_stress_i}
-\end{equation}
-must be met.
+According to \cite{Sharma56} and \cite{Tempone10}, the Beltrami’s equations \citep{Beltrami} and the equilibrium equations must be satisfied to obtain the contribution of the stress field in the half space. 
+Additionally, the boundary condition 
+$\mbox{\boldmath$\sigma$}_{ij} = \mbox{ \boldmath$0$}$ (equation \ref{eq:stress_nucleus}), where $\mbox{ \boldmath$0$}$ is the zero vector, must be satisfied at the free surface ($z_i = 0$).
+%\begin{equation}
+%\mbox{\boldmath$\sigma$}_{ij} = \mbox{\boldmath$\sigma_{1}$}_{ij} + 
+%\mbox{\boldmath$\sigma_{2}$}_{ij} = \mbox{ \boldmath$0$},
+%\label{eq:null_stress}
+%\end{equation}
+%where $\mbox{ \boldmath$0$}$ is the null vector.
+This condition can be easily verified by adding the vectors 
+$\mbox{\boldmath$\sigma_{1}$}_{ij}$ (equation \ref{eq:nucleus-stress1-vector}) and 
+$\mbox{\boldmath$\sigma_{2}$}_{ij}$ (equation \ref{eq:nucleus-stress2-vector}) 
+computed at any point on the free surface $(x_i, y_i, z_i = 0)$.
 
 
 \subsection{The discrete displacement forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium} \label{u-model}
 
 
-We parameterized the reservoir as a grid of juxtaposed right rectangular prisms.
-Each grid prism has homogeneous pressure contrasts; however, pressure variations among different prisms are allowed. 
-To calculate the displacement due to the pressure change in the whole reservoir with this discretization model, we use the solution deduced for a single nucleus of strain in a homogeneous elastic semi-infinite medium (subsection \ref{solution-nucleus}) in the following way. 
-First, we assume that the coordinates of the $j$th prism center are the coordinates of a nucleus of strain.
-Next, the displacement field calculated at the $i$th coordinates  $(x_i$, $y_i, z_i)$  due to the pressure contrast of the $j$th prism is calculated with a integration over its volume.
-Then, from equation \ref{eq:nucleus-ui_total}, the displacement field produced by the $jth$ prism can be written as 
+We parameterize the reservoir as a grid of juxtaposed right rectangular prisms.
+Each grid prism has a constant pressure contrast $\Delta p_{j}$; however, pressure variations among different prisms are allowed. 
+To calculate the displacement field produced by the $j$th prism
+at the $i$th coordinates  $(x_i, y_i, z_i)$, we integrate the solution deduced for a single nucleus of strain (equation \ref{eq:displacement_ui})
+over its volume and obtain
 \begin{equation}
-{\bf{u}}_{i} (x_i,y_i,z_i) =  
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
+{\bf{\tilde{u}}}_{ij} = 
+\iiint\limits_{{v_{1}}_{j}}
+{\bf{u_{1}}}_{ij} \: \:  dv_{j}^{\prime}
 \: + \:
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j.
+\iiint\limits_{{v_{2}}_{j}}
+{\bf{u_{2}}}_{ij} \:\:  dv_{j}^{\prime} \: ,
 \label{eq:nucleus-ui_jth_prism}
 \end{equation}
+where both integrals are conducted with respect to the variables 
+$(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$. The first integral in equation 
+\ref{eq:nucleus-ui_jth_prism} is conducted over the volume ${v_{1}}_{j}$ of the $j$th
+prism and the second is conducted over the volume 
+${v_{2}}_{j}$ of a different prism symmetrically positioned above the free surface 
+and conveniently called $j$th "image prism".
+Volume ${v_{1}}_{j}$ is defined by ${x_1}_{j}$, ${x_2}_{j}$, ${y_1}_{j}$, ${y_2}_{j}$,
+${z_1}_{j}$, and ${z_2}_{j}$, which represent, respectively, the south, north, west, 
+east, top, and bottom borders of the $j$th prism.
+Volume ${v_{2}}_{j}$ of the $j$th image prism is defined in a similar way, but with 
+top and bottom given by ${z_1}_{j} - 2 \, {z_c}_{j}$ and ${z_2}_{j} - 2 \, {z_c}_{j}$, where 
+${z_c}_{j} = \frac{1}{2}({z_1}_{j} + {z_2}_{j})$ is the center depth of the $j$th prism.
 
-In equation \ref{eq:nucleus-ui_jth_prism},  ${\bf{u_{1}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the $j$th single nucleus in the infinite space (equations \ref{eq:nucleus-u1} and  \ref{eq:nucleus-u1-vector}), the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and $z_1$ and $z_2$ are their depths to the top and bottom.
-Additionally, ${\bf{u_{2}}}_{i}$ is the displacement field at the coordinates $x_i$, $y_i$  and $z_i$  due to the effect of an image nucleus (equations \ref{eq:nucleus-u2} and  \ref{eq:nucleus-u2-vector}). 
- 
-Note that the integrations in equation \ref{eq:nucleus-ui_jth_prism}, are conducted with respect to the variables $(x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$, denoting, respectively, the
-$x-, \: y-$, and $z-$coordinates of an arbitrary point belonging to the interior
-of the $j$th prism (or the $j$th image nucleus).
-Finally, the displacement field at the coordinates $x_i$, $y_i$  and $z_i$ due to the pressure change in the whole reservoir can be defined as the sum of the displacements yielded by each prism with constant pressure $\Delta p_{j}$:
+The total displacement vector at the point $(x_i, y_i, z_i)$ due to the
+pressure change in the whole reservoir is defined as the sum of the displacements 
+${\bf{u}}_{ij}$ (equation \ref{eq:nucleus-ui_jth_prism}) yielded by each prism 
+with constant pressure $\Delta p_{j}$:
 \begin{equation}
-{\bf{\tilde{u}}}_{i} (x_i,y_i,z_i) = \sum_{j=1}^{M} 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{1}}}_{i} \: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
-\: + \: 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-{\bf{u_{2}}}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j, 
+{\bf{\tilde{u}}}_{i} = \sum_{j=1}^{M} {\bf{\tilde{u}}}_{ij} \: ,
 \label{eq:nucleus-ui_M_prisms}
 \end{equation}
 where $M$ is the number of prisms setting up the reservoir model.
-
-From equation \ref{eq:nucleus-u1-vector},  we can get the   
-$\alpha-$components of the displacement vectors ${\bf{u_{1}}}_{i}$  (the integrand of the first integral of equation \ref{eq:nucleus-ui_M_prisms})
+The horizontal component of the total displacement vector ${\bf{\tilde{u}}}_{i}$ 
+(equation \ref{eq:nucleus-ui_M_prisms}) is calculated by 
 \begin{equation}
-{u_{1}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[  \frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \Bigg] \: \Delta p_{j} \:\:\:  
-\label{eq:u1_alpha_component}
+{\tilde{u}}_{{i}_h} = \sqrt{ {\tilde{u}}_{{i}_x}^{2}  +  {\tilde{u}}_{{i}_y}^{2} } 
+\: ,
+\label{eq:horizontal_displacement}
 \end{equation}
-where $\alpha$  belongs to the set of $ x-$ $y-$ and $z-$directions of the Cartesian coordinates system.
+where ${\tilde{u}}_{{i}_x}$ and ${\tilde{u}}_{{i}_y}$ are the $x-$ and $y-$ components.
 
-From equation  \ref{eq:nucleus-u2-vector}, we can get the $ x-$ and $y-$components of the displacement vectors ${\bf{u_{2}}}_{i}$  (the integrand of the second integral of equation \ref{eq:nucleus-ui_M_prisms})
+By substituting equations \ref{eq:nucleus-u1-vector} and \ref{eq:nucleus-u2-vector} 
+into equation \ref{eq:nucleus-ui_jth_prism}, we obtain
 \begin{equation}
-{u_{2}}_\alpha =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-(3  - 4 \nu)    \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\: 
-+ 2 \: z_{i} \:  
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-\Delta p_{j} ,
-\label{eq:u2_alpha_component}
-\end{equation}
-where  $\alpha$  belongs to the set of $ x-$ and $y-$directions, and the $z-$component of the displacement vectors ${\bf{u_{2}}}_{i}$  
-\begin{equation}
-{u_{2}}_z =  \frac{A  \: (1 + \nu)}{E} \: \Bigg[ 
-\: - (3  - 4 \nu)  \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: 
-+ 2 \: z_{i} \:  
-\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \: \Bigg]
-\Delta p_{j}
-\label{eq:u2_z_component}
-\end{equation}
-
-
-Equation \ref{eq:u1_alpha_component} shows that the $\alpha-$component of the displacement vector ${\bf{u_{1}}}_{i}$  depends on the first derivative of ${\frac{1}{{R_1}_{ij}}}$  
-with respect to the variable $\alpha$.
-Conversely, the $\alpha-$component of the displacement vector ${\bf{u_{2}}}_{i}$  
-(equation \ref{eq:u2_alpha_component}) depends not only on the first derivative of 
-${\frac{1}{{R_2}_{ij}}}$  with respect to the variable $\alpha$ but also on the second derivative of ${\frac{1}{{R_2}_{ij}}}$  with respect to the variables $\alpha$ and $z$.
-
-By substituting equations \ref{eq:u1_alpha_component} $-$ \ref{eq:u2_z_component} into equation \ref{eq:nucleus-ui_M_prisms}, we can obtain, respectively,  the $\alpha-$component (where  $\alpha = x$ and $y$) and the $z-$ component of the displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir, i.e.:
-\begin{equation}
-{\tilde{u}}_{{i}_\alpha} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
-\frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
+{\tilde{u}}_{{ij}_\alpha} = \frac{A  \: (1 + \nu)}{E} 
+\: \Delta p_{j}  \: \left[ \iiint\limits_{{v_{1}}_{j}} 
+\frac{\partial }{\partial \alpha} {\frac{1}{{R_1}_{ij}}} \:  dv_{j}^{\prime} 
 \: + \: 
-(3  - 4 \nu)  \int\int\limits_{v_j}\int
+(3  - 4 \nu)  \iiint\limits_{{v_{2}}_{j}}
 \: \frac{\partial }{\partial \alpha} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
++ \: 2 \: z_{i} \:  \iiint\limits_{{v_{2}}_{j}}
+\frac{\partial^{2}  }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_{j}^{\prime} 
+\right] \: , 
 \label{eq:u_til_alpha}
 \end{equation}
-and 
+where $\alpha = x, y$, and
 \begin{equation}
-{\tilde{u}}_{{i}_z} = \frac{A  \: (1 + \nu)}{E}  \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
-\frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
-\: - \: (3  - 4 \nu)  \int\int\limits_{v_j}\int
-\: \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
+{\tilde{u}}_{{ij}_z} = \frac{A  \: (1 + \nu)}{E} 
+\: \Delta p_{j}  \: \left[ \iiint\limits_{{v_{1}}_{j}}
+\frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} \: dv_{j}^{\prime} 
+\: - \: (3  - 4 \nu)  \iiint\limits_{{v_{2}}_{j}}
+\: \frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}}\: dv_{j}^{\prime}
++ \: 2 \: z_{i} \:  \iiint\limits_{{v_{2}}_{j}}
+\frac{\partial^{2}  }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}  \:\: dv_{j}^{\prime} 
+\right] \: .
 \label{eq:u_til_z}
 \end{equation}
-where $dv_j$ is the $j$th element of volume of the $j$th prism whose volume is $v_j$.
+In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals have the same form of derivatives of the gravitational potential produced by the $j$th prism and image prism. 
+The first integral corresponds to the $\alpha-$component of the gravitational attraction 
+produced by the $j$th prism.
+The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravitational 
+gradient tensor produced by the $j$th image prism. 
+The similarity between the displacement fields due to a volume source in a half-space and the gravitational field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism.  
 
-
-In the right-hand side of equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the three integrals are equal to  quantities of the gravitational attraction produced by the $j$th prism considering that 
-$\Delta p_{j}$ is the density of the $j$th prism and the constants are equivalent to the gravitational constant. 
-The first integral corresponds to the $\alpha-$component of the gravitational attraction produced by the $j$th prism.
-The second and third integrals correspond, respectively, to the $\alpha-$component of the gravitational attraction and to the $\alpha \:z-$component of the gravity gradient tensor produced by the $j$th image nucleus. 
-
-The similarity between the displacement fields due to a volume source in a half-space and the gravity field allows the use of closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}).  
-
-The first integral in the right-hand side of equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}  is the first derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $x$, $y$ and $z$ which are, respectively, given by the following closed expressions: 
+In equations  \ref{eq:u_til_alpha} and \ref{eq:u_til_z}, the integrals depending on 
+first derivatives of ${\frac{1}{{R_1}_{ij}}}$ have the following closed solutions 
+\citep{Nagyetal2000, Nagyetal2002}:
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial x} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg| 
-y \ln(z + {R_1}) + z \ln(y + {R_1}) -  x  \tan^{-1} \Bigg( \frac{yz}{x \:{R_1}} \Bigg) 
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+y \ln(z + R) + z \ln(y + R) -  x  \tan^{-1} \Bigg( \frac{yz}{x \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dx1}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial y} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-x \ln(z + {R_1}) + z \ln(x + {R_1}) -  y  \tan^{-1} \Bigg( \frac{xz}{y \:{R_1}} 
+x \ln(z + R) + z \ln(x + R) -  y  \tan^{-1} \Bigg( \frac{xz}{y \: R} 
 \Bigg)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dy1}
 \end{equation}
+and
 \begin{equation}
-\int\int\limits_{v_j}\int  \frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial }{\partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-x \ln(y + {R_1}) + y \ln(x + {R_1}) -  z  \tan^{-1} \Bigg( \frac{xy}{z \:{R_1}} \Bigg) 
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+x \ln(y + R) + y \ln(x + R) -  z  \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dz1}
 \end{equation}
-For simplicity,  we omit the subscripts $i$ and $j$ in equations \ref{dx1} $-$ \ref{dz1}; hence, the variables $x$, $y$ and $z$  are relative coordinates of the $i$th point of the displacement referred to the coordinates to the corner of the $j$th prism modeling the reservoir, i.e.,  $x = x_j - x_i $, $\: y = y_j - y_i $, $\: z = z_j - z_i $ and 
-$\: {R_1} = \sqrt{x^{2} + y^{2} + z^{2}}$.
-In equations \ref{dx1} $-$ \ref{dz1}, the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and 
-$z_1$ and $z_2$ are their depths to the top and bottom.
-\cite{Nagyetal2000} and (\citeyear{Nagyetal2002}) provided limit values of integrals shown in equations \ref{dx1} $-$ \ref{dz1} when the computation point coincides with the corner of the prism.
-
-The second and third integrals in the right-hand side of equations  \ref{eq:u_til_alpha}  and \ref{eq:u_til_z} are related with the correction of the displacements considering  a semi-space (image nucleus solution).
-These integrals depend on the distance ${R_2}_{ij}$ from the $i$th coordinate point of the displacement to the $j$th image nucleus.
-Likewise, $\: {R_2} = \sqrt{x^{2} + y^{2} + z^{2}}$; however, the variable $z$  that represents the relative coordinate of the $i$th point of the displacement referred to the coordinates to the corner of the $j$th image nucleus is given by
+where all derivatives are computed with respect to the coordinates of the $i$th point 
+$(x_i, y_i, z_i)$, $R = \sqrt{x^{2} + y^{2} + z^{2}}$, and
 \begin{equation}
-z = z_j - z_i - 2 z_c
-\label{z_image}
+\begin{array}{ll}
+{X_1}_{j} &= x_i - {x_1}_{j} \\
+{X_2}_{j} &= x_i - {x_2}_{j} \\
+{Y_1}_{j} &= y_i - {y_1}_{j} \\
+{Y_2}_{j} &= y_i - {y_2}_{j} \\
+{Z_1}_{j} &= z_i - {z_1}_{j} \\
+{Z_2}_{j} &= z_i - {z_2}_{j}
+\end{array} \quad .
+\label{eq:Nagy_limits_1}
 \end{equation}
-where  $z_c$ is the $z-$coordinate of the $j$th image nucleus
+The remaining integrals, in the right-hand side of equations 
+\ref{eq:u_til_alpha} and \ref{eq:u_til_z}, depend on first and second derivatives 
+of ${\frac{1}{{R_2}_{ij}}}$.
+These integrals are conducted over the volume ${v_{2}}_{j}$ of the $j$th image prism and have the following closed solutions \citep{Nagyetal2000, Nagyetal2002}:
 \begin{equation}
-z_c = 0.5 (z_1 + z_2)
-\label{z_c}
-\end{equation}
-
-The second integral in the right-hand side of  equations  \ref{eq:u_til_alpha} and  \ref{eq:u_til_z} is the first derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $x$, $y$ and $z$.
-These derivatives are equal to equations \ref{dx1} $-$ \ref{dz1}, the only difference is the variable $z$  that is given by equations \ref{z_image}  and \ref{z_c}.
-
-The third integral in the right-hand side of  equations  \ref{eq:u_til_alpha}  and  \ref{eq:u_til_z} is the second derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $xz$, $yz$ and $zz$ which are, respectively, given by the following closed expressions: 
-\begin{equation}
-\int\int\limits_{v_j}\int 
-\frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j = \Bigg|\Bigg|\Bigg| 
-\ln(y + {R_2})
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial x} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg| 
+y \ln(z + R) + z \ln(y + R) -  x  \tan^{-1} \Bigg( \frac{yz}{x \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dx2}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial y \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial y} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-\ln(x + {R_2})
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+x \ln(z + R) + z \ln(x + R) -  y  \tan^{-1} \Bigg( \frac{xz}{y \: R} 
+\Bigg)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dy2}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int
-\frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial }{\partial z} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
- -   \tan^{-1} \Bigg( \frac{xy}{z \:{R_2}} \Bigg)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}, 
+x \ln(y + R) + y \ln(x + R) -  z  \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg) 
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{dz2}
 \end{equation}
-where the variable $z$ is given by equations \ref{z_image}  and \ref{z_c}.
-
-The horizontal displacement field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir is calculated by 
 \begin{equation}
-{\tilde{u}}_{{i}_h} = \sqrt{ {\tilde{u}}_{{i}_x}^{2}  +  {\tilde{u}}_{{i}_y}^{2} }  
-\label{eq:horizontal_displacement}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} = \Bigg|\Bigg|\Bigg| 
+\ln(y + R)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dxz2}
 \end{equation}
-where ${\tilde{u}}_{{i}_x}$ and ${\tilde{u}}_{{i}_y}$ are the $x-$ and $y-$ components of the displacement field at the $i$th coordinates given by equation \ref{eq:u_til_alpha}, with $\alpha = x $ and $y$.
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial y \partial z} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg|
+\ln(x + R)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dyz2}
+\end{equation}
+and
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg|
+-   \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad .
+\label{dzz2}
+\end{equation}
+In these integrals related to the $j$th image prism 
+(equations \ref{dx2}--\ref{dzz2}), the integration limits along the $z$ direction
+are given by
+\begin{equation}
+\begin{array}{ll}
+{Z_1}_{j} &= z_i - {z_1}_{j} + 2 \, {z_c}_{j} \\
+{Z_2}_{j} &= z_i - {z_2}_{j} + 2 \, {z_c}_{j}
+\end{array} \quad ,
+\label{eq:Nagy_limits_2}
+\end{equation}
+where ${z_c}_{j} = \frac{1}{2}({z_1}_{j} + {z_2}_{j})$ is the center depth of the $j$th prism. 
+The remaining limits along $x$ and $y$ directions are the same defined by equation 
+\ref{eq:Nagy_limits_1}.
 
 
 \subsection{The discrete stress forward modeling due to a reservoir in a homogeneous elastic semi-infinite medium}
 
-By following the similar approach used in the displacement forward modeling due to a prism in a homogeneous elastic semi-infinite medium (subsection \ref{u-model}), the stress field of each prism assuming constant pressure is calculated by integrating over its volume the stress of a nucleus of strain located at its center. 
-Next, the stresses due to a set of $M$ prisms modeling the reservoir is summed to yield the stress field  due to the pressure change in the whole reservoir.
-
-Like equation \ref{eq:nucleus-ui_M_prisms}, the stress field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir can be written as:
+By following the similar approach used in the previous subsection, the stress field of each prism assuming constant pressure is calculated by integrating solution for a 
+nucleus of strain (equations \ref{eq:stress_nucleus}, \ref{eq:nucleus-stress1-vector},
+and \ref{eq:nucleus-stress2-vector}) over its volume. 
+This integration leads to a stress vector 
+$\mbox{\boldmath$\tilde{\sigma}$}_{ij} \equiv \mbox{\boldmath$\tilde{\sigma}$}(x_{i}, y_{i}, z_{i}, x^{\prime}_{j}, y^{\prime}_{j}, z^{\prime}_{j})$ given by
 \begin{equation}
-\tilde{\mbox{\boldmath$\sigma$}}_{i}(x_i,y_i,z_i)
-= \sum_{j=1}^{M} 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-\mbox{\boldmath$\sigma_{1}$}_{i}\: \:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j 
-\: + \: 
-\int_{z_1}^{z_2} \:\:
-\int_{y_1}^{y_2} \:\: 
-\int_{x_1}^{x_2} 
-\mbox{\boldmath$\sigma_{2}$}_{i} \:\:  dx^{\prime}_j dy^{\prime}_j dz^{\prime}_j, 
+\mbox{\boldmath$\tilde{\sigma}$}_{ij} = 
+\iiint\limits_{{v_{1}}_{j}}
+\mbox{\boldmath$\sigma_{1}$}_{ij} \: \:  dv_{j}^{\prime}
+\: + \:
+\iiint\limits_{{v_{2}}_{j}}
+\mbox{\boldmath$\sigma_{2}$}_{ij} \:\:  dv_{j}^{\prime} \: ,
+\label{eq:nucleus-stress_jth_prism}
+\end{equation}
+where the first and second integrals are conducted, respectively, over the volumes 
+${v_{1}}_{j}$ and ${v_{2}}_{j}$ of the $j$th prism and the $j$th image prism.
+The total stress vector at the $i$th coordinates  $(x_i, y_i, z_i)$ due to the 
+pressure change in the whole reservoir is calculated by 
+\begin{equation}
+\mbox{\boldmath$\tilde{\sigma}$}_{i} = 
+\sum_{j=1}^{M} \mbox{\boldmath$\tilde{\sigma}$}_{ij} \: .
 \label{eq:nucleus-stress_M_prisms}
 \end{equation}
-where the limits of the integrals represent the borders of the $j$th prism modeling the reservoir in the following way: $x_1$ and $x_2$ are their south and north borders; $y_1$ and  $y_2$ are their  west and east borders;  and $z_1$ and $z_2$ are their depths to the top and bottom.
 
-
-From equations \ref{eq:nucleus-stress1-vector} and \ref{eq:nucleus-stress2-vector}, we write, respectively,  the $\alpha-$component (where  $\alpha = x$ and $y$) and the $z-$ component of the stress field at the $i$th coordinates ($x_i$, $y_i$  and $z_i$) due to the pressure change in the whole reservoir, i.e.:
+By substituting equation \ref{eq:nucleus-stress1-vector} and 
+\ref{eq:nucleus-stress2-vector} into equation \ref{eq:nucleus-stress_jth_prism}, 
+we obtain the $\alpha-$component (where  $\alpha = x$ and $y$) and the $z-$ component 
+of the stress vector $\mbox{\boldmath$\tilde{\sigma}$}_{ij}$ as follows:
 \begin{equation}
-{\tilde{\sigma}}_{{i}_\alpha} = A \: \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
-\frac{\partial^{2}}{\partial \alpha \partial z} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
-\: +   \int\int\limits_{v_j}\int
-\: \frac{\partial^{2} }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{3}  }{\partial \alpha \partial z ^{2}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
+{\tilde{\sigma}}_{{ij}_\alpha} = A \: \Delta p_{j} \: \left[
+\iiint\limits_{{v_{1}}_{j}}
+\frac{\partial^{2}}{\partial \alpha \partial z} {\frac{1}{{R_1}_{ij}}} \: dv_{j}^{\prime}
+\: + \iiint\limits_{{v_{2}}_{j}}
+\: \frac{\partial^{2} }{\partial \alpha \partial z} {\frac{1}{{R_2}_{ij}}} \: 
+dv_{j}^{\prime}
++ \: 2 \: z_{i} \: \iiint\limits_{{v_{2}}_{j}}
+\frac{\partial^{3}  }{\partial \alpha \partial z ^{2}} {\frac{1}{{R_2}_{ij}}}  \:\: 
+dv_{j}^{\prime} \right]
 \label{eq:stress_til_alpha}
 \end{equation}
 and 
 \begin{equation}
-{\tilde{\sigma}}_{{i}_z} = A \: \sum_{j=1}^{M} 
-\: \Delta p_{j}  \: \int\int\limits_{v_j}\int 
-\frac{\partial^{2}}{\partial z^{2}} {\frac{1}{{R_1}_{ij}}} \:  dv_j 
-\: -   \int\int\limits_{v_j}\int
-\: \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}}\:  dv_j
-+ \: 2 \: z_{i} \:  \int\int\limits_{v_j}\int
-\frac{\partial^{3}  }{\partial z ^{3}} {\frac{1}{{R_2}_{ij}}}  \:\:  dv_j, 
+{\tilde{\sigma}}_{{ij}_{z}} = A \: \Delta p_{j} \: \left[
+\iiint\limits_{{v_{1}}_{j}}
+\frac{\partial^{2}}{\partial z^{2}} {\frac{1}{{R_1}_{ij}}} \: dv_{j}^{\prime}
+\: + \iiint\limits_{{v_{2}}_{j}}
+\: \frac{\partial^{2} }{\partial z^{2}} {\frac{1}{{R_2}_{ij}}} \: 
+dv_{j}^{\prime}
++ \: 2 \: z_{i} \: \iiint\limits_{{v_{2}}_{j}}
+\frac{\partial^{3}  }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}}  \:\: 
+dv_{j}^{\prime} \right] \: .
 \label{eq:stress_til_z}
 \end{equation}
-where $dv_j$ is the $j$th element of volume of the $j$th prism whose volume is $v_j$.
 
-Like in the displacement field (equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}), the three integrals, in the right-hand side of equations \ref{eq:stress_til_alpha} and \ref{eq:stress_til_z}, are equal to  quantities of the gravitational attraction produced by the $j$th prism considering that $\Delta p_{j}$ is the density of the $j$th prism and the constants are equivalent to the gravitational constant. 
-In equation \ref{eq:stress_til_alpha}, the first and second integrals correspond to the $\alpha \:z-$component of the gravity gradient tensor (where  $\alpha = x$ and $y$) produced, respectively, by the $j$th prism and $j$th image nucleus; and the third integral corresponds to the first derivative with respect to $\alpha$ of the $zz-$component of the gravity gradient tensor produced by the $j$th image nucleus. 
-In equation \ref{eq:stress_til_z}, the first and second integrals correspond to the $zz-$component of the gravity gradient tensor produced, respectively, by the $j$th prism and $j$th image nucleus; and the third integral corresponds to the first derivative with respect to $z$ of the $zz-$component of the gravity gradient tensor produced by the $j$th image nucleus. 
-
-Here, we also use the closed expressions of the gravitational potential and its derivatives produced by the 3D right rectangular prism derived by \cite{Nagyetal2000} and (\citeyear{Nagyetal2002}) to calculate the stress field due to a volume source in a half-space.  
-The first integral in equations  \ref{eq:stress_til_alpha} and \ref{eq:stress_til_z}
-corresponds, respectively, to the $\alpha \:z-$ and $zz-$components of the gravity gradient tensor produced by the $j$th prism modeling the reservoir.
-These second partial derivatives of ${\frac{1}{{R_1}_{ij}}}$ with respect to $xz$, $yz$ and $zz$ are calculated using the analytical expressions given by equations \ref{dx2} $-$ \ref{dz2} but substituting 
-$\frac{1}{{R_2}_{ij}} \equiv \frac{1}{R_2}$ by 
-$\frac{1}{{R_1}_{ij}} \equiv \frac{1}{R_1}$.
-
-The second and third integrals in the right-hand side of  equations  \ref{eq:stress_til_alpha}  and \ref{eq:stress_til_z} are related with the correction of the stresses considering  a semi-space (image nucleus solution).
-These integrals depend on the distance ${R_2}_{ij}$ from the $i$th coordinate point of the stress to the $j$th image nucleus, where the variable $z$ is given by the equations \ref{z_image} and \ref{z_c}.
-In the right-hand side of  equations  \ref{eq:stress_til_alpha} and \ref{eq:stress_til_z}, 
-the second integral is the second partial derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $xz$, $yz$ and $zz$ given by equations  \ref{dx2} $-$ \ref{dz2} and the third integral is the third partial derivatives of ${\frac{1}{{R_2}_{ij}}}$ with respect to $xzz$, $yzz$ and $zzz$ given by (\cite{Nagyetal2000}):
+Similarly to the displacement field (equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}), the three integrals in the right-hand side of equations \ref{eq:stress_til_alpha} and \ref{eq:stress_til_z} have the same form of 
+derivatives of the gravitational potential produced by the $j$th prism and image prism.
+The integrals depending on $\frac{1}{{R_1}_{ij}}$ have the following closed 
+solutions \citep{Nagyetal2000, Nagyetal2002}:
 \begin{equation}
-\int\int\limits_{v_j}\int 
-\frac{\partial^{3}}{\partial x \partial z^{2}} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial^{2}  }{\partial x \partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} = \Bigg|\Bigg|\Bigg| 
+\ln(y + R)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dxz1}
+\end{equation}
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial^{2}  }{\partial y \partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg|
+\ln(x + R)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dyz1}
+\end{equation}
+and
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j}}^{{z_{2}}_{j}}
+\frac{\partial^{2}  }{\partial z \partial z} {\frac{1}{{R_1}_{ij}}} dv_{j}^{\prime} =
+\Bigg|\Bigg|\Bigg|
+-   \tan^{-1} \Bigg( \frac{xy}{z \: R} \Bigg)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{dzz1}
+\end{equation}
+where the limits ${X_1}_{j}$, ${X_2}_{j}$, ${Y_1}_{j}$, ${Y_2}_{j}$, ${Z_1}_{j}$, and ${Z_2}_{j}$ are defined by equation \ref{eq:Nagy_limits_1}.
+The integrals depending on second derivatives of $\frac{1}{{R_2}_{ij}}$ in the 
+right-hand side of equations \ref{eq:stress_til_alpha} and \ref{eq:stress_til_z} 
+have closed solutions defined by equations \ref{dxz2}, \ref{dyz2}, and \ref{dzz2}.
+Finally, the remaining integrals depending on third derivatives of 
+$\frac{1}{{R_2}_{ij}}$ have closed solutions given by 
+\citep{Nagyetal2000, Nagyetal2002}:
+\begin{equation}
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{3}}{\partial x \partial z^{2}} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg| 
-\frac{- y z}{R_2} \Big( \frac{1}{x^{2} + z^{2}} \Big)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
-\label{sx3}
+\frac{- y z}{R} 
+\left( \frac{1}{x^{2} + z^{2}} \right)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{sxzz}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int  
-\frac{\partial^{2}  }{\partial y \partial z^{2}} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{2}  }{\partial y \partial z^{2}} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-\frac{- x z}{R_2} \Big( \frac{1}{y^{2} + z^{2}} \Big)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
-\label{sy3}
+\frac{- x z}{R} 
+\left( \frac{1}{y^{2} + z^{2}} \right)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
+\label{syzz}
 \end{equation}
 \begin{equation}
-\int\int\limits_{v_j}\int 
-\frac{\partial^{3}  }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}}  dv_j =
+\int\limits_{{x_{1}}_{j}}^{{x_{2}}_{j}} \int\limits_{{y_{1}}_{j}}^{{y_{2}}_{j}} \int\limits_{{z_{1}}_{j} - 2 \, z_c}^{{z_{2}}_{j} - 2 \, z_c}
+\frac{\partial^{3}  }{\partial z^{3}} {\frac{1}{{R_2}_{ij}}} dv_{j}^{\prime} =
 \Bigg|\Bigg|\Bigg|
-\frac{ x y}{R_2} \Big( \frac{1}{x^{2} + z^{2}} + \frac{1}{y^{2} + z^{2}} \Big)
-\Bigg|_{x_1}^{x_2} \Bigg|_{y_1}^{y_2} \Bigg|_{z_1}^{z_2}
+\frac{ x y}{R} 
+\left( \frac{1}{x^{2} + z^{2}} + \frac{1}{y^{2} + z^{2}} \right)
+\Bigg|_{{X_1}_{j}}^{{X_2}_{j}} \Bigg|_{{Y_1}_{j}}^{{Y_2}_{j}} \Bigg|_{{Z_1}_{j}}^{{Z_2}_{j}} \quad ,
 \label{sz3}
 \end{equation}
+where the limits ${X_1}_{j}$, ${X_2}_{j}$, ${Y_1}_{j}$, and ${Y_2}_{j}$, are defined 
+by equation \ref{eq:Nagy_limits_1} and the limits ${Z_1}_{j}$, and ${Z_2}_{j}$ by
+equation \ref{eq:Nagy_limits_2}.
 
 \subsection{Computation notes}
 
-In equations \ref{dx1}$-$\ref{dz1} and \ref{dx2}$-$\ref{dz1}, we adopted the modifications proposed by \cite{Fukushima2020}.
+In equations \ref{dx1}--\ref{dz1}, \ref{dx2}--\ref{dzz2} and \ref{dxz1}--\ref{dzz1}, we adopted the modifications proposed by \cite{Fukushima2020}.
 To overcome the zero division in evaluating the arguments of the arctangent function, \cite{Fukushima2020} replaced  $\tan^{-1} \big( \frac{S}{T} \big)$ by 
 \begin{equation}
-arctan2(S,T) = 
-  \left\{ \begin{aligned}
-      atan (S/T) & \:\: \mbox{if} \: \:\:  T \neq 0 \\
-      \pi /2 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S > 0 \\
-      -\pi /2 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S < 0 \\
-         0 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S = 0 \\
-  \end{aligned} \right.
+arctan2(S,T) = \begin{cases}
+	%\left\{ \begin{aligned}
+    atan (S/T) & \:\: \mbox{if} \: \:\:  T \neq 0 \\
+    \pi /2 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S > 0 \\
+    -\pi /2 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S < 0 \\
+    0 & \:\: \mbox{if} \: \:\:  T = 0  \: \: \mbox{and} \: \:S = 0 \\
+    %\end{aligned} \right\}.
+    \end{cases}
 \label{eq:arctan2}  
 \end{equation}
-If the argument of the logarithm is less than $10^{-10}$, the logarithm is replaced by zero; otherwise the logarithm is  calculated regularly
+Additionally, if the argument of the logarithm is less than $10^{-10}$, the logarithm is replaced by zero; otherwise the logarithm is  calculated regularly
 
 
 
@@ -772,10 +785,8 @@ Embedded in a semi-infinite homogenous medium, we simulated a vertical cylinder-
 The depths to the top and to the bottom of the simulated reservoir are 750 m and 850 m, respectively.
 The reservoir is uniformly depleted by $\Delta p = -10$ MPa. 
 The Young’s modulus is  3300 (in MPa), the Poisson's coefficient is 0.25, and
-the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is $2.2525 \: 10^{-4}$
-$\textrm{ MPa}^{-1}$.
-
-
+the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is 
+$2.2525 \: 10^{-4}$ $\textrm{ MPa}^{-1}$.
 
 To apply our methodology, we  discretized the cylinder  along the $x-$ and $y-$ directions into an $20 \times 20$ grid of prisms. Hence, we totalized 400 prisms all of them centered at 800 m deep, with depths to the top and to the bottom at 750 m and 850 m  and with pressure contrast $\Delta p_j$, $j = 1, ..., 400$ equal to $-10$ MPa.
 To apply the Geertsma’s method \citep{Geertsma73}, we used the disk-shaped reservoir described in \cite{Fjaer08} with dimensions and physical properties defined above.
@@ -784,12 +795,12 @@ Figures \ref{fig:displacement}  and \ref{fig:displacement_Geertsma}  show cross-
 $x  = 0$ m of the displacement fields in 2D contour plots  due to the pressure change in the whole  cylindrical reservoir by using our methodology and Geertsma’s method \citep{Geertsma73}, respectively.
 
 Because we defined the $z-$axis as positive downwards, the positive vertical displacement means a subsidence and the negative vertical displacement means an uplift.
-Figure \ref{fig:displacement}  shows the horizontal and vertical displacements  calculated, respectively, with equations \ref{eq:horizontal_displacement} and \ref{eq:u_til_z} by our methodology that uses the closed expressions of the full integrations (equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}) of \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1} $-$ \ref{dz2}).
+Figure \ref{fig:displacement}  shows the horizontal and vertical displacements  calculated, respectively, with equations \ref{eq:horizontal_displacement} and \ref{eq:u_til_z} by our methodology that uses the closed expressions of the full integrations (equations \ref{eq:u_til_alpha} and \ref{eq:u_til_z}) of \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1} $-$ \ref{dzz2} ).
 
 Figure \ref{fig:displacement_Geertsma} shows the radial and vertical displacements using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion based on the nucleus-of-strain concept in the half-space, which in turn was proposed by \cite{Mindlin&Cheng50} and \cite{Sen51} in the theory of thermoelasticity.
 
-In both cases (Figures \ref{fig:displacement}b and \ref{fig:displacement_Geertsma}b) the vertical displacements due to the entire the disc-shaped reservoir display a subsidence (positive values) above the reservoir and an uplift (negative values) below the reservoir.
-We stress that the proposed volume integrations  (equations \ref{dx1} $-$ \ref{dz2})  allowed  to evaluate the  vertical displacement (Figure \ref{fig:displacement}b) throughout  the entire reservoir including inside and outside the reservoir.
+In both cases (Figures \ref{fig:displacement}b and \ref{fig:displacement_Geertsma}b) the vertical displacements due to the entire the disk-shaped reservoir display a subsidence (positive values) above the reservoir and an uplift (negative values) below the reservoir.
+We stress that the proposed volume integrations  (equations \ref{dx1} $-$ \ref{dzz2})  allowed  to evaluate the  vertical displacement (Figure \ref{fig:displacement}b) throughout  the entire reservoir including inside and outside the reservoir.
 Rather, the  vertical displacement using Geertsma’s method 
 (Figure \ref{fig:displacement_Geertsma}b) is only valid outside the reservoir. 
 
@@ -807,8 +818,8 @@ The vertical displacements of the seafloor, the top and bottom of the reservoir 
 However, we note that the subsidence of the seafloor is more attenuated in the Geertsma’s method than in our method.
 This fact is important because the moviment of the seafloor should be monitored in hydrocarbon fields under production.
 
-Figure \ref{fig:Null_stress} shows the  null stress through the free surface at the plane 
-$z=0$ m (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir under uniform depletion.
+Figure \ref{fig:Null_stress} shows the null stress through the free surface at the 
+plane $z=0$ m due to reservoir under uniform depletion.
 
 
 
@@ -842,7 +853,9 @@ produced by the top (black line) and the bottom (red line) of the reservoir unde
 Finally, we stress that the subsidence on the seafloor due to the reservoir under non uniform depletion 
 (green line in Figure  \ref{fig:displacement_z_levels_non_uniform_depletion}b) attains higher values (close to 20 cm) than the subsidence of the seafloor due to the reservoir under uniform depletion (green line in Figure  \ref{fig:displacement_z_levels}b).
 
-We verify that the zero stress condition is satisfied at the free surface (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir under a non uniform depletion as shown in Figure \ref{fig:Null_stress_non_uniform_depletion}.
+We verify that the zero stress condition is satisfied at the free surface 
+%(equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) 
+due to reservoir under a non uniform depletion as shown in Figure \ref{fig:Null_stress_non_uniform_depletion}.
 
 \subsubsection{Reservoir with arbitrary geometry and under arbitrary pressure changes}
 
@@ -858,7 +871,9 @@ the uniaxial compaction coefficient $C_{m}$  (equation \ref{eq:Cm}) is $2.2525 \
 $\textrm{ MPa}^{-1}$.
 In the 3D perspective view of the pore pressure distribution of the simulated reservoir shown in Figure \ref{fig:pressure_complex_reservoir}, we can see that the pressures vary from $0$ to $-0.72$ MPa.
 Figure \ref{fig:displacement_complex_reservoir} shows cross-sections at $x  = 8$ km of the horizontal and vertical displacements, in 2D contour plots, calculated in the whole reservoir by using our methodology.
-Figure \ref{fig:Null_stress_complex_reservoir} shows the  null stress through the free surface (equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) due to reservoir with arbitrary geometry and under arbitrary pressure disribution.
+Figure \ref{fig:Null_stress_complex_reservoir} shows the  null stress through the free surface 
+%(equations \ref{eq:null_stress} and \ref{eq:null_stress_i}) 
+due to reservoir with arbitrary geometry and under arbitrary pressure disribution.
 
 
 \conclusions  %% \conclusions[modified heading if necessary]
@@ -881,7 +896,7 @@ Jupyter Notebook.
 
 \codedataavailability{
 The current version of our code is freely distributed under the BSD 3-clause licence and it is available for download at Zenodo: http://doi.org/XXXXXXXX. 
-The latest development version of our code can be freely downloaded from a repository on GitHub (https://github.com/pinga-lab/reservoir-compaction). 
+The latest development version of our code can be freely downloaded from a repository on GitHub (https://github.com/pinga-lab/DisReserv). 
 Instructions for running  the current version of our code are also provided on the repository.
 The code is still being improved and we encourage the user to work with the latest development version. 
 The code was developed as an open-source Python language (Python 3.7.6).
@@ -1037,7 +1052,7 @@ van Thienen-Visser, K. and Fokker, P. A.:The future of subsidence modelling: com
 
 \clearpage
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Nucleus_Strain.png}
 \caption{Schematic representation of the geometry of the nucleus of strain in a semi-infinite medium. After \cite{Munoz&Roehl17}. 
 The adopted Cartesian coordinate system considered the $x-$axis pointing to north, the $y-$axis pointing to east and the $z-$axis pointing downward.} 
@@ -1046,15 +1061,15 @@ The adopted Cartesian coordinate system considered the $x-$axis pointing to nort
 
 %%% First Test: Disk-shaped reservoir under non uniform depletion
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Cylinder.png}
 \caption{Disk-shaped reservoir under uniform depletion with a radius of 500 m}
 \label{fig:cylinder}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement.png}
-\caption{Reservoir under uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\caption{Reservoir under uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dzz2})}
 \label{fig:displacement}
 \end{figure}
 
@@ -1064,14 +1079,14 @@ The adopted Cartesian coordinate system considered the $x-$axis pointing to nort
 \label{fig:displacement_Geertsma}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels.png}
-\caption{Reservoir under uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
+\caption{Reservoir under uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dzz2}).
 These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
 \label{fig:displacement_z_levels}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_Geertsma.png}
 \caption{Reservoir under uniform depletion: Vertical displacement using Geertsma’s method \citep{Geertsma73}  considering an elastic homogeneous cylindrical reservoir under uniform depletion \citep{Fjaer08}.
 The displacement is calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), and reservoir bottom 
@@ -1080,57 +1095,57 @@ The displacement is calculated along the x-axis, at $y = 0$ m and $z$ located at
 \end{figure}
 
 
-\begin{figure*}[h]
+\begin{figure}[ht]
 \includegraphics[width=12cm]{Fig/Figure_Null_stress.png}
-\caption{Reservoir under uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\caption{Reservoir under uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$components of the stress at the free surface.}
 \label{fig:Null_stress}
-\end{figure*}
+\end{figure}
 
 
 %%% Second test: Disk-shaped reservoir under non uniform depletion
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\caption{Reservoir under non uniform depletion: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}--\ref{dzz2})}
 \label{fig:displacement_non_uniform_depletion}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement_z_levels_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2}).
+\caption{Reservoir under non uniform depletion: (a) Horizontal x-component displacement and (b) vertical displacement by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}--\ref{dzz2}).
 These displacements are calculated along the x-axis, at $y = 0$ m and $z$ located at the depths of:  seafloor ($z = 0$ m), reservoir top ($z = 750$ m), reservoir center ($z = 800$ m) and reservoir bottom ($z = 850$ m).}
 \label{fig:displacement_z_levels_non_uniform_depletion}
 \end{figure}
 
 
-\begin{figure*}[h]
+\begin{figure}[ht]
 \includegraphics[width=12cm]{Fig/Figure_Null_stress_non_uniform_depletion.png}
-\caption{Reservoir under non uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\caption{Reservoir under non uniform depletion: (a) $x-$, (b) $y-$, and (c) $z-$components of the stress at the free surface.}
 \label{fig:Null_stress_non_uniform_depletion}
-\end{figure*}
+\end{figure}
 
 %% Third test: Reservoir with arbitrary geometry and under arbitrary pressure changes
 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Pressure_complex_reservoir.png}
 \caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: 3D perspective view of the pore pressure distribution of a realistic reservoir 
 located in a production oil field in offshore Brazil.}
 \label{fig:pressure_complex_reservoir}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \includegraphics[width=8.3cm]{Fig/Figure_Displacement_complex_reservoir.png}
-\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}-\ref{dz2})}
+\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) Horizontal displacement (equation \ref{eq:horizontal_displacement}) and (b) vertical displacement (equation \ref{eq:u_til_z}) by our methodology that uses the closed expressions of the volume integrations given by \cite{Nagyetal2000} and \cite{Nagyetal2002} (equations \ref{dx1}--\ref{dzz2})}
 \label{fig:displacement_complex_reservoir}
 \end{figure}
 
-\begin{figure*}[h]
+\begin{figure}[ht]
 \includegraphics[width=12cm]{Fig/Figure_Null_stress_complex_reservoir.png}
-\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) $x-$, (b) $y-$, and (c) $z-$ components of the stress at the free surface.}
+\caption{Reservoir with arbitrary geometry and under arbitrary pressure changes: (a) $x-$, (b) $y-$, and (c) $z-$components of the stress at the free surface.}
 \label{fig:Null_stress_complex_reservoir}
-\end{figure*}
+\end{figure}
 
 
 %% Since the Copernicus LaTeX package includes the BibTeX style file copernicus.bst,
