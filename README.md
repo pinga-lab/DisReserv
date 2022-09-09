@@ -132,7 +132,7 @@ from the menu bar.
 
 You can also find an archived version of the code at:
 
-[![DOI](https://zenodo.org/badge/267659712.svg)](https://zenodo.org/badge/latestdoi/267659712)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7065726.svg)](https://doi.org/10.5281/zenodo.7065726)
 
 
 ## License
