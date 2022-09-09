@@ -1,4 +1,4 @@
-Copyright (c) Valeria C. F. Barbosa, Vanderlei C. Oliveira Jr. and Andre D. Arelaro  
+Copyright (c) Valeria C. F. Barbosa, Vanderlei C. Oliveira Jr., Andre D. Arelaro and Filipe Borges
 
 All rights reserved.
 
